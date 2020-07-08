@@ -8,10 +8,38 @@ div.jumbotron {
 	justify-content: center;
 }
 
-div.search-form {
 
+/* TODO: clean these styles up */
+
+div.search-fields {
+	display: grid;
+	grid-template-columns: 33% 33% 33%;
+	grid-template-rows: auto auto;
+	width: calc(45vw);
+	height: auto;
 }
 
-div.search-form > select {
-	
+div.search-fields > div.input-wrapper {
+	grid-column: 1 / 4;
+	display: flex;
+	margin: 5px;
+}
+
+div.search-fields > div.input-wrapper > input {
+	flex-grow: 1;
+	border-radius: 5px;
+	border-width: 1px;
+	outline: none;
+	padding: 10px;
+}
+
+div.search-fields > select {
+	border-radius: 5px;
+	outline: none;
+	padding: 10px;
+	margin: 5px;
+}
+
+@media (max-width: 600px) {
+
 }

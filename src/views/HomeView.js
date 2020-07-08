@@ -8,7 +8,12 @@ const HomeView = () => {
 	return (
 		<div className='jumbotron'>
 			<h2>Buscar iniciativas solidarias</h2>
-			<div className='search-form'>
+
+			<div className='search-fields'>
+				<div className='input-wrapper'>
+					<input placeholder='Buscar por nombre...' />
+				</div>
+
 				<select>
 					<option>Montevideo</option>
 					<option>Maldonado</option>
