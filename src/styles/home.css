@@ -20,21 +20,29 @@ div.search-fields {
 }
 
 div.search-fields > div.input-wrapper {
+	align-items: center;
+	background-color: #FFF;
+	border: 1px solid #424242;
+	border-radius: 5px;
+	box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
 	grid-column: 1 / 4;
 	display: flex;
 	margin: 5px;
+	padding: 0px 10px;
 }
 
 div.search-fields > div.input-wrapper > input {
+	background-color: transparent;
+	border: none;
 	flex-grow: 1;
-	border-radius: 5px;
-	border-width: 1px;
 	outline: none;
 	padding: 10px;
 }
 
 div.search-fields > select {
+	border-color: #424242;
 	border-radius: 5px;
+	box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
 	outline: none;
 	padding: 10px;
 	margin: 5px;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 /* Styles */
 import '../main.css';
@@ -11,6 +12,7 @@ const HomeView = () => {
 
 			<div className='search-fields'>
 				<div className='input-wrapper'>
+					<FaSearch />
 					<input placeholder='Buscar por nombre...' />
 				</div>
 
