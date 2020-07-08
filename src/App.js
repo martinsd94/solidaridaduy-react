@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBars } from 'react-icons/fa';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,26 +7,39 @@ import {
   Link
 } from "react-router-dom";
 
+
+/* Views for the router */
+import AboutView       from './views/AboutView';
+import ContactView     from './views/ContactView';
+import CollaborateView from './views/CollaborateView';
+import HomeView        from './views/HomeView';
+import JobBoardView    from './views/JobBoardView';
+import JoinUsView      from './views/JoinUsView';
+
+
 /* Styles */
-import './App.css';
+import './main.css';
 
 const Header = () => {
 	return (
 		<header className="main-header">
-            <h1>Solidaridad.uy</h1>
+            <Link to='/'className='home-link'>Solidaridad.uy</Link>
             <NavBar />      
         </header>
 	)
 }
 
 const NavBar = () => {
+    // TODO: Make menu and display on button click
     return (
         <nav>
-            <Link to='/'>BOLSA DE TRABAJO</Link>
-            <Link to='/'>¿CÓMO COLABORAR?</Link>
-            <Link to='/'>UNITE A LOS EQUIPOS</Link>
-            <Link to='/about'>¿QUIÉNES SOMOS?</Link>
-            <Link to='/contact'>CONTACTO</Link>
+            <button className='menu-button'><p><FaBars /></p></button>
+
+            <Link to='/job-board'   className='header-link'>BOLSA DE TRABAJO</Link>
+            <Link to='/collaborate' className='header-link'>¿CÓMO COLABORAR?</Link>
+            <Link to='/join-us'     className='header-link'>UNITE A LOS EQUIPOS</Link>
+            <Link to='/about'       className='header-link'>¿QUIÉNES SOMOS?</Link>
+            <Link to='/contact'     className='header-link'>CONTACTO</Link>
         </nav>
     )
 }
@@ -38,14 +52,28 @@ const App = () => {
 		<Router>
             <Header />
             <Switch>
-                <Route path="/about">
-                    <p>Quienes somos</p>
-                </Route>
-                <Route path="/contact">
-                    <p>Contacto</p>
-                </Route>
                 <Route exact={true} path="/">
-                    <p>Home</p>
+                    <HomeView />
+                </Route>
+
+                <Route path="/about">
+                    <AboutView />
+                </Route>
+
+                <Route path="/contact">
+                    <ContactView />
+                </Route>
+
+                <Route path="/collaborate">
+                    <CollaborateView />
+                </Route>
+
+                <Route path="/job-board">
+                    <JobBoardView />
+                </Route>
+
+                <Route path="/join-us">
+                    <JoinUsView />
                 </Route>
             </Switch>
 		</Router>
