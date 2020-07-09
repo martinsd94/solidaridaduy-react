@@ -1,0 +1,8 @@
+{
+	initiatives: [
+		{
+			name: 'Ateneo Cerro',
+			category: 'PUNTO_DONACION'
+		}
+	]
+}

@@ -1,15 +1,20 @@
-div.jumbotron {
-	align-items: center;
-	background-color: #DAEDE9;
+div.jumbotron-1 {
+	background-image: url('../assets/bg1.jpeg');
+	background-size: cover;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
 	height: calc(100vh - 80px);
-	justify-content: center;
 }
 
-
-/* TODO: clean these styles up */
+div.jumbotron-1-inner {
+	background-color: rgba(218,237,233,0.5);
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center;
+}
 
 div.search-fields {
 	display: grid;
@@ -50,4 +55,23 @@ div.search-fields > select {
 
 @media (max-width: 600px) {
 
+}
+
+
+
+
+/* -------------------- */
+
+div.jumbotron-2 {
+	align-items: center;
+	justify-content: center;
+	background-color: #FFF;
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 80px);
+}
+
+div.jumbotron-2 > div.initiatives {
+	display: flex;
+	flex-direction: row;
 }

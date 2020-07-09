@@ -1,39 +1,15 @@
 import React from 'react';
 import { FaSearch } from 'react-icons/fa';
 
-/* Styles */
-import '../main.css';
-import '../styles/home.css';
+import SearchJumbotron 	   from './components/Home/SearchJumbotron';
+import HighlightsJumbotron from './components/Home/HighlightsJumbotron';
 
 const HomeView = () => {
 	return (
-		<div className='jumbotron'>
-			<h2>Buscar iniciativas solidarias</h2>
-
-			<div className='search-fields'>
-				<div className='input-wrapper'>
-					<FaSearch />
-					<input placeholder='Buscar por nombre...' />
-				</div>
-
-				<select>
-					<option>Montevideo</option>
-					<option>Maldonado</option>
-					<option>Artigas</option>
-					<option>Rocha</option>
-				</select>
-				<select>
-					<option>Buceo</option>
-					<option>Piedras Blancas</option>
-					<option>Pocitos</option>
-				</select>
-				<select>
-					<option>Canasta</option>
-					<option>Olla</option>
-					<option>Merendero</option>
-				</select> 	
-			</div>
-		</div>
+		<React.Fragment>
+			<SearchJumbotron />
+			<HighlightsJumbotron />
+		</React.Fragment>
 	)
 }
 
