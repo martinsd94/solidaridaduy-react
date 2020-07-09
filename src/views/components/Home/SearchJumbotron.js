@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { Link } from "react-router-dom";
 
 /* Styles */
 import '../../../main.css';
 import '../../../styles/home.css';
 
 const SearchJumbotron = () => {
+
+	let [search, setSearch] = useState('');
+
 	return (
 		<div className='jumbotron-1'>
 			<div className='jumbotron-1-inner'>
 				<h2>Buscar iniciativas solidarias</h2>
 
 				<div className='search-fields'>
-					<div className='input-wrapper'>
-						<FaSearch />
-						<input placeholder='Buscar por nombre...' />
-					</div>
+					<SearchBar value={search}
+							   _setValue={(value) => setSearch(value)} />
 
 					<select>
 						<option>Montevideo</option>
@@ -35,6 +37,25 @@ const SearchJumbotron = () => {
 					</select> 	
 				</div>
 			</div>
+		</div>
+	)
+
+}
+
+/* Local components */
+
+const SearchBar = ({ value, _setValue }) => {
+	return (
+		<div className='input-wrapper'>
+			<input placeholder='Buscar por nombre...'
+				   value={value}
+				   onChange={(e) => _setValue(e.target.value)}/>
+			<Link to={`/search-results?search=${value}`}>
+				<button className='search-button'
+						disabled={!(value.length > 0)}>
+					<FaSearch />
+				</button>
+			</Link>
 		</div>
 	)
 }
