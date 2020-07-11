@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
 /* Styles */
-import '../main.css';
+import '../main.scss';
 import '../styles/home.scss';
 
 const HomeView = () => {
@@ -54,6 +54,10 @@ const SearchJumbotron = () => {
 						</button>
 					</Link>	
 				</div>
+
+				<p>Esta plataforma virtual se construye de forma colaborativa,
+				   entre varios colectivos y actores sociales insertos en el territorio que aportan a la difusión
+				   y comprensión de todas las iniciativas solidarias.</p>
 			</div>
 		</div>
 	)

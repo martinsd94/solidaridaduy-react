@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+/* Helpers */
+import { getCategoryDisplay } from '../helpers/getCategoryDisplay';
+
+/* Styles */
+import '../styles/initiative.scss';
+
+
 const InitiativeView = () => {
 
 	let { id } = useParams();
@@ -17,15 +24,20 @@ const InitiativeView = () => {
 	}, [])
 
 	if (!!initiative) {
-		console.log(initiative);
+		let { name, category, hood, city, _id } = initiative;
+		let { categoryDisplay, icon } = getCategoryDisplay(category);
+
 		return (
-			<div>
-				<h2>{initiative.title}</h2>
-				<p>{initiative.name}</p>
-				<p>{initiative.category}</p>
-				<p>{initiative.hood}</p>
-				<p>{initiative.city}</p>
-				<p>{initiative.id}</p>
+			<div className='initiative-jumbotron-wrapper'>
+				<div className='details'>
+					<h1 className='name'>{name}</h1>
+					<div className='category-wrapper'>
+						<p className='icon'>{icon}</p>
+						<p className='category'>{categoryDisplay}</p>
+					</div>
+					<p className='location'>{`${hood}, ${city}`}</p>
+				</div>
+				<div className='map'></div>
 			</div>
 		)
 	}

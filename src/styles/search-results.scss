@@ -1,7 +1,7 @@
 @import './colors.scss';
 
 div.search-bar-wrapper {
-	background-color: #DAEDE9;
+	background-color: $base-color-light;
 	box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
 	display: flex;
 	flex-grow: 1;
@@ -20,7 +20,7 @@ div.search-bar-fields {
 		background-color: #FFF;
 		border: 1px solid #424242;
 		border-radius: 5px;
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+		box-shadow: 0px 2px 4px $shadow-color;
 		margin: 5px;
 		outline: none;
 		padding: 0px 10px;
@@ -29,7 +29,7 @@ div.search-bar-fields {
 	select {
 		border-color: #424242;
 		border-radius: 5px;
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+		box-shadow: 0px 2px 4px $shadow-color;
 		grid-column: span 2;
 		outline: none;
 		padding: 10px;
@@ -42,7 +42,7 @@ div.search-bar-fields {
 		background-color: $base-color;
 		border: none;
 		border-radius: 5px;
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+		box-shadow: 0px 2px 4px $shadow-color;
 		color: #424242;
 		cursor: pointer;
 		display: flex;
@@ -80,7 +80,7 @@ div.initiative-wrapper {
 	padding: 20px 20px;
 	border: 1px solid #CCC;
 	border-radius: 5px;
-	box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+	box-shadow: 0px 2px 5px $shadow-color;
 
 	h2.initiative-name {
 		font-size: 20px;

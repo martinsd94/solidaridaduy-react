@@ -20,7 +20,7 @@ import SearchResultsView from './views/SearchResultsView';
 
 
 /* Styles */
-import './main.css';
+import './main.scss';
 
 const Header = () => {
 	return (

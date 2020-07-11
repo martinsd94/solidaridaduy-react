@@ -1,3 +1,5 @@
+@import './styles/colors.scss';
+
 /* General */
 /* ------------------------------------- */
 
@@ -13,8 +15,8 @@ body {
 
 header.main-header {
 	align-items: center; 
-	background-color: #3EC9A7;
-	box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+	background-color: $base-color;
+	box-shadow: 0px 2px 4px $shadow-color;
 	display: flex;
 	flex-direction: row;
 	height: 80px;
@@ -28,6 +30,7 @@ header.main-header {
 header.main-header > a.home-link {
 	flex-grow: 1;
 	font-size: 36px;
+	margin-left: 10px;
 }
 
 header.main-header > nav {
@@ -67,18 +70,18 @@ button.button-default {
 	background-color: #777;
 	border: none;
 	border-radius: 3px;
-	box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+	box-shadow: 0px 2px 4px $shadow-color;
 	color: #FFF;
 	cursor: pointer;
 	font-family: 'PT Sans Narrow';
 	padding: 10px 20px;
 	outline: none;
-	transition: all 0.15s linear;
+	transition: all 0.1s linear;
 }
 
 button.button-default:hover {
-	background-color: #3EC9A7;/*#62D1B6;*/
-	color: #424242;
+	background-color: $base-color;
+	transform: translateY(-3px);
 }
 
 

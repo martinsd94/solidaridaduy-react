@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
-	FaMapMarkerAlt,
-	FaMugHot,
 	FaSearch,
-	FaShoppingBasket,
-	FaTrash
 } from 'react-icons/fa';
 
 import { 
@@ -12,20 +8,12 @@ import {
 	Link
 } from "react-router-dom";
 
-import '../main.css';
-import '../styles/search-results.scss';
+/* Helpers */
+import { getCategoryDisplay } from '../helpers/getCategoryDisplay';
 
-/* Constants */
-import {
-	PUNTO_DONACION,
-	OLLA,
-	MERIENDA,
-	CANASTA,
-	DISPLAY_PUNTO_DONACION,
-	DISPLAY_OLLA,
-	DISPLAY_MERIENDA,
-	DISPLAY_CANASTA,
-} from '../constants';
+/* Styles */
+import '../main.scss';
+import '../styles/search-results.scss';
 
 
 const SearchResultsView = () => {
@@ -75,26 +63,53 @@ const SearchBar = ({ value, _setValue }) => {
 }
 
 const SearchResults = () => {
+	const [initiatives, setInitiatives] = useState(null);
+
+	// Fetch initiative data
+	useEffect(() => {
+		fetch('http://localhost:5000/initiatives/search', {
+			crossDomain: true,
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(data => setInitiatives(data));
+	}, []);
+
+	const renderInitiatives = () => {
+		// If loaded, render initiatives
+		if (!!initiatives) {
+			return (
+				<React.Fragment>
+					{initiatives.map((init, index) => (
+						<Initiative initiative={init} key={index} />
+					))}
+				</React.Fragment>
+			)
+		}
+
+		else {
+			return <p>Loading...</p>
+		}
+	}
+
 	return (
 		<div className='results-container'>
 			<div className='results-inner'>
-				{dummy_data.initiatives.map((init, index) => (
-					<Initiative initiative={init} key={index} />
-				))}
+				{renderInitiatives()}
 			</div>
 		</div>
 	)
 }
 
 const Initiative = ({ initiative }) => {
-	const { id, name, category, hood, city } = initiative;
+	const { _id, name, category, hood, city } = initiative;
 
 	return (
 		<div className='initiative-wrapper'>
 			<h2 className='initiative-name'>{name}</h2>
 			<Category category={category} />
 			<p className='initiative-location'>{`${hood}, ${city}`}</p>
-			<Link to={`initiative/${id}`}>
+			<Link to={`initiative/${_id}`}>
 				<button className='button-default'>Ver</button>
 			</Link>
 		</div>
@@ -102,90 +117,16 @@ const Initiative = ({ initiative }) => {
 }
 
 const Category = ({ category }) => {
-	let text = '';
-	let icon;
-	switch (category) {
-		case PUNTO_DONACION:
-			text = DISPLAY_PUNTO_DONACION;
-			icon = <FaMapMarkerAlt />;
-			break;
-		case OLLA:
-			text = DISPLAY_OLLA;
-			icon = <FaTrash />;
-			break;
-		case MERIENDA:
-			text = DISPLAY_MERIENDA;
-			icon = <FaMugHot />;
-			break;
-		case CANASTA:
-			text = DISPLAY_CANASTA;
-			icon = <FaShoppingBasket />;
-			break;
-		default:
-	}
+	let { categoryDisplay, icon } = getCategoryDisplay(category);
 
 	return (
 		<div className='initiative-category'>
 			<p className='icon'>{icon}</p>
-			<p className='category'>{text}</p>
+			<p className='category'>{categoryDisplay}</p>
 		</div>
 	)
 }
 
 /* ------------------ */
-
-const dummy_data = {
-	initiatives: [
-		{
-			id: 'abcdefgerq123',
-			name: 'Ateneo Cerro',
-			category: 'PUNTO_DONACION',
-			hood: 'Cerro',
-			city: 'Montevideo'
-		},
-		{
-			id: 'askqwkeh912n1',
-			name: 'Iniciativa Vecinal',
-			category: 'PUNTO_DONACION',
-			hood: 'La Teja',
-			city: 'Montevideo'
-		},
-		{
-			id: 'kqo19tnt63713',
-			name: 'La Pascua',
-			category: 'PUNTO_DONACION',
-			hood: 'Cruz de Carrasco',
-			city: 'Montevideo'
-		},
-		{
-			id: '10465yhs26cba',
-			name: 'Club de la Alegría',
-			category: 'PUNTO_DONACION',
-			hood: 'La Teja',
-			city: 'Montevideo'
-		},
-		{
-			id: 'mmnk5l274hf18',
-			name: 'Bar DALE GAUCHO',
-			category: 'OLLA',
-			hood: 'La Teja',
-			city: 'Montevideo'
-		},
-		{
-			id: 'goy749bg90hy5',
-			name: 'Comisión Fomento',
-			category: 'MERIENDA',
-			hood: 'Los Bulevares',
-			city: 'Montevideo'
-		},
-		{
-			id: 'lkgbvnmai4vh3',
-			name: 'Escuela Legado Box',
-			category: 'CANASTA',
-			hood: 'Lagomar',
-			city: 'Canelones'
-		}
-	]
-}
 
 export default SearchResultsView;
