@@ -8,16 +8,16 @@ const InitiativeView = () => {
 
 	// Fetch initiative data
 	useEffect(() => {
-		setInitiative({
-			id: id,
-			name: 'Ateneo Cerro',
-			category: 'PUNTO_DONACION',
-			hood: 'Cerro',
-			city: 'Montevideo'
-		});
-	})
+		fetch(`http://localhost:5000/initiative/${id}`, {
+			crossDomain: true,
+			method: 'GET'
+		})
+			.then(response => response.json())
+			.then(data => setInitiative(data));
+	}, [])
 
 	if (!!initiative) {
+		console.log(initiative);
 		return (
 			<div>
 				<h2>{initiative.title}</h2>
