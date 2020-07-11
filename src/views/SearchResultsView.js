@@ -7,17 +7,13 @@ import {
 	FaTrash
 } from 'react-icons/fa';
 
-import {
-	GrBasket,
-	GrCafeteria,
-	GrJava,
-	GrLocation,
-} from 'react-icons/gr';
-
-import { useLocation } from "react-router-dom";
+import { 
+	useLocation,
+	Link
+} from "react-router-dom";
 
 import '../main.css';
-import '../styles/search-results.css';
+import '../styles/search-results.scss';
 
 /* Constants */
 import {
@@ -91,14 +87,16 @@ const SearchResults = () => {
 }
 
 const Initiative = ({ initiative }) => {
-	const { name, category, hood, city } = initiative;
+	const { id, name, category, hood, city } = initiative;
 
 	return (
 		<div className='initiative-wrapper'>
 			<h2 className='initiative-name'>{name}</h2>
 			<Category category={category} />
 			<p className='initiative-location'>{`${hood}, ${city}`}</p>
-			<button className='button-default'>Ver</button>
+			<Link to={`initiative/${id}`}>
+				<button className='button-default'>Ver</button>
+			</Link>
 		</div>
 	);
 }

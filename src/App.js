@@ -13,6 +13,7 @@ import AboutView         from './views/AboutView';
 import ContactView       from './views/ContactView';
 import CollaborateView   from './views/CollaborateView';
 import HomeView          from './views/HomeView';
+import InitiativeView    from './views/InitiativeView';
 import JobBoardView      from './views/JobBoardView';
 import JoinUsView        from './views/JoinUsView';
 import SearchResultsView from './views/SearchResultsView';
@@ -79,6 +80,10 @@ const App = () => {
 
 				<Route path="/search-results">
 					<SearchResultsView />
+				</Route>
+
+				<Route path="/initiative/:id">
+					<InitiativeView />
 				</Route>
 			</Switch>
 		</Router>
