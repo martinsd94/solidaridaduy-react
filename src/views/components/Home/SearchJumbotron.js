@@ -34,7 +34,13 @@ const SearchJumbotron = () => {
 						<option>Canasta</option>
 						<option>Olla</option>
 						<option>Merendero</option>
-					</select> 	
+					</select> 
+
+					<Link to={`/search-results?search=${search}`}>
+						<button className='search-button'>
+							<FaSearch />
+						</button>
+					</Link>	
 				</div>
 			</div>
 		</div>
@@ -47,15 +53,10 @@ const SearchJumbotron = () => {
 const SearchBar = ({ value, _setValue }) => {
 	return (
 		<div className='input-wrapper'>
+			<FaSearch />
 			<input placeholder='Buscar por nombre...'
 				   value={value}
 				   onChange={(e) => _setValue(e.target.value)}/>
-			<Link to={`/search-results?search=${value}`}>
-				<button className='search-button'
-						disabled={!(value.length > 0)}>
-					<FaSearch />
-				</button>
-			</Link>
 		</div>
 	)
 }
