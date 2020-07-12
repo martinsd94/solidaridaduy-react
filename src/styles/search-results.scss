@@ -71,6 +71,10 @@ div.results-inner {
 }
 
 div.initiative-wrapper {
+	animation-name: appear;
+	animation-duration: 0.3s;
+	animation-fill-mode: both;
+	animation-timing-function: ease-out;
 	align-items: flex-start;
 	display: flex;
 	flex-direction: column;
@@ -169,5 +173,20 @@ div.initiative-wrapper {
 @media (max-width: 1200px) {
 	div.results-inner {
 		grid-template-columns: 280px 280px 280px;
+	}
+}
+
+
+/* Animations */
+
+@keyframes appear {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0px);
 	}
 }

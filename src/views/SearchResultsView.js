@@ -81,7 +81,7 @@ const SearchResults = () => {
 			return (
 				<React.Fragment>
 					{initiatives.map((init, index) => (
-						<Initiative initiative={init} key={index} />
+						<Initiative initiative={init} index={index} key={index} />
 					))}
 				</React.Fragment>
 			)
@@ -101,19 +101,34 @@ const SearchResults = () => {
 	)
 }
 
-const Initiative = ({ initiative }) => {
-	const { _id, name, category, hood, city } = initiative;
+const Initiative = ({ initiative, index }) => {
 
-	return (
-		<div className='initiative-wrapper'>
-			<h2 className='initiative-name'>{name}</h2>
-			<Category category={category} />
-			<p className='initiative-location'>{`${hood}, ${city}`}</p>
-			<Link to={`initiative/${_id}`}>
-				<button className='button-default'>Ver</button>
-			</Link>
-		</div>
-	);
+	const [show, setShow] = useState(false);
+	const { _id, name, category, hood, province } = initiative;
+
+	// Show after a delay, which changes according to the index.
+	// This creates a "cascading effect"
+	useEffect(() => {
+		setTimeout(() => {
+			setShow(true);
+		}, 100*index);
+	}, []);
+
+	if (show) {
+		return (
+			<div className='initiative-wrapper'>
+				<h2 className='initiative-name'>{name}</h2>
+				<Category category={category} />
+				<p className='initiative-location'>{`${hood}, ${province}`}</p>
+				<Link to={`initiative/${_id}`}>
+					<button className='button-default'>Ver</button>
+				</Link>
+			</div>
+		);
+	}
+	else {
+		return null;
+	}
 }
 
 const Category = ({ category }) => {
