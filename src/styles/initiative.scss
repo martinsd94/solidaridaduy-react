@@ -96,16 +96,35 @@ div.initiative-jumbotron-wrapper {
 }
 
 div.initiative-schedule {
-
 	animation-name: appear;
 	animation-duration: 0.3s;
 	animation-delay: 0.3s;
 	animation-fill-mode: both;
 	animation-timing-function: ease-out;
-	padding: 40px;
+	padding: 0px 40px 40px 40px;
 
 	h1 {
 		font-size: 40px;
+		display: flex;
+		align-items: center;
+		padding-left: 10px;
+		padding-right: 10px; 
+	}
+
+	h1:before,
+	h1:after {
+		content: '';
+		background-color: $base-color;
+		height: 2px;
+		flex: 1;
+	}
+
+	h1:before {
+		margin-right: 20px;
+	}
+
+	h1:after {
+		margin-left: 20px;
 	}
 
 	div.schedule-header {
@@ -179,12 +198,60 @@ div.initiative-schedule {
 						transition: all 0.15s linear;
 					}
 
-					div.activity-info {
-						/* TODO: think this through! */
+					div.activity-body:hover + div.activity-info {
+						opacity: 1;
+						pointer-events: all;
 					}
+
+					div.activity-info {
+						display: flex;
+						flex-direction: column;
+						position: relative;
+						padding: 10px;
+						width: fit-content;
+						background-color: #FFF;
+						border-radius: 3px;
+						border: 1px solid $light-grey;
+						opacity: 0;
+						pointer-events: none;
+						box-shadow: 0px 2px 4px $shadow-color;
+						transition: all 0.15s linear;
+						transform: translateY(-98%) translateX(-100%);
+						left: 100%;
+						top: -50px;
+						z-index: 50;
+
+						&:hover {
+							pointer-events: all;
+							cursor: pointer;
+							opacity: 1;
+						}
+
+						div.body {
+							align-self: center;
+							width: fit-content;
+							p {
+								margin: 0;
+							}							
+						}
+
+						div.triangle {
+							position: absolute;
+							bottom: 0;
+							left: 50%;
+							width: 20px;
+							height: 20px;
+							transform: rotate(45deg);
+							box-shadow: 2px 2px 2px $shadow-color;
+							background-color: #FFF;
+							margin-left: -10px;
+							margin-bottom: -10px;
+						}
+					}
+
 				}
 
-				div.activity:hover > div.activity-body{
+				div.activity:hover > div.activity-body {
 					background-color: $base-color-light;
 				}
 			}

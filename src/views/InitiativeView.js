@@ -150,6 +150,16 @@ const Schedule = ({ activities }) => {
 }
 
 const DaySchedule = ({ day, activities }) => {
+
+	const toHourFormat = (hour_float) => {
+		let hour = Math.floor(hour_float);
+		let minutes = `${Math.floor((hour_float - hour)*60)}`;
+		if(hour.length == 1) { hour = `0${hour}` }
+		if(minutes.length == 1) { minutes = `0${minutes}` };
+
+		return (`${hour}:${minutes}`)
+	} 
+
 	return (
 		<div className='day-schedule-wrapper'>
 			<h2>{day}</h2>
@@ -160,12 +170,20 @@ const DaySchedule = ({ day, activities }) => {
 				<div className='activities'>
 					{ 
 						activities.map((activity, index) => {
-							let left = `calc(${(activity.start-START_HOUR)/TOTAL_TIME*100}% + 2px)`;
-							let width = `calc(${activity.duration/TOTAL_TIME*100}% - 4px)`;
+							const { start, duration, description } = activity;
+							const left = `calc(${(start-START_HOUR)/TOTAL_TIME*100}% + 2px)`;
+							const width = `calc(${duration/TOTAL_TIME*100}% - 4px)`;
 							return (
 								<div className='activity' key={index} style={{ left: left, width: width }}>
 									<div className='activity-body'></div>
-									<div className='activity-info'></div>
+									<div className='activity-info'>
+										<div className='body'>
+											<p>{description}</p>
+											<br />
+											<p>{toHourFormat(start)} - {toHourFormat(start+duration)}</p>
+										</div>
+										<div className='triangle'></div>
+									</div>
 								</div>
 							)
 						})
