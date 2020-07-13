@@ -34,6 +34,7 @@ const InitiativeView = (props) => {
 			hood, 
 			province,
 			address,
+			activities,
 			contact_phones,
 			geolocation
 		} = initiative;
@@ -45,7 +46,7 @@ const InitiativeView = (props) => {
 							 contact_phones={contact_phones} address={address} />
 					<MapContainer geolocation={geolocation} />
 				</div>
-				<Schedule />
+				<Schedule activities={activities} />
 			</React.Fragment>
 		)
 	}
@@ -58,7 +59,12 @@ const InitiativeView = (props) => {
 
 const Details = ({ name, category, hood, province, address, contact_phones }) => {
 
-	let { categoryDisplay, icon } = getCategoryDisplay(category);
+	const { categoryDisplay, icon } = getCategoryDisplay(category);
+
+	const scrollToSchedule = () => {
+		const e = document.querySelector('.initiative-schedule');
+		e.scrollIntoView({ behavior: 'smooth' });
+	}
 
 	return (
 		<div className='details'>
@@ -84,7 +90,8 @@ const Details = ({ name, category, hood, province, address, contact_phones }) =>
 			</div>
 			<div className='info-wrapper'>
 				<p className='icon'><FaClock /></p>
-				<button className='button-link'><p>Ver Horarios</p></button>
+				<button className='button-link'
+						onClick={() => scrollToSchedule()}><p>Ver Horarios</p></button>
 			</div>
 		</div>
 	)
@@ -113,38 +120,59 @@ const MapContainer = ({ geolocation }) => {
 
 //
 
-const Schedule = () => {
-	const hours = ['6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+const START_HOUR = 6;
+const END_HOUR = 23;
+const TOTAL_TIME = END_HOUR-START_HOUR+1;
+
+const HOURS = ['06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+
+const Schedule = ({ activities }) => {
+
+	let { sun, mon, tue, wed, thu, fri, sat} = activities;
 
 	return (
 		<div className='initiative-schedule'>
+			<h1>Horarios</h1>
 			<div className='schedule-header'>
-				<h2>Hora</h2>
-				<h2>Domingo</h2>
-				<h2>Lunes</h2>
-				<h2>Martes</h2>
-				<h2>Miércoles</h2>
-				<h2>Jueves</h2>
-				<h2>Viernes</h2>
-				<h2>Sábado</h2>
+				<h3>Hora</h3>
+				{ HOURS.map((hour, j) => ( <div className='hour' key={j}>{hour}</div> ))}
 			</div>
-			<div className='schedule-hours'>
-				{ 
-					hours.map((hour, index) => (
-						<div className='hour' key={index}>
-							<p>{hour}</p>
-							<div className='v-line'></div>
-							<div className='v-line'></div>
-							<div className='v-line'></div>
-							<div className='v-line'></div>
-							<div className='v-line'></div>
-							<div className='v-line'></div>
-							<div className='v-line'></div>
-						</div>		
-					))
-				}
-			</div>
+
+			<DaySchedule day='Domingo'   activities={sun} />
+			<DaySchedule day='Lunes'     activities={mon} />
+			<DaySchedule day='Martes'    activities={tue} />
+			<DaySchedule day='Miércoles' activities={wed} />
+			<DaySchedule day='Jueves'    activities={thu} />
+			<DaySchedule day='Viernes'   activities={fri} />
+			<DaySchedule day='Sábado'    activities={sat} />
 		</div> 
+	)
+}
+
+const DaySchedule = ({ day, activities }) => {
+	return (
+		<div className='day-schedule-wrapper'>
+			<h2>{day}</h2>
+			<div className='day-schedule'>
+				<div className='hours'>
+					{ HOURS.map((hour, j) => ( <div className='hour' key={j}></div> ))}
+				</div>
+				<div className='activities'>
+					{ 
+						activities.map((activity, index) => {
+							let left = `calc(${(activity.start-START_HOUR)/TOTAL_TIME*100}% + 2px)`;
+							let width = `calc(${activity.duration/TOTAL_TIME*100}% - 4px)`;
+							return (
+								<div className='activity' key={index} style={{ left: left, width: width }}>
+									<div className='activity-body'></div>
+									<div className='activity-info'></div>
+								</div>
+							)
+						})
+					}
+				</div>
+			</div>
+		</div>
 	)
 }
 
