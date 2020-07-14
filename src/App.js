@@ -25,8 +25,11 @@ import './main.scss';
 //
 //
 
-const App = () => {
+/*const resetScroll = () => {
+	window.scrollTo({ top: 0, behavior: 'smooth' });
+}*/
 
+const App = () => {
 	return (
 		<Router>
 			<PageHeader />

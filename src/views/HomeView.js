@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
+import { Map, Marker, TileLayer } from "react-leaflet";
+//import { Icon } from "leaflet";
+
 /* Styles */
 import '../main.scss';
 import '../styles/home.scss';
@@ -10,7 +13,7 @@ const HomeView = () => {
 	return (
 		<React.Fragment>
 			<SearchJumbotron />
-			<HighlightsJumbotron />
+			<CloseInitiativesJumbotron />
 		</React.Fragment>
 	)
 }
@@ -20,7 +23,7 @@ const HomeView = () => {
 
 const SearchJumbotron = () => {
 
-	let [search, setSearch] = useState('');
+	const [search, setSearch] = useState('');
 
 	return (
 		<div className='jumbotron-1'>
@@ -77,12 +80,43 @@ const SearchBar = ({ value, _setValue }) => {
 
 //
 
-const HighlightsJumbotron = () => {
+const CloseInitiativesJumbotron = () => {
+
+	const [homeCoords, setHomeCoords] = useState({ latitude: 0, longitude: 0 });
+
+	navigator.geolocation.getCurrentPosition(function(position) {
+		// Success
+		setHomeCoords(position.coords);
+	}, function(err) {
+		// Error
+		console.log(err);
+	});
+
 	return (
 		<div className='jumbotron-2'>
-			<h2>Iniciativas solidarias cerca de ti</h2>
+			<h1 className='section-title'>Iniciativas solidarias cerca de ti</h1>
+			<MapContainer home={homeCoords} />
 		</div>
 	)
+}
+
+const MapContainer = ({ home, initiatives }) => {
+	let { latitude, longitude } = home;
+
+	return (
+		<div className='map-wrapper'>
+			<Map center={[latitude, longitude]} zoom={15} scrollWheelZoom={false}>
+		    	<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+		        		   attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' />
+		        <Marker key={0}
+				        position={[
+				        	latitude,
+				            longitude
+				        ]}
+				        onClick={() => {}} />
+		    </Map>
+		</div>
+	);
 }
 
 export default HomeView;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaClock, FaHome, FaPhone, FaMapMarkedAlt }  from 'react-icons/fa';
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import { Icon } from "leaflet";
+import { FaClock, FaHome, FaPhone, FaMapMarkedAlt, FaHandHoldingHeart }  from 'react-icons/fa';
+import { Map, Marker, TileLayer } from "react-leaflet";
+//import { Icon } from "leaflet";
 
 /* Helpers */
 import { getCategoryDisplay } from '../helpers/getCategoryDisplay';
@@ -13,7 +13,7 @@ import '../styles/initiative.scss';
 
 const InitiativeView = (props) => {
 
-	let { id } = useParams();
+	const { id } = useParams();
 	const [initiative, setInitiative] = useState(null);
 
 	// Fetch initiative data
@@ -31,6 +31,7 @@ const InitiativeView = (props) => {
 			_id, 
 			name, 
 			category, 
+			description,
 			hood, 
 			province,
 			address,
@@ -43,7 +44,7 @@ const InitiativeView = (props) => {
 			<React.Fragment>
 				<div className='initiative-jumbotron-wrapper'>
 					<Details name={name} category={category} hood={hood} province={province}
-							 contact_phones={contact_phones} address={address} />
+							 contact_phones={contact_phones} address={address} description={description} />
 				</div>
 				<MapContainer geolocation={geolocation} />
 				<Schedule activities={activities} />
@@ -58,19 +59,19 @@ const InitiativeView = (props) => {
 
 /* Local components */
 
-const Details = ({ name, category, hood, province, address, contact_phones }) => {
+const Details = ({ name, category, description, hood, province, address, contact_phones }) => {
 
 	const { categoryDisplay, icon } = getCategoryDisplay(category);
 
 	const scrollToSchedule = () => {
 		//const e = document.querySelector('.initiative-schedule');
 		const e = document.getElementById('schedule-title');
-		e.scrollIntoView({ behavior: 'smooth' });
+		window.scrollTo({ top: e.offsetTop - 30, behavior: 'smooth' });
 	}
 
 	const scrollToMap = () => {
 		const e = document.getElementById('map-title');
-		e.scrollIntoView({ behavior: 'smooth' });
+		window.scrollTo({ top: e.offsetTop - 30, behavior: 'smooth' });
 	}
 
 	return (
@@ -80,6 +81,7 @@ const Details = ({ name, category, hood, province, address, contact_phones }) =>
 				<h2 className='icon'>{icon}</h2>
 				<h2 className='info'>{`${categoryDisplay} - ${hood}, ${province}`}</h2>
 			</div>
+			<p className='description'>{description}</p>
 			<div className='info-wrapper'>
 				<p className='icon'><FaHome /></p>
 				<p className='info'>{address}</p>
@@ -104,6 +106,13 @@ const Details = ({ name, category, hood, province, address, contact_phones }) =>
 				<p className='icon'><FaClock /></p>
 				<button className='button-link'
 						onClick={() => scrollToSchedule()}><p>Ver horarios</p></button>
+			</div>
+			<div className='info-wrapper'>
+				<p className='icon'><FaHandHoldingHeart /></p>
+				<p className='info'>Esta iniciativa recibe donaciones de:</p>
+				<p className='donation'>Alimentos</p>
+				<p className='donation'>Ropa</p>
+				<p className='donation'>Artículos de Higiene Personal</p>
 			</div>
 		</div>
 	)
@@ -171,8 +180,8 @@ const DaySchedule = ({ day, activities }) => {
 	const toHourFormat = (hour_float) => {
 		let hour = Math.floor(hour_float);
 		let minutes = `${Math.floor((hour_float - hour)*60)}`;
-		if(hour.length == 1) { hour = `0${hour}` }
-		if(minutes.length == 1) { minutes = `0${minutes}` };
+		if(hour.length === 1) { hour = `0${hour}` }
+		if(minutes.length === 1) { minutes = `0${minutes}` };
 
 		return (`${hour}:${minutes}`)
 	} 

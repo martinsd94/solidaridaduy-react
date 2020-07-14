@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 /* Components */
 import InputField from '../components/InputField';
@@ -8,32 +8,33 @@ import '../styles/admin-login.scss';
 
 const AdminLoginView = () => {
 
-	const [email,    setEmail] 	  = useState({ field: '', error: null });
+	const [email, setEmail] 	  = useState({ field: '', error: null });
 	const [password, setPassword] = useState({ field: '', error: null });
 
 	const setEmailField = (val) => {
 		setEmail(Object.assign({}, email, {
-			field: val
+			field: val,
+			error: null // Reset errors on change
 		}));
 	}
 
 	const setPasswordField = (val) => {
 		setPassword(Object.assign({}, password, {
-			field: val
+			field: val,
+			error: null // Reset errors on change
 		}));
 	}
 
 	const setEmailError = (val) => {
-		// TODO: Solve this infinite loop...
-		/*setEmail(Object.assign({}, email, {
+		setEmail(Object.assign({}, email, {
 			error: val
-		}));*/
+		}));
 	}
 
 	const setPasswordError = (val) => {
-		/*setPassword(Object.assign({}, password, {
+		setPassword(Object.assign({}, password, {
 			error: val
-		}));*/
+		}));
 	}
 
 	// -----------------------------------------------------------------
@@ -52,13 +53,14 @@ const AdminLoginView = () => {
 
 	const handleLoginResponse = (data) => {
 		if (Object.keys(data).indexOf('validation_errors') !== -1) {
+			console.log(data);
 			for(let field in data.validation_errors) {
 				switch (field) {
 					case 'password':
 						setPasswordError(data.validation_errors[field]);
 						break;
 					case 'email':
-						setEmailField(data.validation_errors[field]);
+						setEmailError(data.validation_errors[field]);
 						break;
 					default:
 				}
@@ -70,13 +72,6 @@ const AdminLoginView = () => {
 		}
 	}
 
-	/*useEffect(() => {
-		let element = document.getElementById('password');
-		element.onpaste = function(e) {
-			e.preventDefault();
-		}
-	}, []);*/
-
 	// -----------------------------------------------------------------
 
 	return (
@@ -87,15 +82,16 @@ const AdminLoginView = () => {
 							error={email.error}
 							placeholder='Nombre de usuario...'
 							type='default'
-							_onChange={(val) => { setEmailField(val) }} />
+							_onChange={(val) => setEmailField(val) } />
 				
 				<InputField value={password.field}
 							error={password.error}
 							placeholder='Contraseña...'
 							type='password'
-							_onChange={(val) => { setPasswordField(val) }} />
+							_onChange={(val) => setPasswordField(val) } />
 	
-				<button className='login-button' onClick={tryLogin}>Ingresar</button>
+				<button className='login-button' 
+						onClick={() => { tryLogin() }}>Ingresar</button>
 				<div className='options'>
 					<button className='button-link'>Quiero participar</button>
 				</div>
@@ -103,5 +99,8 @@ const AdminLoginView = () => {
 		</div>
 	)
 }
+
+//							error={passwordError}
+
 
 export default AdminLoginView;

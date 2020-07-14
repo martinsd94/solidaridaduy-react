@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { 
 	FaMapMarkerAlt,
 	FaMugHot,
-	FaSearch,
 	FaShoppingBasket,
 	FaTrash
 } from 'react-icons/fa';

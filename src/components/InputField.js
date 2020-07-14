@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { ERROR_MESSAGES } from '../helpers/errorMessages'; 
 
 const InputField = ({ error, placeholder, type, value, _onChange }) => {
 
-	const [fieldClass, setFieldClass] = useState('valid-field');
+	let fieldClass = 'valid-field';
+	let textClass  = 'error-hidden';
 
 	if (!!error) {
-		setFieldClass('invalid-field');
+		fieldClass = 'invalid-field';
+		textClass = 'error-visible';
 	}
 
 	return (
@@ -15,7 +18,7 @@ const InputField = ({ error, placeholder, type, value, _onChange }) => {
 				   type={type}
 				   value={value} 
 				   onChange={ (e) => _onChange(e.target.value) } />
-			<div className='validation-errors'>Validation error placeholder</div>
+			<p className={textClass}>{ERROR_MESSAGES[error]}</p>
 		</React.Fragment>
 	)
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaUser } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 
 import '../main.scss';
 
