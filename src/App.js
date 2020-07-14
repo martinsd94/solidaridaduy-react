@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBars } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,57 +9,30 @@ import {
 
 
 /* Views for the router */
-import AboutView         from './views/AboutView';
 import ContactView       from './views/ContactView';
 import CollaborateView   from './views/CollaborateView';
 import HomeView          from './views/HomeView';
 import InitiativeView    from './views/InitiativeView';
-import JobBoardView      from './views/JobBoardView';
-import JoinUsView        from './views/JoinUsView';
 import SearchResultsView from './views/SearchResultsView';
+import AdminLoginView	 from './views/AdminLoginView';
 
+/* Other components */
+import PageHeader from './components/PageHeader';
 
 /* Styles */
 import './main.scss';
-
-const Header = () => {
-	return (
-		<header className="main-header">
-			<Link to='/'className='home-link'>Solidaridad.uy</Link>
-			<NavBar />      
-		</header>
-	)
-}
-
-const NavBar = () => {
-	// TODO: Make menu and display on button click
-	return (
-		<nav>
-			<button className='menu-button'><p><FaBars /></p></button>
-
-			<Link to='/job-board'   className='header-link'>BOLSA DE TRABAJO</Link>
-			<Link to='/collaborate' className='header-link'>¿CÓMO COLABORAR?</Link>
-			<Link to='/join-us'     className='header-link'>UNITE A LOS EQUIPOS</Link>
-			<Link to='/about'       className='header-link'>¿QUIÉNES SOMOS?</Link>
-			<Link to='/contact'     className='header-link'>CONTACTO</Link>
-		</nav>
-	)
-}
 
 //
 //
 
 const App = () => {
+
 	return (
 		<Router>
-			<Header />
+			<PageHeader />
 			<Switch>
 				<Route exact={true} path="/">
 					<HomeView />
-				</Route>
-
-				<Route path="/about">
-					<AboutView />
 				</Route>
 
 				<Route path="/contact">
@@ -70,14 +43,6 @@ const App = () => {
 					<CollaborateView />
 				</Route>
 
-				<Route path="/job-board">
-					<JobBoardView />
-				</Route>
-
-				<Route path="/join-us">
-					<JoinUsView />
-				</Route>
-
 				<Route path="/search-results">
 					<SearchResultsView />
 				</Route>
@@ -85,8 +50,29 @@ const App = () => {
 				<Route path="/initiative/:id">
 					<InitiativeView />
 				</Route>
+
+				<Route path="/admin/login">
+					<AdminLoginView />
+				</Route>
 			</Switch>
+			<PageFooter />
 		</Router>
+	);
+}
+
+const PageFooter = () => {
+	return (
+		<footer className='main-footer'>
+			<div className='social-links'>
+				<a href='https://www.facebook.com/solidaridadUY/'><FaFacebook /></a>
+				<a href='https://www.instagram.com/solidaridadUY/'><FaInstagram /></a>
+				<a href='https://twitter.com/SolidaridadUY'><FaTwitter /></a>
+			</div>
+			<div className='info'>
+				<p>Facultad de Ingeniería, 2020</p>
+				<Link to='/admin/login'>Admin login</Link>
+			</div> 
+		</footer>
 	);
 }
 

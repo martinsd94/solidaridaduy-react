@@ -31,29 +31,43 @@ div.jumbotron-1-inner {
 div.search-fields {
 	display: grid;
 	grid-template-columns: 33% 33% 33%;
-	grid-template-rows: 55px 55px 55px;
+	grid-template-rows: 59px 59px 59px;
 	width: 45vw;
 	height: auto;
 }
 
 div.search-fields > div.input-wrapper {
-	align-items: center;
-	background-color: #FFF;
-	border: 1px solid #424242;
-	border-radius: 5px;
-	box-shadow: 0px 2px 4px $shadow-color;
+	align-items: center;	
 	grid-column: 1 / 4;
 	display: flex;
 	margin: 5px;
-	padding: 0px 15px;
-}
+	position: relative;
 
-div.search-fields > div.input-wrapper > input {
-	background-color: transparent;
-	border: none;
-	flex-grow: 1;
-	outline: none;
-	padding: 10px;
+	svg {
+		z-index: 30;
+		margin-right: -31px;
+		padding-left: 15px;
+	}
+
+	input {
+		border: 2px solid #424242;
+		border-radius: 5px;
+		box-shadow: 0px 2px 4px $shadow-color;
+		flex-grow: 1;
+		outline: none;
+		padding: 10px 10px 10px 40px;
+		font-size: 20px;
+		font-family: 'PT Sans Narrow';
+		transition: all 0.1s linear;
+
+		&:focus {
+			border-color: $light-grey;
+		}
+
+		&:focus + svg {
+			color: $light-grey;
+		}
+	}
 }
 
 div.search-fields > a {
@@ -98,9 +112,12 @@ div.search-fields button.search-button:active {
 }
 
 div.search-fields > select {
-	border-color: #424242;
+	border: 2px solid #424242;
 	border-radius: 5px;
 	box-shadow: 0px 2px 4px $shadow-color;
+	cursor: pointer;
+	font-family: 'PT Sans Narrow';
+	font-size: 20px;
 	outline: none;
 	padding: 10px;
 	margin: 5px;

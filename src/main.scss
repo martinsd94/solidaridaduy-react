@@ -28,6 +28,10 @@ header.main-header {
 	z-index: 1000; 
 }
 
+header.main-header a {
+	transition: all 0.15s linear;
+}
+
 header.main-header > a.home-link {
 	flex-grow: 1;
 	font-size: 36px;
@@ -40,6 +44,13 @@ header.main-header > nav {
 
 header.main-header a.header-link {
 	padding: 0px 5px;
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+
+	p {
+		margin-left: 5px;
+	}
 }
 
 header.main-header button.menu-button {
@@ -60,7 +71,7 @@ header.main-header a {
 }
 
 header.main-header a:hover {
-	color: #222;
+	color: #000;
 }
 
 
@@ -120,6 +131,49 @@ button.button-link:active {
 
 
 
+/* Main footer */
+/* ------------------------------------- */
+
+footer.main-footer {
+	background-color: $base-color-light;
+	height: 100px;
+	padding: 30px;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+
+	div.social-links {
+		a {
+			font-size: 30px;
+			color: $light-black;
+			transition: all 0.15s linear;
+			margin-right: 15px;
+			
+			&:hover {
+				color: $dark-grey;
+			}
+		}
+	}
+
+	div.info {
+		text-align: right;
+		font-size: 18px;
+
+		p {
+			color: $light-black;
+			margin: 0;
+			margin-bottom: 10px;
+		}
+
+		a {
+			color: $light-black;
+			transition: all 0.15s linear;
+			&:hover {
+				color: $dark-grey;
+			}
+		}
+	}
+}
 
 
 
