@@ -6,6 +6,8 @@
 body {
 	margin-top: 80px;
 	font-family: 'PT Sans Narrow', sans-serif; /* TODO: add this font? */
+	position: relative;
+	min-height: 100vh;
 }
 
 /* Main header */
@@ -20,6 +22,7 @@ header.main-header {
 	display: flex;
 	flex-direction: row;
 	height: 80px;
+	margin-bottom: 80px;
 	padding: 0 15px;
 	position: fixed;
 	top: 0;
@@ -136,13 +139,16 @@ button.button-link:active {
 
 footer.main-footer {
 	background-color: $base-color-light;
-	height: 100px;
-	padding: 30px;
+	height: 150px;
 	justify-content: space-between;
 	display: flex;
 	flex-direction: row;
+	position: absolute;
+	bottom: -70px;
+	width: 100%;
 
 	div.social-links {
+		margin: 30px;
 		a {
 			font-size: 30px;
 			color: $light-black;
@@ -158,6 +164,7 @@ footer.main-footer {
 	div.info {
 		text-align: right;
 		font-size: 18px;
+		margin: 30px;
 
 		p {
 			color: $light-black;
