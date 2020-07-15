@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import {
   BrowserRouter as Router,
@@ -6,7 +6,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import PrivateRoute from './PrivateRoute';
 
+/* Context */
+import { AuthContext } from './context/auth'; 
 
 /* Views for the router */
 import ContactView       from './views/ContactView';
@@ -30,37 +33,37 @@ import './main.scss';
 }*/
 
 const App = () => {
+
+	// Load existing tokens any exist
+	const existingTokens = JSON.parse(localStorage.getItem('tokens'));
+  	const [authTokens, setAuthTokens] = useState(existingTokens);
+  	const setTokens = (data) => {
+  		// Update tokens on local storage
+  		localStorage.setItem('tokens', JSON.stringify(data));
+  		setAuthTokens(data);
+  	}
+
 	return (
-		<Router>
-			<PageHeader />
-			<Switch>
-				<Route exact={true} path="/">
-					<HomeView />
-				</Route>
-
-				<Route path="/contact">
-					<ContactView />
-				</Route>
-
-				<Route path="/collaborate">
-					<CollaborateView />
-				</Route>
-
-				<Route path="/search-results">
-					<SearchResultsView />
-				</Route>
-
-				<Route path="/initiative/:id">
-					<InitiativeView />
-				</Route>
-
-				<Route path="/admin/login">
-					<AdminLoginView />
-				</Route>
-			</Switch>
-			<PageFooter />
-		</Router>
+		<AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
+			<Router>
+				<PageHeader />
+				<Switch>
+					<Route exact={true} path="/"  component={HomeView} />
+					<Route path="/contact" 		  component={ContactView} />
+					<Route path="/collaborate" 	  component={CollaborateView} />
+					<Route path="/search-results" component={SearchResultsView} />
+					<Route path="/initiative/:id" component={InitiativeView} />
+					<Route path="/admin-login"	  component={AdminLoginView} />
+					<PrivateRoute path='/admin'   component={AdminHome} />
+				</Switch>
+				<PageFooter />
+			</Router>
+		</AuthContext.Provider>
 	);
+}
+
+const AdminHome = () => {
+	return <div>Hola</div>;
 }
 
 const PageFooter = () => {
@@ -73,7 +76,7 @@ const PageFooter = () => {
 			</div>
 			<div className='info'>
 				<p>Facultad de Ingeniería, 2020</p>
-				<Link to='/admin/login'>Admin login</Link>
+				<Link to='/admin-login'>Admin login</Link>
 			</div> 
 		</footer>
 	);

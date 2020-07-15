@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 /* Components */
 import InputField from '../components/InputField';
+
+/* Context hooks */
+import { useAuth } from '../context/auth';
 
 import '../main.scss';
 import '../styles/admin-login.scss';
 
 const AdminLoginView = () => {
+
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const { setAuthTokens } = useAuth();
 
 	const [email, setEmail] 	  = useState({ field: '', error: null });
 	const [password, setPassword] = useState({ field: '', error: null });
@@ -69,35 +76,40 @@ const AdminLoginView = () => {
 		else {
 			// TODO: Log admin in!
 			console.log('No hay errores');
+			setIsLoggedIn(true);
 		}
 	}
 
 	// -----------------------------------------------------------------
-
-	return (
-		<div className='login-jumbotron'>
-			<div className='login-wrapper'>
-				<h2>Acceso de administradores</h2>
-				<InputField value={email.field}
-							error={email.error}
-							placeholder='Nombre de usuario...'
-							type='default'
-							_onChange={(val) => setEmailField(val) } />
-				
-				<InputField value={password.field}
-							error={password.error}
-							placeholder='Contraseña...'
-							type='password'
-							_onChange={(val) => setPasswordField(val) } />
-	
-				<button className='login-button' 
-						onClick={() => { tryLogin() }}>Ingresar</button>
-				<div className='options'>
-					<button className='button-link'>Quiero participar</button>
+	if (isLoggedIn) {
+		return <Redirect to='admin' />
+	}
+	else {
+		return (
+			<div className='login-jumbotron'>
+				<div className='login-wrapper'>
+					<h2>Acceso de administradores</h2>
+					<InputField value={email.field}
+								error={email.error}
+								placeholder='Nombre de usuario...'
+								type='default'
+								_onChange={(val) => setEmailField(val) } />
+					
+					<InputField value={password.field}
+								error={password.error}
+								placeholder='Contraseña...'
+								type='password'
+								_onChange={(val) => setPasswordField(val) } />
+		
+					<button className='login-button' 
+							onClick={() => { tryLogin() }}>Ingresar</button>
+					<div className='options'>
+						<button className='button-link'>Quiero participar</button>
+					</div>
 				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 //							error={passwordError}
