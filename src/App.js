@@ -17,20 +17,19 @@ import CollaborateView   from './views/CollaborateView';
 import HomeView          from './views/HomeView';
 import InitiativeView    from './views/InitiativeView';
 import SearchResultsView from './views/SearchResultsView';
-import AdminLoginView	 from './views/AdminLoginView';
+import AdminLoginView	 	   from './views/AdminLoginView';
+import AdminControlPanelView   from './views/AdminControlPanelView';
+import AdminInitiativeListView from './views/AdminInitiativeListView';
 
 /* Other components */
 import PageHeader from './components/PageHeader';
+import PageFooter from './components/PageFooter';
 
 /* Styles */
 import './main.scss';
 
 //
 //
-
-/*const resetScroll = () => {
-	window.scrollTo({ top: 0, behavior: 'smooth' });
-}*/
 
 const App = () => {
 
@@ -43,6 +42,8 @@ const App = () => {
   		setAuthTokens(data);
   	}
 
+  	// TODO: Add token EXPIRATION
+
 	return (
 		<AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
 			<Router>
@@ -54,31 +55,12 @@ const App = () => {
 					<Route path="/search-results" component={SearchResultsView} />
 					<Route path="/initiative/:id" component={InitiativeView} />
 					<Route path="/admin-login"	  component={AdminLoginView} />
-					<PrivateRoute path='/admin'   component={AdminHome} />
+					<PrivateRoute exact={true} path='/admin' component={AdminControlPanelView} />
+					<PrivateRoute path='/admin/initiatives'  component={AdminInitiativeListView} />
 				</Switch>
 				<PageFooter />
 			</Router>
 		</AuthContext.Provider>
-	);
-}
-
-const AdminHome = () => {
-	return <div>Hola</div>;
-}
-
-const PageFooter = () => {
-	return (
-		<footer className='main-footer'>
-			<div className='social-links'>
-				<a href='https://www.facebook.com/solidaridadUY/'><FaFacebook /></a>
-				<a href='https://www.instagram.com/solidaridadUY/'><FaInstagram /></a>
-				<a href='https://twitter.com/SolidaridadUY'><FaTwitter /></a>
-			</div>
-			<div className='info'>
-				<p>Facultad de Ingeniería, 2020</p>
-				<Link to='/admin-login'>Admin login</Link>
-			</div> 
-		</footer>
 	);
 }
 

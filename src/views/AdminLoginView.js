@@ -59,8 +59,8 @@ const AdminLoginView = () => {
 	}
 
 	const handleLoginResponse = (data) => {
+		// Display validation errors
 		if (Object.keys(data).indexOf('validation_errors') !== -1) {
-			console.log(data);
 			for(let field in data.validation_errors) {
 				switch (field) {
 					case 'password':
@@ -74,15 +74,15 @@ const AdminLoginView = () => {
 			}
 		}
 		else {
-			// TODO: Log admin in!
-			console.log('No hay errores');
+			// Log admin in!
+			setAuthTokens(data.access_token);
 			setIsLoggedIn(true);
 		}
 	}
 
 	// -----------------------------------------------------------------
 	if (isLoggedIn) {
-		return <Redirect to='admin' />
+		return <Redirect to='/admin' />
 	}
 	else {
 		return (
@@ -111,8 +111,5 @@ const AdminLoginView = () => {
 		)
 	}
 }
-
-//							error={passwordError}
-
 
 export default AdminLoginView;

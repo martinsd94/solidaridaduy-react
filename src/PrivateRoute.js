@@ -10,13 +10,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 	return (
 		<Route
 			{...rest}
-			render={props =>
-				authTokens ? (
-					<Component {...props} />
-				) : (
-					<Redirect to='/admin-login' />
-				)
-			}
+			render={(props) => {
+				if(authTokens) {
+					return <Component {...props} />
+				} 
+				else {
+					return <Redirect to='/admin-login' />
+				}
+			}}
 		/>
 	);
 }
