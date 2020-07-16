@@ -104,7 +104,7 @@ const SearchResults = () => {
 const Initiative = ({ initiative, index }) => {
 
 	const [show, setShow] = useState(false);
-	const { _id, name, category, hood, province } = initiative;
+	const { _id, name, category, hood, province, emergency } = initiative;
 
 	// Show after a delay, which changes according to the index.
 	// This creates a "cascading effect"
@@ -114,14 +114,24 @@ const Initiative = ({ initiative, index }) => {
 		}, 100*index);
 	}, []);
 
+	// If emergency is true, use associated class
+	let emergency_class = '';
+	if(emergency) {
+		emergency_class = ' emergency';
+	}
+
 	if (show) {
 		return (
 			<div className='initiative-wrapper'>
-				<h2 className='initiative-name'>{name}</h2>
-				<Category category={category} />
+				<EmergencyBadge emergency={emergency} />
+				<h2 className={`initiative-name${emergency_class}`}>
+					{name}
+				</h2>
+				<Category category={category}
+						  emergency_class={emergency_class} />
 				<p className='initiative-location'>{`${hood}, ${province}`}</p>
 				<Link to={`initiative/${_id}`}>
-					<button className='button-default'>Ver</button>
+					<button className={`button-default${emergency_class}`}>Ver</button>
 				</Link>
 			</div>
 		);
@@ -131,15 +141,24 @@ const Initiative = ({ initiative, index }) => {
 	}
 }
 
-const Category = ({ category }) => {
+const Category = ({ category, emergency_class }) => {
 	let { categoryDisplay, icon } = getCategoryDisplay(category);
 
 	return (
 		<div className='initiative-category'>
-			<p className='icon'>{icon}</p>
+			<p className={`icon${emergency_class}`}>{icon}</p>
 			<p className='category'>{categoryDisplay}</p>
 		</div>
 	)
+}
+
+const EmergencyBadge = ({ emergency }) => {
+	if(emergency) {
+		return <div className='emergency-badge'><p>!</p></div>;
+	}
+	else {
+		return null;
+	}
 }
 
 /* ------------------ */

@@ -39,7 +39,7 @@ div.login-jumbotron {
 		}
 
 		input.invalid-field {
-			border-color: $red;
+			border-color: $danger-color;
 		}
 
 		p.error-hidden {
@@ -55,7 +55,7 @@ div.login-jumbotron {
 		}
 
 		p.error-hidden, p.error-visible {
-			color: $red;
+			color: $danger-color;
 			margin: 0;
 			margin-bottom: 5px;
 			transition: all 0.15s linear;
