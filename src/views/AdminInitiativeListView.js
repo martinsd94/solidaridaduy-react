@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { 
 	FaSearch,
+	FaPencilAlt,
+	FaTimes
 } from 'react-icons/fa';
 
 import { 
-	useLocation,
 	Link
 } from "react-router-dom";
 
@@ -12,43 +13,82 @@ import {
 import { useAuth } from '../context/auth';
 
 /* Helpers */
-import { getCategoryDisplay } from '../helpers/getCategoryDisplay';
+//import { getCategoryDisplay } from '../helpers/getCategoryDisplay';
 
 /* Styles */
 import '../main.scss';
-import '../styles/search-results.scss';
+import '../styles/admin-initiative-list.scss';
 
 
 const AdminInitiativeListView = () => {
 	return (
-		<InitiativesList />
+		<div className='admin-initiatives-container'>
+			<SearchBar />
+			<InitiativesList />
+		</div>	
 	)
 }
 
 /* Local components */
 
+const SearchBar = () => {
+	return (
+		<div className='admin-search-bar-wrapper'>
+			<input className='search-bar'
+				   placeholder='Buscar por nombre...' />
+			<p><FaSearch /></p>
+		</div>
+	)
+}
+
 const InitiativesList = () => {
+	
+	// Verify identity while loading initiatives ------------------------
 	const [initiatives, setInitiatives] = useState([]);
-	const { authTokens } = useAuth();
+	const { setAuthTokens, authHeaders } = useAuth();
 
 	// Fetch initiative data
 	useEffect(() => {
-		fetch('http://localhost:5000/initiatives/list', {
+		fetch('http://localhost:5000/admin/initiatives', {
 			crossDomain: true,
 			method: 'GET',
-			headers: {
-				authorization: `Bearer ${authTokens}`
-			}
+			headers: authHeaders()
 		})
 			.then(response => response.json())
-			.then(data => setInitiatives(data));
+			.then(data => setInitiatives(data))
+			.catch(err => setAuthTokens(null));
 	}, []);
+	// ------------------------------------------------------------------
 
 	return (
-		<div className='results-container'>
+		<div className='admin-initiatives-list'>
 			{initiatives.map((init, index) => (
-				<p key={index}>{init.name}</p>
+				<Initiative initiative={init} key={index} />
 			))}
+		</div>
+	)
+}
+
+const Initiative = ({ initiative }) => {
+	const {
+		name, 
+	/*	category, 
+		description,
+		hood, 
+		province,
+		address,
+		activities,
+		contact_phones,
+		geolocation*/
+	} = initiative;
+
+	return (
+		<div className='initiative-edit-display-wrapper'>
+			<div className='initiative-edit-display'>
+				<p>{name}</p>
+				<button><FaPencilAlt /></button>
+				<button><FaTimes /></button>
+			</div>
 		</div>
 	)
 }

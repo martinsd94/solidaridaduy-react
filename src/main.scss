@@ -56,42 +56,44 @@ header.main-header {
 	left: 0;
 	right: 0; 
 	z-index: 1000; 
-}
 
-header.main-header a {
-	transition: all 0.15s linear;
-}
-
-header.main-header > a.home-link {
-	flex-grow: 1;
-	font-size: 36px;
-	margin-left: 10px;
-}
-
-header.main-header > nav {
-	display: flex;
-}
-
-header.main-header a.header-link {
-	padding: 0px 5px;
-	display: flex;
-	align-items: center;
-	margin-left: 10px;
-
-	p {
-		margin-left: 5px;
+	a {
+		transition: all 0.15s linear;		
 	}
-}
 
-header.main-header button.menu-button {
-	background-color: transparent;
-	border: none;
-	color: #424242;
-	cursor: pointer;
-	display: none;
-	font-size: 25px;
-	padding: 0px 20px;
-	outline: none;
+	a.home-link {
+		flex-grow: 1;
+		font-size: 36px;
+		margin-left: 10px;
+	}
+
+	nav {
+		div.menu-dropdown {
+			display: flex;
+			flex-direction: row;
+			a.header-link {
+				padding: 0px 5px;
+				display: flex;
+				align-items: center;
+				margin-left: 10px;
+
+				p {
+					margin-left: 5px;
+				}
+			}			
+		}
+	}
+
+	button.menu-button {
+		background-color: transparent;
+		border: none;
+		color: #424242;
+		cursor: pointer;
+		display: none;
+		font-size: 25px;
+		padding: 0px 20px;
+		outline: none;
+	}
 }
 
 header.main-header a {
@@ -150,7 +152,7 @@ button.button-link:active {
 /* For smaller resolutions */
 
 @media (max-width: 1100px) {
-	header.main-header a.header-link {
+	header.main-header > nav > div.menu-dropdown {
 		display: none;
 	}
 
@@ -209,6 +211,35 @@ footer.main-footer {
 	}
 }
 
+
+/* Main footer */
+/* ------------------------------------- */
+header.admin-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: #FFF;
+	height: 80px;
+	margin-top: -80px;
+	margin-bottom: -80px;
+	padding: 0px 30px;
+
+	h3 {
+		flex-grow: 1;
+		font-size: 20px;
+	}
+
+	a {
+		font-size: 20px;
+		color: #FFF;
+		text-decoration: none;
+		transition: all 0.15s linear;
+	}
+
+	a:hover {
+		color: $light-black;
+	}
+}
 
 
 

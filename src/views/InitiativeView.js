@@ -28,7 +28,6 @@ const InitiativeView = (props) => {
 
 	if (!!initiative) {
 		let { 
-			_id, 
 			name, 
 			category, 
 			description,
@@ -110,9 +109,9 @@ const Details = ({ name, category, description, hood, province, address, contact
 			<div className='info-wrapper'>
 				<p className='icon'><FaHandHoldingHeart /></p>
 				<p className='info'>Esta iniciativa recibe donaciones de:</p>
-				<p className='donation'>Alimentos</p>
-				<p className='donation'>Ropa</p>
-				<p className='donation'>Artículos de Higiene Personal</p>
+				{ ['Alimentos','Ropa','Artículos de Higiene Personal'].map((j, ind) => (
+					<p className='donation' key={ind}>{j}</p>
+				)) }
 			</div>
 		</div>
 	)

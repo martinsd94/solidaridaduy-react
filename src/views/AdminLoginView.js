@@ -13,7 +13,8 @@ import '../styles/admin-login.scss';
 const AdminLoginView = () => {
 
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const { setAuthTokens } = useAuth();
+	const { authTokens, setAuthTokens, 
+			setCurrentUser, setCurrentAdmin } = useAuth();
 
 	const [email, setEmail] 	  = useState({ field: '', error: null });
 	const [password, setPassword] = useState({ field: '', error: null });
@@ -75,6 +76,7 @@ const AdminLoginView = () => {
 		}
 		else {
 			// Log admin in!
+			setCurrentAdmin(data.admin);
 			setAuthTokens(data.access_token);
 			setIsLoggedIn(true);
 		}
@@ -83,6 +85,9 @@ const AdminLoginView = () => {
 	// -----------------------------------------------------------------
 	if (isLoggedIn) {
 		return <Redirect to='/admin' />
+	}
+	else if (authTokens) {
+		return <Redirect to='/admin' />		
 	}
 	else {
 		return (

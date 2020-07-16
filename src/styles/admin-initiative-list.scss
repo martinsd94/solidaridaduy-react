@@ -1,0 +1,106 @@
+@import './colors.scss';
+
+div.admin-initiatives-container {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	padding: 40px;
+	min-height: 100vh;
+	background-color: $base-color;
+
+	h1 {
+		align-items: center;
+		display: flex;
+	}
+	h1:after {
+		content: '';
+		height: 2px;
+		background-color: $base-color;
+		flex-grow: 1;
+		margin-left: 20px;
+	}
+
+	div.admin-search-bar-wrapper {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		max-width: 400px;
+		align-self: center;
+		align-items: center;
+		margin-bottom: 20px;
+		margin-top: 20px;
+
+		p {
+			margin: 0;
+			font-size: 20px;
+			margin-left: 20px;
+		}
+
+		input {
+			flex-grow: 1;
+			padding: 10px;
+			border: 2px solid $dark-grey;
+			box-shadow: 0px 2px 4px $shadow-color;
+			outline: none;
+			transition: all 0.15s linear;
+			font-family: 'PT Sans Narrow';
+			font-size: 20px;
+		}		
+
+		input:focus {
+			border-color: $light-grey;
+		}
+	}
+
+	div.admin-initiatives-list {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+
+		div.initiative-edit-display-wrapper {
+			flex-basis: 33.3%;
+
+			div.initiative-edit-display {
+				background-color: #FFF;
+				border: 1px solid $light-grey;
+				box-shadow: 0px 2px 4px $shadow-color;
+				display: flex;
+				flex-direction: row;
+				flex-grow: 1;
+				padding: 10px 20px;
+				margin: 5px;
+				transition: all 0.1s linear;
+
+				p {
+					font-size: 18px;
+					flex-grow: 1;
+				}
+
+				button {
+					background: #FFF;
+					border: none;
+					color: $dark-grey;
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					font-size: 18px;
+					padding: 10px;	
+					opacity: 0;
+					outline: none;
+					transition: all 0.15s linear;
+					&:hover {
+						color: $light-grey;
+					}
+				}
+
+				&:hover {
+					border-color: $dark-grey;
+					cursor: pointer;
+					button {
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}	
+}

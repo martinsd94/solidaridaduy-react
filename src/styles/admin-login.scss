@@ -13,6 +13,9 @@ div.login-jumbotron {
 		align-items: stretch;
 		width: 100%;
 		max-width: 500px;
+		padding: 30px 40px;
+		border: 1px solid $light-grey;
+		box-shadow: 0px 2px 4px $shadow-color;
 		
 		input {
 			border-width: 2px;
