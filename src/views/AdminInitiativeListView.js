@@ -71,6 +71,7 @@ const InitiativesList = () => {
 
 const Initiative = ({ initiative }) => {
 	const {
+		_id,
 		name, 
 	/*	category, 
 		description,
@@ -86,8 +87,8 @@ const Initiative = ({ initiative }) => {
 		<div className='initiative-edit-display-wrapper'>
 			<div className='initiative-edit-display'>
 				<p>{name}</p>
-				<button><FaPencilAlt /></button>
-				<button><FaTimes /></button>
+				<Link to={`/admin/initiative/${_id}/edit`}><button><FaPencilAlt /></button></Link>
+				<Link to='/admin'><button><FaTimes /></button></Link>
 			</div>
 		</div>
 	)

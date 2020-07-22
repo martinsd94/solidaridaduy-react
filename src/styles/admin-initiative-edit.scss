@@ -1,0 +1,38 @@
+@import './colors.scss';
+
+div.admin-initiative-container {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	padding: 40px;
+	min-height: 100vh;
+	background-color: $base-color;
+
+	div.all-forms {	
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		div.form-container {
+			background-color: $white;
+			border: 1px solid $light-grey;
+			background-color: $white;
+			box-shadow: 0px 2px 4px $shadow-color;
+			flex-basis: 48%;
+			margin: 5px;
+			div.form-inner {
+				margin: 40px;				
+				display: flex;
+				flex-direction: column;
+
+				input, select {
+					padding: 10px;
+					margin: 5px;
+					border: 1px solid $dark-grey;
+					box-shadow: 0px 2px 4px $shadow-color;
+				}
+			}
+		}
+	}
+}

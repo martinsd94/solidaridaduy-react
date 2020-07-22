@@ -76,28 +76,35 @@ div.admin-initiatives-container {
 					flex-grow: 1;
 				}
 
-				button {
-					background: #FFF;
-					border: none;
-					color: $dark-grey;
-					cursor: pointer;
+				a {
 					display: flex;
 					align-items: center;
-					font-size: 18px;
-					padding: 10px;	
-					opacity: 0;
-					outline: none;
-					transition: all 0.15s linear;
-					&:hover {
-						color: $light-grey;
+
+					button {
+						background: #FFF;
+						border: none;
+						color: $dark-grey;
+						cursor: pointer;
+						display: flex;
+						align-items: center;
+						font-size: 18px;
+						padding: 10px;	
+						opacity: 0;
+						outline: none;
+						transition: all 0.15s linear;
+						&:hover {
+							color: $light-grey;
+						}
 					}
 				}
 
 				&:hover {
 					border-color: $dark-grey;
 					cursor: pointer;
-					button {
-						opacity: 1;
+					a {
+						button {
+							opacity: 1;
+						}
 					}
 				}
 			}

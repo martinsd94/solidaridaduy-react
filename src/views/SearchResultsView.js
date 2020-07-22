@@ -33,32 +33,10 @@ const SearchResultsView = () => {
 
 const SearchBar = ({ value, _setValue }) => {
 	return (
-		<div className='search-bar-wrapper'>
-			<div className='search-bar-fields'>
-				<input value={value}
-					   placeholder='Buscar por nombre...'
-					   onChange={(e) => _setValue(e.target.value)} />
-				
-				<button><FaSearch /></button> 
-
-				<select>
-					<option>Montevideo</option>
-					<option>Maldonado</option>
-					<option>Artigas</option>
-					<option>Rocha</option>
-				</select>
-				<select>
-					<option>Buceo</option>
-					<option>Piedras Blancas</option>
-					<option>Pocitos</option>
-				</select>
-				<select>
-					<option>Canasta</option>
-					<option>Olla</option>
-					<option>Merendero</option>
-				</select>		
-			</div>
-		</div>
+		<input className='searchbar'
+			   value={value}
+			   placeholder='Buscar por nombre...'
+			   onChange={(e) => _setValue(e.target.value)}/>	
 	)
 }
 
@@ -79,11 +57,11 @@ const SearchResults = () => {
 		// If loaded, render initiatives
 		if (!!initiatives) {
 			return (
-				<React.Fragment>
+				<div className='initiatives-container'>
 					{initiatives.map((init, index) => (
 						<Initiative initiative={init} index={index} key={index} />
 					))}
-				</React.Fragment>
+				</div>
 			)
 		}
 
@@ -103,16 +81,7 @@ const SearchResults = () => {
 
 const Initiative = ({ initiative, index }) => {
 
-	const [show, setShow] = useState(false);
 	const { _id, name, category, hood, province, emergency } = initiative;
-
-	// Show after a delay, which changes according to the index.
-	// This creates a "cascading effect"
-	useEffect(() => {
-		setTimeout(() => {
-			setShow(true);
-		}, 100*index);
-	}, []);
 
 	// If emergency is true, use associated class
 	let emergency_class = '';
@@ -120,25 +89,17 @@ const Initiative = ({ initiative, index }) => {
 		emergency_class = ' emergency';
 	}
 
-	if (show) {
-		return (
-			<div className='initiative-wrapper'>
-				<EmergencyBadge emergency={emergency} />
-				<h2 className={`initiative-name${emergency_class}`}>
-					{name}
-				</h2>
-				<Category category={category}
-						  emergency_class={emergency_class} />
-				<p className='initiative-location'>{`${hood}, ${province}`}</p>
-				<Link to={`initiative/${_id}`}>
-					<button className={`button-default${emergency_class}`}>Ver</button>
-				</Link>
+	return (
+		<div className={`initiative-card${emergency_class}`}>
+			<div className='info'>
+				{ emergency ? <EmergencyBadge /> : null }
+				<h4>{name}</h4>
+				<p>{`${hood}, ${province}`}</p>
+				<Category category={category} />
 			</div>
-		);
-	}
-	else {
-		return null;
-	}
+			<Link to={`/initiative/${_id}`}><button>Ver</button></Link>
+		</div>
+	);
 }
 
 const Category = ({ category, emergency_class }) => {
@@ -146,19 +107,14 @@ const Category = ({ category, emergency_class }) => {
 
 	return (
 		<div className='initiative-category'>
-			<p className={`icon${emergency_class}`}>{icon}</p>
+			<p className='icon'>{icon}</p>
 			<p className='category'>{categoryDisplay}</p>
 		</div>
 	)
 }
 
-const EmergencyBadge = ({ emergency }) => {
-	if(emergency) {
-		return <div className='emergency-badge'><p>!</p></div>;
-	}
-	else {
-		return null;
-	}
+const EmergencyBadge = () => {
+	return <div className='emergency-badge'><p></p></div>;
 }
 
 /* ------------------ */

@@ -36,14 +36,21 @@ const InitiativeView = (props) => {
 			address,
 			activities,
 			contact_phones,
+			emergency,
 			geolocation
 		} = initiative;
 
 		return (
 			<React.Fragment>
-				<div className='initiative-jumbotron-wrapper'>
-					<Details name={name} category={category} hood={hood} province={province}
-							 contact_phones={contact_phones} address={address} description={description} />
+				<div className={`initiative-jumbotron-wrapper${(emergency)?' emergency':''}`}>
+					<Details name={name}
+							 category={category} 
+							 hood={hood} 
+							 province={province}
+							 contact_phones={contact_phones} 
+							 address={address} 
+							 description={description}
+							 emergency={emergency} />
 				</div>
 				<MapContainer geolocation={geolocation} />
 				<Schedule activities={activities} />
@@ -58,7 +65,7 @@ const InitiativeView = (props) => {
 
 /* Local components */
 
-const Details = ({ name, category, description, hood, province, address, contact_phones }) => {
+const Details = ({ name, category, description, hood, province, address, contact_phones, emergency }) => {
 
 	const { categoryDisplay, icon } = getCategoryDisplay(category);
 
@@ -158,7 +165,7 @@ const Schedule = ({ activities }) => {
 			<h1 className='section-title' id='schedule-title'>Horarios</h1>
 			<div className='initiative-schedule'>
 				<div className='schedule-header'>
-					<h3>Hora</h3>
+					<h4>Hora</h4>
 					{ HOURS.map((hour, j) => ( <div className='hour' key={j}>{hour}</div> ))}
 				</div>
 
@@ -187,7 +194,7 @@ const DaySchedule = ({ day, activities }) => {
 
 	return (
 		<div className='day-schedule-wrapper'>
-			<h2>{day}</h2>
+			<h4>{day}</h4>
 			<div className='day-schedule'>
 				<div className='hours'>
 					{ HOURS.map((hour, j) => ( <div className='hour' key={j}></div> ))}

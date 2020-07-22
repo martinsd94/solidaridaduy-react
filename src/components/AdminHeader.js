@@ -9,7 +9,7 @@ const AdminHeader = () => {
 
 	return (
 		<header className='admin-header'>
-			<h3>Admin - {`${currentAdmin.first_name} ${currentAdmin.last_name}`}</h3>
+			<h3>Solidaridad.uy Admin - {`${currentAdmin.first_name} ${currentAdmin.last_name}`}</h3>
 			<Link to='/admin-logout'>Cerrar sesión</Link> 
 		</header>
 	)
