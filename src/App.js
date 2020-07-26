@@ -14,6 +14,9 @@ import './main.scss';
 /* Constants */
 import { config } from './constants';
 
+/* Helpers */
+import { randomString } from './helpers/randomString';
+
 //
 //
 
@@ -53,6 +56,7 @@ const App = () => {
 
     // Data Context States ---------------------------------------------
     const [data, setData] = useState([]);
+    const [isDataFetching, setIsDataFetching] = useState(true);
 
     // ------------------------------------------------
 
@@ -70,19 +74,33 @@ const App = () => {
     const loadSuccessful = (response) => {
         const labels = response.result.values.shift();
         const indices = parseIndexes(labels);
-        const initiatives = response.result.values.slice().map(ini => ({
+        const initiatives = response.result.values.map(ini => ({
+            // TODO: Assign random id!
+            _id:      randomString(18,'aA#'),
             name:     ini[indices.name],
             address:  ini[indices.address],
             province: ini[indices.province],
             hood:     ini[indices.hood],
             category: ini[indices.category],
-            contact_numbers: ini[indices.contact_numbers],
+            contact_phones: ['098123456', '097561626', '098196558'],
             geolocation: {
                 latitude:  ini[indices.latitude],
                 longitude: ini[indices.longitude]
+            },
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at tincidunt mi. Aliquam imperdiet mauris quam, vel dapibus mauris posuere sit amet. Ut placerat volutpat interdum. Sed vulputate nisl eget nunc lacinia, quis auctor risus tristique. In ornare euismod sapien quis auctor. Fusce faucibus, lorem ut dignissim tincidunt, quam purus posuere erat, ac malesuada elit lacus vitae orci. Sed tristique, est quis euismod tempor, sem massa sodales massa, a sollicitudin eros odio quis mi. Quisque suscipit convallis malesuada. Duis vehicula purus non feugiat scelerisque. Praesent venenatis urna orci, id auctor augue consectetur in. Donec vitae est ut tortor posuere venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas non eleifend lacus. Integer in venenatis orci, non tristique turpis. Quisque luctus ligula sit amet efficitur luctus.',
+            emergency: (ini[indices.category] === 'SI') ? true : false,
+            activities: {
+                sun: [],
+                mon: [{ start: 9, duration: 5 }],
+                tue: [{ start: 9, duration: 5 }],
+                wed: [{ start: 9, duration: 5 }],
+                thu: [{ start: 9, duration: 5 }],
+                fri: [{ start: 9, duration: 5 }],
+                sat: [],
             }
         }));
-        console.log(initiatives);
+        setData(initiatives);
+        setIsDataFetching(false);
     }
 
     const loadFailure = (err) => {
@@ -96,32 +114,12 @@ const App = () => {
             province:  labels.indexOf('Departamento'),
             hood:      labels.indexOf('Barrio/Localidad'),
             category:  labels.indexOf('Actividad/es'),
-            contact_numbers: labels.indexOf('Número de contacto'),
+            contact_phones: labels.indexOf('Número de contacto'),
             latitude:  labels.indexOf('Coordenada Latitud'),
             longitude: labels.indexOf('Coordenada Longitud'),            
+            emergency: labels.indexOf('¿Emergencia?')
         }
     }
-    /*window.gapi.client.sheets.spreadsheets.values
-        .get({
-            spreadsheetId: config.spreadsheetId,
-            range: config.range
-        })
-        .then(response => {
-            console.log(response.result.values);
-            const data = response.result.values;
-            const cars = data.map(car => ({
-                year: car[0],
-                make: car[1],
-                model: car[2]
-            })) || [];
-            callback({
-                cars
-            });
-        },
-        response => {
-            callback(false, response.result.error);
-        });
-    }*/
 
     const initClient = () => {
         // Initialize the JavaScript client library.
@@ -141,7 +139,7 @@ const App = () => {
 
     useEffect(() => {
         window.gapi.load("client", initClient);
-    }, [initClient])
+    }, [])
 
 	// ------------------------------------------------
 
@@ -154,7 +152,8 @@ const App = () => {
                     					setCurrentAdmin: setAdmin
 									}}>
 			<DataContext.Provider value={{
-                                            data
+                                            data,
+                                            isDataFetching
                                         }}>
                 <Router>
     				<AppRoutes />

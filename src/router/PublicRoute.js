@@ -8,11 +8,13 @@ const PublicRoute = ({ component: Component, ...rest }) => {
 
 	return (
 		<Route {...rest}>
-			<div className='view-container'>
+			<React.Fragment>
 				<PageHeader />
-				<Component />
+				<div className='view-container'>				
+					<Component />
+				</div>
 				<PageFooter />
-			</div>
+			</React.Fragment>
 		</Route>
 	);
 }

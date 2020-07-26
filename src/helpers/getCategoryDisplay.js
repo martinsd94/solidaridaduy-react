@@ -6,46 +6,27 @@ import {
 	FaTrash
 } from 'react-icons/fa';
 
-/* Constants */
-import {
-	PUNTO_DONACION,
-	OLLA,
-	MERIENDA,
-	CANASTA,
-	DISPLAY_PUNTO_DONACION,
-	DISPLAY_OLLA,
-	DISPLAY_MERIENDA,
-	DISPLAY_CANASTA,
-} from '../constants';
-
-
-
-export const getCategoryDisplay = (category_const) => {
-	let text = '';
+export const getCategoryDisplay = (category) => {
 	let icon = null;
 
-	switch (category_const) {
-		case PUNTO_DONACION:
-			text = DISPLAY_PUNTO_DONACION;
+	switch (category) {
+		case 'Punto de Donación':
 			icon = <FaMapMarkerAlt />;
 			break;
-		case OLLA:
-			text = DISPLAY_OLLA;
+		case 'Olla':
 			icon = <FaTrash />;
 			break;
-		case MERIENDA:
-			text = DISPLAY_MERIENDA;
+		case 'Merienda':
 			icon = <FaMugHot />;
 			break;
-		case CANASTA:
-			text = DISPLAY_CANASTA;
+		case 'Canasta':
 			icon = <FaShoppingBasket />;
 			break;
 		default:
 	}
 
 	return {
-		categoryDisplay: text,
+		categoryDisplay: category,
 		icon
 	};
 }

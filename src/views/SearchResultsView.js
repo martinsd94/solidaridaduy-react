@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
 import { 
-	FaSearch,
+	FaExclamation,
 } from 'react-icons/fa';
 
 import { 
@@ -8,13 +9,19 @@ import {
 	Link
 } from "react-router-dom";
 
+/* Components */
+import LoadingAnimation from '../components/LoadingAnimation';
+
 /* Helpers */
 import { getCategoryDisplay } from '../helpers/getCategoryDisplay';
+import { filterByName } from '../helpers/filterByName';
 
 /* Styles */
 import '../main.scss';
 import '../styles/search-results.scss';
 
+/* Data hooks */
+import { useData } from '../context/data';
 
 const SearchResultsView = () => {
 	const query = new URLSearchParams(useLocation().search);
@@ -24,7 +31,7 @@ const SearchResultsView = () => {
 		<React.Fragment>
 			<SearchBar value={search}
 					   _setValue={(value) => setSearch(value)} />
-			<SearchResults />
+			<SearchResults search={search} />
 		</React.Fragment>
 	)
 }
@@ -40,22 +47,28 @@ const SearchBar = ({ value, _setValue }) => {
 	)
 }
 
-const SearchResults = () => {
+const SearchResults = ({ search }) => {
 	const [initiatives, setInitiatives] = useState(null);
+
+	const { data, isDataFetching } = useData();
+	const [filteredData, setFilteredData] = useState([]);
 
 	// Fetch initiative data
 	useEffect(() => {
-		fetch('http://localhost:5000/initiatives/search', {
+		setFilteredData(filterByName(data, search));
+		/*fetch('http://localhost:5000/initiatives/search', {
 			crossDomain: true,
 			method: 'GET'
 		})
 			.then(response => response.json())
-			.then(data => setInitiatives(data));
-	}, []);
+			.then(data => setInitiatives(data));*/
+	}, [setFilteredData, data, search]);
 
 	const renderInitiatives = () => {
 		// If loaded, render initiatives
-		if (!!initiatives) {
+
+		/* Old but will come in handy later */
+		/*if (!!initiatives) {
 			return (
 				<div className='initiatives-container'>
 					{initiatives.map((init, index) => (
@@ -63,19 +76,31 @@ const SearchResults = () => {
 					))}
 				</div>
 			)
+		} */
+
+		if (!isDataFetching) {
+			return (
+				<div className='results-container'>
+					<div className='results-inner'>
+						<div className='initiatives-container'>
+							{filteredData.slice(0,20).map((init, index) => (
+								<Initiative initiative={init} index={index} key={index} />
+							))}
+						</div>
+					</div>
+				</div>
+			)
 		}
 
 		else {
-			return <p>Loading...</p>
+			return <LoadingAnimation />
 		}
 	}
 
 	return (
-		<div className='results-container'>
-			<div className='results-inner'>
-				{renderInitiatives()}
-			</div>
-		</div>
+		<React.Fragment>
+			{renderInitiatives()}
+		</React.Fragment>	
 	)
 }
 
@@ -90,31 +115,25 @@ const Initiative = ({ initiative, index }) => {
 	}
 
 	return (
-		<div className={`initiative-card${emergency_class}`}>
-			<div className='info'>
-				{ emergency ? <EmergencyBadge /> : null }
-				<h4>{name}</h4>
-				<p>{`${hood}, ${province}`}</p>
-				<Category category={category} />
-			</div>
-			<Link to={`/initiative/${_id}`}><button>Ver</button></Link>
-		</div>
+		<Link to={`/initiative/${_id}`} className={`initiative-card${emergency_class}`}>
+			<CategoryIcon category={category} emergency_class={emergency_class} />
+			<h4 className='location'>{`${hood},`}<br />{province}</h4>
+			<p className='name'>{name}</p>
+			{ emergency ? <EmergencyNotice /> : null }
+		</Link>
 	);
 }
 
-const Category = ({ category, emergency_class }) => {
-	let { categoryDisplay, icon } = getCategoryDisplay(category);
+const CategoryIcon = ({ category, emergency_class }) => {
+	let { icon } = getCategoryDisplay(category);
 
 	return (
-		<div className='initiative-category'>
-			<p className='icon'>{icon}</p>
-			<p className='category'>{categoryDisplay}</p>
-		</div>
+		<p className={`icon${emergency_class}`}>{icon}</p>
 	)
 }
 
-const EmergencyBadge = () => {
-	return <div className='emergency-badge'><p></p></div>;
+const EmergencyNotice = () => {
+	return <p className='emergency-notice'><FaExclamation /></p>;
 }
 
 /* ------------------ */

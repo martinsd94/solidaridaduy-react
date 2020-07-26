@@ -4,6 +4,9 @@ import { FaClock, FaHome, FaPhone, FaMapMarkedAlt, FaHandHoldingHeart }  from 'r
 import { Map, Marker, TileLayer } from "react-leaflet";
 //import { Icon } from "leaflet";
 
+/* Contex */
+import { useData } from '../context/data';
+
 /* Helpers */
 import { getCategoryDisplay } from '../helpers/getCategoryDisplay';
 
@@ -14,17 +17,19 @@ import '../styles/initiative.scss';
 const InitiativeView = (props) => {
 
 	const { id } = useParams();
+	const { data } = useData();
 	const [initiative, setInitiative] = useState(null);
 
 	// Fetch initiative data
 	useEffect(() => {
-		fetch(`http://localhost:5000/initiative/${id}`, {
+		/*fetch(`http://localhost:5000/initiative/${id}`, {
 			crossDomain: true,
 			method: 'GET'
 		})
 			.then(response => response.json())
-			.then(data => setInitiative(data));
-	}, [])
+			.then(data => setInitiative(data));*/
+		setInitiative(data.filter(init => init._id === id)[0]);	
+	}, [id, setInitiative, data])
 
 	if (!!initiative) {
 		let { 
@@ -87,7 +92,8 @@ const Details = ({ name, category, description, hood, province, address, contact
 				<h2 className='icon'>{icon}</h2>
 				<h2 className='info'>{`${categoryDisplay} - ${hood}, ${province}`}</h2>
 			</div>
-			<p className='description'>{description}</p>
+
+			{/*<p className='description'>{description}</p>*/}
 			<div className='info-wrapper'>
 				<p className='icon'><FaHome /></p>
 				<p className='info'>{address}</p>
@@ -210,8 +216,8 @@ const DaySchedule = ({ day, activities }) => {
 									<div className='activity-body'></div>
 									<div className='activity-info'>
 										<div className='body'>
-											<p>{description}</p>
-											<br />
+											{/*<p>{description}</p>
+											<br />*/}
 											<p>{toHourFormat(start)} - {toHourFormat(start+duration)}</p>
 										</div>
 										<div className='triangle'></div>

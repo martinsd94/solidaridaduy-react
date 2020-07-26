@@ -13,8 +13,7 @@ import '../styles/admin-login.scss';
 const AdminLoginView = () => {
 
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const { authTokens, setAuthTokens, 
-			setCurrentUser, setCurrentAdmin } = useAuth();
+	const { authTokens, setAuthTokens, setCurrentAdmin } = useAuth();
 
 	const [email, setEmail] 	  = useState({ field: '', error: null });
 	const [password, setPassword] = useState({ field: '', error: null });

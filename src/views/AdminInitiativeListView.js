@@ -57,7 +57,7 @@ const InitiativesList = () => {
 			.then(response => response.json())
 			.then(data => setInitiatives(data))
 			.catch(err => setAuthTokens(null));
-	}, []);
+	}, [authHeaders, setInitiatives, setAuthTokens]);
 	// ------------------------------------------------------------------
 
 	return (

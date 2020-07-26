@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { /*Link,*/ useParams } from 'react-router-dom';
 
 import { useAuth } from '../context/auth';
-import { checkStatus } from '../helpers/checkStatus';
+//import { checkStatus } from '../helpers/checkStatus';
 
 import '../main.scss';
 import '../styles/admin-initiative-edit.scss';
@@ -23,22 +23,22 @@ const AdminInitiativeEditView = () => {
 			.then(response => response.json())
 			.then(data => setInitiative(data))
 			.catch(err => setAuthTokens(null));
-	}, []);
+	}, [setInitiative, setAuthTokens, authHeaders, id]);
 
 	// ------------------------------------------------------------------
 
 	if(initiative) {
 		let { 
 			name, 
-			category, 
-			description,
-			hood, 
-			province,
+			//category, 
+			//description,
+			//hood, 
+			//province,
 			address,
-			activities,
-			contact_phones,
+			//activities,
+			//contact_phones,
 			emergency,
-			geolocation
+			//geolocation
 		} = initiative;
 		return(
 			<div className='admin-initiative-container'> {/* Maybe use admin-container to be more general? */}

@@ -40,9 +40,11 @@ const PageHeader = () => {
 					<Link to='/about'	    onClick={hideDropdown} className='dropdown-link'><p>NOSOTROS</p></Link>
 					<Link to='/collaborate' onClick={hideDropdown} className='dropdown-link'><p>¿CÓMO COLABORAR?</p></Link>
 					<Link to='/contact'     onClick={hideDropdown} className='dropdown-link'><p>CONTACTO</p></Link>
-					<a className='dropdown-link' onClick={hideDropdown}>
+					<button className='dropdown-link' onClick={hideDropdown}>
 						<p><FaTimes /></p>
-					</a>
+					</button>
+					<button className='dropdown-dim'
+							onClick={() => { setDropdownVisible(false) }}></button>
 		  		</div>
 		  	) : (
 		  		null

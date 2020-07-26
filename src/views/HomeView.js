@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { FaBars, FaSearch, FaAngleLeft, FaAngleRight, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+
+/* Components */
 import AppSvg from '../components/AppSvg';
 import PageFooter from '../components/PageFooter';
+import LoadingAnimation from '../components/LoadingAnimation';
+
+/* Helpers */
+import { filterByName } from '../helpers/filterByName';
+
+/* Data hooks */
+import { useData } from '../context/data';
+
 
 import '../styles/home.scss';
-import photo from '../assets/placeholderphoto.jpg';
 
 const HomeView = () => {
-	const [scrollTop, setScrollTop] = useState(0);
+	//const [scrollTop, setScrollTop] = useState(0);
 	const [normalHeader, setNormalHeader] = useState(false);
 	const windowHeight = window.innerHeight;
 
@@ -25,7 +34,7 @@ const HomeView = () => {
 	    window.addEventListener("scroll", handleScroll, { passive: true });
 	    return () => window.removeEventListener("scroll", handleScroll);
 
-  	}, [normalHeader]);
+  	}, [normalHeader, windowHeight]);
 
 	return (
 		<div className='view-container' onScroll={() => {console.log('hola')}}>
@@ -71,9 +80,11 @@ const HomeHeader = ({ scrolled }) => {
 					<Link to='/about'	    className='dropdown-link'><p>NOSOTROS</p></Link>
 					<Link to='/collaborate' className='dropdown-link'><p>¿CÓMO COLABORAR?</p></Link>
 					<Link to='/contact'     className='dropdown-link'><p>CONTACTO</p></Link>
-					<a className='dropdown-link' onClick={() => { setDropdownVisible(false) }}>
+					<button className='dropdown-link' onClick={() => { setDropdownVisible(false) }}>
 						<p><FaTimes /></p>
-					</a>
+					</button>
+					<button className='dropdown-dim'
+							onClick={() => { setDropdownVisible(false) }}></button>
 		  		</div>
 		  	) : (
 		  		null
@@ -86,6 +97,8 @@ const HomeHeader = ({ scrolled }) => {
 
 const Landing = () => {
 	const [search, setSearch] = useState('');
+	const { data, isDataFetching } = useData();
+	const [filteredData, setFilteredData] = useState([]);
 
 	const handleEnterPress = (event) => {
 		if (event.keyCode === 13) {
@@ -101,15 +114,21 @@ const Landing = () => {
 		document.addEventListener('keypress', handleEnterPress, false);
 	}, []);
 
+	// Fetch initiative data
+	useEffect(() => {
+		setFilteredData(filterByName(data, search));
+	}, [setFilteredData, data, search]);
+
 	return (
 		<div className='full-screen landing-jumbo'>
 			<div className='landing-background'>
-				<div className='landing-inner'>
+				<div className={`landing-inner${(search.length === 0)?' search-empty':''}`}>
 					<h1>SolidaridadUY</h1>
 					<h3>Iniciativas solidarias en Uruguay</h3>
 					<div className='searchbar-wrapper'>
 						<input placeholder='Nombre, Barrio, Ciudad...'
 							   value={search}
+							   autoComplete='new-password'
 							   onChange={(e) => setSearch(e.target.value)} />
 						{(search.length !== 0 ) ? (
 							<Link to={`/search-results?search=${search}`}>
@@ -120,6 +139,24 @@ const Landing = () => {
 								<button><FaSearch /></button>
 							</Link>
 						)}
+					</div>
+
+					<div className='search-suggestions-wrapper'>
+						<div className='search-suggestions'>
+							{(isDataFetching) ? (
+								<LoadingAnimation />
+							):(
+								<React.Fragment>
+									{filteredData.slice(0,3).map(init => (
+										<Link to={`/initiative/${init._id}`}
+											  className='option'
+											  key={init._id}>
+												{init.name}
+										</Link>
+									))}
+								</React.Fragment>
+							)}
+						</div>	
 					</div>
 				</div>
 			</div>

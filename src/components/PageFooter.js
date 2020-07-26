@@ -14,7 +14,7 @@ const PageFooter = () => {
 			</div>
 			<div className='info'>
 				<p>Facultad de Ingeniería, 2020</p>
-				<Link to='/admin-login'>Admin login</Link>
+				{/*<Link to='/admin-login'>Admin login</Link>*/}
 			</div> 
 		</footer>
 	);

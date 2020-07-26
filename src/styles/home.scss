@@ -140,8 +140,51 @@ div.landing-jumbo {
 						background-color: $white;
 					}
 				}
+			}
 
-				
+			div.search-suggestions-wrapper {
+				position: relative;
+				margin-top: 5px;
+				height: 170px;
+				div.search-suggestions {
+					position: relative;
+					top: 0;
+					left: 0;
+					background-color: $white;
+					border-radius: 8px;
+					padding: 10px 20px;
+					font-size: 18px;
+					opacity: 1;
+					transition: opacity 0.15s linear;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					a.option {
+						flex-grow: 1;
+						display: flex;
+						align-items: center;
+						justify-content: flex-start;
+						align-self: stretch;
+						height: 50px;
+						text-decoration: none;
+						color: $dark-grey;
+						transition: color 0.1s linear;
+						&:not(:last-child) {
+							border-bottom: 1px solid $light-grey;
+						}
+						&:hover {
+							color: $base-color-light;
+						}
+					}
+
+				}
+			}
+		}
+
+		div.landing-inner.search-empty {
+			div.search-suggestions-wrapper {
+				opacity: 0;
+				pointer-events: none;
 			}
 		}
 	}
@@ -503,7 +546,6 @@ div.contact-jumbo {
 	div.menu-dropdown {
 		display: flex;
 		position: fixed;
-		background-color: $base-color;
 		flex-direction: column;
 		z-index: 1000;
 		top: 0;
@@ -511,7 +553,7 @@ div.contact-jumbo {
 		width: 100%;
 
 		a {
-			padding: 30px;
+			background-color: $base-color;
 		}
 	}
 

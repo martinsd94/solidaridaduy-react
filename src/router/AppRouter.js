@@ -3,7 +3,6 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { useAuth } from '../context/auth';
 
 /* Routes */
 import PublicRoute  from './PublicRoute';
@@ -22,13 +21,7 @@ import AdminControlPanelView   from '../views/AdminControlPanelView';
 import AdminInitiativeEditView from '../views/AdminInitiativeEditView';
 import AdminInitiativeListView from '../views/AdminInitiativeListView';
 
-/* Other components */
-import PageHeader from '../components/PageHeader';
-import PageFooter from '../components/PageFooter';
-
 const AppRoutes = ({ history }) => {
-
-	const { authTokens, setAuthTokens, authHeaders } = useAuth();
 
 	return (
 		<React.Fragment>

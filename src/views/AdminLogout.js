@@ -11,7 +11,7 @@ const AdminLogout = () => {
 	useEffect(() => {
 		setCurrentAdmin(null);
 		setAuthTokens(null);
-	}, []);
+	}, [setAuthTokens, setCurrentAdmin]);
 
 	// -----------------------------------------------------------------
 
