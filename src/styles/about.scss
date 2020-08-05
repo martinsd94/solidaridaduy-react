@@ -1,0 +1,23 @@
+@import "./colors.scss";
+
+ul.logos {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 900px;
+  margin: 30px auto;
+  li {
+    margin: 10px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: $light-grey;
+    img {
+      width: 150px;
+      height: 130px;
+      object-fit: contain;
+    }
+  }
+}

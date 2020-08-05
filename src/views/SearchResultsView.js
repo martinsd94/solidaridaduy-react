@@ -25,11 +25,15 @@ import { useData } from '../context/data';
 
 const SearchResultsView = () => {
 	const query = new URLSearchParams(useLocation().search);
-	const [search, setSearch] = useState(query.get('search'));
+	const [search,   setSearch]   = useState(query.get('search'));
+	const [province, setProvince] = useState(undefined);
+	const [hood, 	 setHood]     = useState(undefined);
 
 	return (
 		<React.Fragment>
 			<SearchBar value={search}
+					   hood={hood}
+					   province={province}
 					   _setValue={(value) => setSearch(value)} />
 			<SearchResults search={search} />
 		</React.Fragment>
@@ -38,14 +42,45 @@ const SearchResultsView = () => {
 
 /* Local components */
 
-const SearchBar = ({ value, _setValue }) => {
+const SearchBar = ({ hood, province, value, _setValue }) => {
+
+	const [options, setOptions] = useState(false);
+
 	return (
-		<input className='searchbar'
-			   value={value}
-			   placeholder='Buscar por nombre...'
-			   onChange={(e) => _setValue(e.target.value)}/>	
+		<div className='searchbar'>
+			<input value={value}
+				   placeholder='Buscar por nombre...'
+				   onChange={(e) => _setValue(e.target.value)}/>
+			{(options) ? (
+				<React.Fragment>
+					<div className='advanced-options'>
+						<div className='select-wrapper'>
+							<label>Departamento</label>
+							<select value={province}>
+								<option>Ciudad...</option>
+								<option></option>
+								<option></option>
+							</select>
+						</div>
+						<div className='select-wrapper'>
+							<label>Barrio</label>
+							<select value={hood}>
+								<option>Ciudad...</option>
+								<option></option>
+								<option></option>
+							</select>
+						</div>
+					</div>
+					<button onClick={() => setOptions(false)}>Menos opciones</button>
+				</React.Fragment>
+			):( 
+				<button onClick={() => setOptions(true)}>Opciones avanzadas</button>
+			)}
+		</div>
 	)
 }
+
+//
 
 const SearchResults = ({ search }) => {
 	const [initiatives, setInitiatives] = useState(null);
@@ -65,19 +100,6 @@ const SearchResults = ({ search }) => {
 	}, [setFilteredData, data, search]);
 
 	const renderInitiatives = () => {
-		// If loaded, render initiatives
-
-		/* Old but will come in handy later */
-		/*if (!!initiatives) {
-			return (
-				<div className='initiatives-container'>
-					{initiatives.map((init, index) => (
-						<Initiative initiative={init} index={index} key={index} />
-					))}
-				</div>
-			)
-		} */
-
 		if (!isDataFetching) {
 			return (
 				<div className='results-container'>

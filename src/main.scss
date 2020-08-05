@@ -1,29 +1,35 @@
-@import './styles/colors.scss';
+@import "./styles/colors.scss";
 
 /* General */
 /* ------------------------------------- */
 
 body {
-  font-family: 'Varela', sans-serif;
+  font-family: "Varela", sans-serif;
   position: relative;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-	margin-top: 0;
-	margin-bottom: 15px;
-	font-family: 'Varela', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-family: "Varela", sans-serif;
 }
 
 h1 {
-	font-size: 50px;
+  font-size: 50px;
 }
 
 h2 {
-	font-size: 40px;
+  font-size: 40px;
 }
 
 h3 {
-	font-size: 30px;
+  font-size: 30px;
 }
 
 h4 {
@@ -31,15 +37,18 @@ h4 {
 }
 
 p {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-input, select, button, textarea {
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+input,
+select,
+button,
+textarea {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
   border: none;
   border-radius: 8px;
   padding: 15px;
-  font-family: 'Varela', sans-serif;
+  font-family: "Varela", sans-serif;
   outline: none;
 }
 
@@ -47,7 +56,8 @@ textarea {
   resize: none;
 }
 
-select, button {
+select,
+button {
   cursor: pointer;
 }
 
@@ -62,48 +72,90 @@ button:hover {
 /* Button as link */
 
 button.button-link {
-	background-color: transparent;
-	border: none;
-	box-shadow: none;
-	color: #000;
-	font-family: 'Varela', sans-serif;
-	padding: 0;
-	outline: none;
-	text-decoration: underline;
-	transition: all 0.1s linear;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: #000;
+  font-family: "Varela", sans-serif;
+  padding: 0;
+  outline: none;
+  text-decoration: underline;
+  transition: all 0.1s linear;
 }
 
 button.button-link:hover {
-	color: $base-color;
-	cursor: pointer;
+  color: $base-color;
+  cursor: pointer;
 }
 
 button.button-link:active {
-	transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 div.view-container {
-	min-height: calc(100vh-80px);
-	position: relative;
+  min-height: calc(100vh-80px);
+  position: relative;
 }
 
-
 div.loader {
-	align-self: center;
-	border: 8px solid $light-grey; 
-	border-top: 8px solid $base-color;
-	border-radius: 50%;
-	box-shadow: 0px 0px 2px rgba(0,0,0,0.2),
-				inset 0px 0px 2px rgba(0,0,0,0.2); 
-	width: 40px;
-	height: 40px;
-	margin: 20px;
-	animation: spin 0.9s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  align-self: center;
+  border: 5px solid $light-grey;
+  border-top: 5px solid $app-red;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  margin: 20px;
+  animation: spin 0.9s cubic-bezier(0.25, 1, 0.5, 1) infinite;
 }
 
 @keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modals */
+/* ------------------------------------- */
+
+div.modal-view {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  div.modal-wrapper {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px $shadow-color;
+    padding: 40px;
+    position: relative;
+    min-width: 400px;
+
+    button.close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 20px;
+      background-color: transparent;
+      box-shadow: none;
+      &:hover {
+        color: $app-red;
+      }
+    }
+
+    h2 {
+      font-size: 25px;
+    }
+  }
 }
 
 /* Main header */
@@ -112,211 +164,208 @@ div.loader {
 /* For desktop */
 
 header.main-header {
-	align-items: center; 
-	background-color: $base-color;
-	box-shadow: 0px 2px 4px $shadow-color;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	height: 80px;
-	padding: 0 15px;
-	top: 0;
-	left: 0;
-	right: 0; 
-	z-index: 200; 
+  align-items: center;
+  background-color: $base-color;
+  box-shadow: 0px 2px 4px $shadow-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 15px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
 
-	a {
-		color: $white;
-		transition: all 0.15s linear;
-		font-weight: bold;
-		text-decoration: none;
-		&:hover {
-			transform: translateY(-3px);
-		}
-	}
+  a {
+    color: $white;
+    transition: all 0.15s linear;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
 
-	a.home-link {
-		font-size: 36px;
-		margin-left: 10px;
-	}
+  a.home-link {
+    font-size: 36px;
+    margin-left: 10px;
+  }
 
-	nav {
-		div.menu-widescreen {
-			display: flex;
-			flex-direction: row;
-			a.header-link {
-				padding: 0px 5px;
-				display: flex;
-				align-items: center;
-				margin-left: 10px;
+  nav {
+    div.menu-widescreen {
+      display: flex;
+      flex-direction: row;
+      a.header-link {
+        padding: 0px 5px;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
 
-				p {
-					margin-left: 5px;
-				}
-			}			
-		}
-	}
+        p {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
 
-	button.menu-button {
-		background-color: transparent;
-		box-shadow: none;
-		color: $white;
-		outline: none;
-		cursor: pointer;
-		display: none;
-		font-size: 30px;
-	}
+  button.menu-button {
+    background-color: transparent;
+    box-shadow: none;
+    color: $white;
+    outline: none;
+    cursor: pointer;
+    display: none;
+    font-size: 30px;
+  }
 }
 
 div.menu-dropdown {
-	display: none;
-	height: 100vh;
-	animation: dropdown-appear 0.2s ease-out both;
+  display: none;
+  height: 100vh;
+  animation: dropdown-appear 0.2s ease-out both;
 
-	a.dropdown-link,
-	button.dropdown-link {
-		padding: 30px;
-		display: flex;
-		align-items: center;
-		padding-left: 30px;
-		padding-right: 30px;
-		background-color: $base-color;
-		box-shadow: none;
-		border-radius: 0px;
-		color: $white;
-		text-decoration: none;
-		cursor: pointer;
+  a.dropdown-link,
+  button.dropdown-link {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: $base-color;
+    box-shadow: none;
+    border-radius: 0px;
+    color: $white;
+    text-decoration: none;
+    cursor: pointer;
 
-		p {
-			transition: all 0.15s linear; 
-		}
-		
-		&:hover {
-			transform: none;
-			p {
-				margin-left: 10px;
-			}
-		}
-	}
+    p {
+      transition: all 0.15s linear;
+    }
 
-	button.dropdown-dim {
-		flex-grow: 1;
-		border-radius: 0;
-		box-shadow: none;
-		background-color: rgba(0,0,0,0.1);
-		//backdrop-filter: blur(2px);
-		&:hover {
-			transform: none;
-		}
-	}		
+    &:hover {
+      transform: none;
+      p {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  button.dropdown-dim {
+    flex-grow: 1;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.1);
+    //backdrop-filter: blur(2px);
+    &:hover {
+      transform: none;
+    }
+  }
 }
 
 /* Main footer */
 /* ------------------------------------- */
 
 footer.main-footer {
-	background-color: $base-color-darker;
-	height: 150px;
-	justify-content: space-between;
-	display: flex;
-	flex-direction: row;
-	position: absolute;
-	bottom: -70px;
-	width: 100%;
+  background-color: $base-color-darker;
+  height: 150px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: -70px;
+  width: 100%;
 
-	div.social-links {
-		margin: 30px;
-		a {
-			font-size: 30px;
-			color: $base-color-unsat-light;
-			transition: all 0.15s linear;
-			margin-right: 15px;
-			
-			&:hover {
-				color: $base-color-unsat-lighter;
-			}
-		}
-	}
+  div.social-links {
+    margin: 30px;
+    a {
+      font-size: 30px;
+      color: $base-color-unsat-light;
+      transition: all 0.15s linear;
+      margin-right: 15px;
 
-	div.info {
-		text-align: right;
-		font-size: 18px;
-		margin: 30px;
+      &:hover {
+        color: $base-color-unsat-lighter;
+      }
+    }
+  }
 
-		p {
-			color:  $base-color-unsat-light;
-			margin: 0;
-			margin-bottom: 10px;
-		}
+  div.info {
+    text-align: right;
+    font-size: 18px;
+    margin: 30px;
 
-		a {
-			color:  $base-color-unsat-light;
-			transition: all 0.15s linear;
-			&:hover {
-				color:  $base-color-unsat-lighter;
-			}
-		}
-	}
+    p {
+      color: $base-color-unsat-light;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: $base-color-unsat-light;
+      transition: all 0.15s linear;
+      &:hover {
+        color: $base-color-unsat-lighter;
+      }
+    }
+  }
 }
-
 
 /* Admin-header */
 /* ------------------------------------- */
 header.admin-header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	color: #FFF;
-	height: 80px;
-	margin-top: -80px;
-	margin-bottom: -80px;
-	padding: 0px 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #fff;
+  height: 80px;
+  margin-top: -80px;
+  margin-bottom: -80px;
+  padding: 0px 30px;
 
-	h3 {
-		flex-grow: 1;
-		font-size: 20px;
-	}
+  h3 {
+    flex-grow: 1;
+    font-size: 20px;
+  }
 
-	a {
-		font-size: 20px;
-		color: #FFF;
-		text-decoration: none;
-		transition: all 0.15s linear;
-	}
+  a {
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.15s linear;
+  }
 
-	a:hover {
-		color: $dark-grey;
-	}
+  a:hover {
+    color: $dark-grey;
+  }
 }
-
 
 /* Info page */
 /* ------------------------------------- */
 
 div.info-page {
-	padding: 20px 70px 70px 70px;
-	margin-bottom: 90px;
+  padding: 20px 70px 70px 70px;
+  margin-bottom: 90px;
 
-	h3 {
-		color: $base-color;
-		margin-bottom: 40px;
-		margin-top: 50px;
-	}
+  h3 {
+    color: $base-color;
+    margin-bottom: 40px;
+    margin-top: 50px;
+  }
 
-	p {
-		margin-bottom: 15px;
-		margin-left: 20px;
-		margin-right: 20px;
-		text-align: justify;
-		line-height: 25px;
-	}
+  p {
+    margin-bottom: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: justify;
+    line-height: 25px;
+  }
 
-	ul > li {
-		padding-top: 5px;
-		padding-bottom: 5px;
-	}
+  ul > li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }
-
 
 // Needed for leaflet maps
 .leaflet-container {
@@ -324,42 +373,39 @@ div.info-page {
   height: 100%;
 }
 
-
 /* For smaller resolutions */
 
 @media (max-width: 1100px) {
-	header.main-header > nav > div.menu-widescreen {
-		display: none;
-	}
+  header.main-header > nav > div.menu-widescreen {
+    display: none;
+  }
 
-	header.main-header button.menu-button {
-		display: inline;
-	}
+  header.main-header button.menu-button {
+    display: inline;
+  }
 
-	div.info-page {
-		padding: 0px 40px 40px 40px;
+  div.info-page {
+    padding: 0px 40px 40px 40px;
 
-		p {
-			margin-left: 0px;
-			margin-right: 0px;
-		}
-	}
+    p {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
 }
-
 
 //
 //
 
 @keyframes dropdown-appear {
-	from {
-		transform: translateY(-100%);
-	}
+  from {
+    transform: translateY(-100%);
+  }
 
-	to {
-		transform: translateY(0);
-	}
+  to {
+    transform: translateY(0);
+  }
 }
-
 
 /*.App {
 	text-align: center;
