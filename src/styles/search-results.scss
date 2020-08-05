@@ -1,212 +1,194 @@
-@import './colors.scss';
-
+@import "./colors.scss";
 
 div.view-container {
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	min-height: 100vh;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
+  width: 100%;
 }
 
-
 div.searchbar {
-	max-width: 500px;
-	width: 100%;
-	margin-top: 50px;
-	margin-bottom: 40px;
-	margin-right: 40px;
-	margin-left: 40px;
-	align-self: center;
-	display: flex;
-	flex-direction: column;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  margin-right: 40px;
+  margin-left: 40px;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
 
-	input {
-		font-size: 18px;
-	}
+  input {
+    font-size: 18px;
+  }
 
-	button {
-		box-shadow: none;
-		background-color: transparent;
-		color: $dark-grey;
-		text-align: left;
-		font-size: 18px;
-		padding-left: 0px;
-		text-decoration: underline;
-		&:hover {
-			transform: none;
-			color: $base-color;
-		}
-	}
+  button {
+    box-shadow: none;
+    background-color: transparent;
+    color: $dark-grey;
+    text-align: left;
+    font-size: 18px;
+    padding-left: 0px;
+    text-decoration: underline;
+    &:hover {
+      transform: none;
+      color: $base-color;
+    }
+  }
 
-	div.advanced-options {
-		display: flex;
-		flex-direction: row;
-		align-self: stretch;
-		margin-top: 16px;
+  div.advanced-options {
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    margin-top: 16px;
 
-		div.select-wrapper {
-			display: flex;
-			flex-direction: column;
-			flex-grow: 1;
-			font-size: 18px;
+    div.select-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      font-size: 18px;
 
-			label {
-				margin-bottom: 8px;
-			}
+      label {
+        margin-bottom: 8px;
+      }
 
-			select {
-				font-size: 18px;
-			}
+      select {
+        font-size: 18px;
+      }
 
-			&:not(:last-child) {
-				margin-right: 20px;
-			}
-		}
-	}
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
 }
 
 /* ------------------ */
 
 div.results-container {
-	align-self: center;
-	max-width: 800px;
-	width: 100%;
-	margin-bottom: 150px;
-
-	div.results-inner {
-		margin-left: 50px;
-		margin-right: 50px;
-	}
+  align-self: center;
+  width: 600px;
+  max-width: 90%;
+  margin-bottom: 150px;
 }
 
 div.initiatives-container {
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	align-self: center;
-	animation: appear 0.5s ease both;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: center;
+  animation: appear 0.5s ease both;
 
-	a.initiative-card {
-		width: 100%;
-		background-color: $white;
-		border-radius: 8px;
-		margin-bottom: 10px;
-		border-left: 8px solid $base-color;
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
-		cursor: pointer;
-		position: relative;
-		transition: all 0.15s linear;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		text-decoration: none;
+  a.initiative-card {
+    width: 100%;
+    background-color: $white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 8px solid $base-color;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s linear;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
 
-		&:hover {
-			background-color: $base-color-unsat-lighter;
-			//border-color: $dark-grey;
-			transform: translateY(-3px);
+    &:hover {
+      background-color: $base-color-unsat-lighter;
+      //border-color: $dark-grey;
+      transform: translateY(-3px);
 
-			p.icon {
-				color: $base-color;
-			}
+      p.icon {
+        color: $base-color;
+      }
 
-			p.icon.emergency {
-				color: $app-red !important;
-			}
+      p.icon.emergency {
+        color: $app-red !important;
+      }
 
-			p.emergency-notice {
-				background-color: $app-red;
-			}
-		}
+      span.emergency-text {
+        opacity: 1;
+        left: -60px;
+      }
+    }
 
-		h4.location {
-			font-size: 20px;
-			color: $grey;
-			margin-top: 20px;
-			margin-bottom: 20px;
-		}
+    span.emergency-text {
+      font-size: 12px;
+      color: $app-red;
+      transform: rotate(-90deg);
+      position: absolute;
+      left: -55px;
+      opacity: 0;
+      transition: all 0.15s linear;
+    }
 
-		p.name {
-			margin: 20px;
-			color: $dark-grey;
-			flex-grow: 1;
-			text-align: right;
-			font-size: 18px;
-		}
+    h4.location {
+      font-size: 20px;
+      color: $grey;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
 
+    p.name {
+      margin: 20px;
+      color: $dark-grey;
+      flex-grow: 1;
+      text-align: right;
+      font-size: 18px;
+    }
 
-		p.icon {
-			color: $grey;
-			margin: 20px;
-			font-size: 20px;
-			transition: color 0.15s linear;
-		}
+    p.icon {
+      color: $grey;
+      margin: 20px;
+      font-size: 20px;
+      transition: color 0.15s linear;
+    }
 
-		a {
-			flex-grow: 1;
-			transition: all 0.15s linear;
-			button {
-				width: 100%;
-				background-color: $base-color;
-				color: $white;
-				margin-top: 20px;
-			}
-		}
+    a {
+      flex-grow: 1;
+      transition: all 0.15s linear;
+      button {
+        width: 100%;
+        background-color: $base-color;
+        color: $white;
+        margin-top: 20px;
+      }
+    }
+  }
 
-		p.emergency-notice {
-			width: 25px;
-			height: 25px;
-			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 12px;
-			background-color: $grey;
-			color: $white;
-			//border-radius: 8px;
-			//padding: 12px 12px 8px 12px;
-			margin: 0;
-			margin-right: 20px;
-			transition: opacity 0.15s linear;
-		}
-	}
+  a.emergency {
+    border-left: 8px solid $app-red !important;
 
-	a.emergency {
-		border-left: 8px solid $app-red !important;
+    h4:after {
+      background-color: $app-red !important;
+    }
 
-		h4:after {
-			background-color: $app-red !important;
-		}
-
-		a > button {
-			background-color: $app-red !important;
-		}
-	}
+    a > button {
+      background-color: $app-red !important;
+    }
+  }
 }
-
 
 /* Responsiveness */
 
 @media (max-width: 900px) {
-
 }
 
 @media (max-width: 1200px) {
-
 }
-
 
 /* Animations */
 
 @keyframes appear {
-	from {
-		opacity: 0;
-		transform: translateY(-10px);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 
-	to {
-		opacity: 1;
-		transform: translateY(0px);
-	}
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
