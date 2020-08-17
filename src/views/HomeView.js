@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   FaBars,
   FaSearch,
@@ -7,6 +7,10 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import donateJumbo from "../assets/svgs/donate_jumbo_home.svg";
+import participateSvg from "../assets/svgs/participate_home.svg";
+import donateSvg from "../assets/svgs/donate_home.svg";
+import promoteSvg from "../assets/svgs/promote_home.svg";
 
 /* Components */
 import AppSvg from "../components/AppSvg";
@@ -53,8 +57,8 @@ const HomeView = () => {
       <Emergency />
       <About />
       <Collaborate />
-      <Photos />
-      <Statistics />
+      {/*<Photos />*/}
+      {/*<Statistics />*/}
       <Contact />
       <PageFooter />
     </div>
@@ -75,7 +79,7 @@ const HomeHeader = ({ scrolled }) => {
         <nav>
           <div className="menu-widescreen">
             <Link to="/about" className="header-link">
-              <p>NOSOTROS</p>
+              <p>¿QUIÉNES SOMOS?</p>
             </Link>
             <Link to="/collaborate" className="header-link">
               <p>¿CÓMO COLABORAR?</p>
@@ -100,7 +104,7 @@ const HomeHeader = ({ scrolled }) => {
       {dropdownVisible ? (
         <div className="menu-dropdown">
           <Link to="/about" className="dropdown-link">
-            <p>NOSOTROS</p>
+            <p>¿QUIÉNES SOMOS?</p>
           </Link>
           <Link to="/collaborate" className="dropdown-link">
             <p>¿CÓMO COLABORAR?</p>
@@ -232,7 +236,7 @@ const Search = () => {
         <select>
           <option>Barrio</option>
         </select>
-        <button>Buscar</button>
+        <button className="button-green">Buscar</button>
       </div>
     </div>
   );
@@ -242,7 +246,6 @@ const Search = () => {
 
 const Emergency = () => {
   const { data, isDataFetching } = useData();
-  const [currentSlide, setCurrentSlide] = useState(1);
 
   let content;
   if (isDataFetching) {
@@ -250,59 +253,28 @@ const Emergency = () => {
   } else {
     content = data
       .filter((elem) => elem.emergency)
-      .slice(0, 4)
+      .slice(0, 3)
       .map((elem, index) => (
-        <div
-          className="initiative-slide-wrapper"
-          key={index}
-          style={{ left: `${100 * index}%` }}
-        >
-          <div className="initiative-slide">
-            <div className="initiative-slide-inner">
-              <h3>{elem.name}</h3>
-              <h4>{`${elem.hood}, ${elem.province}`}</h4>
-              <Link to={`/initiative/${elem._id}`}>
-                <button>Ver más</button>
-              </Link>
-            </div>
-          </div>
+        <div className="initiative-display" key={index}>
+          <h3>{elem.name}</h3>
+          <h4>{`${elem.hood}, ${elem.province}`}</h4>
+          <Link to={`/initiative/${elem._id}`}>
+            <button>Ver más</button>
+          </Link>
         </div>
       ));
   }
 
-  const changeSlide = (direction) => {
-    if (direction === "next") {
-      if (currentSlide < content.length - 1) {
-        setCurrentSlide(currentSlide + 1);
-      }
-    } else if (direction === "prev") {
-      if (currentSlide > 0) {
-        setCurrentSlide(currentSlide - 1);
-      }
-    }
-  };
-
   return (
-    <div className="emergency-jumbo">
-      <h4>Iniciativas en</h4>
-      <h2>Emergencia</h2>
-      <div className="initiative-carousel">
-        <button className="arrow" onClick={() => changeSlide("prev")}>
-          <FaAngleLeft />
-        </button>
-        <div className="carousel-track-container">
-          <div
-            className="carousel-track"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {content}
-          </div>
-        </div>
-        <button className="arrow" onClick={() => changeSlide("next")}>
-          <FaAngleRight />
-        </button>
+    <Fragment>
+      <div className="red-stripes"></div>
+      <div className="emergency-jumbo">
+        <h3>Iniciativas en situación de</h3>
+        <h2>Urgencia</h2>
+        <div className="emergency-initiatives">{content}</div>
       </div>
-    </div>
+      <div className="red-stripes"></div>
+    </Fragment>
   );
 };
 
@@ -311,16 +283,18 @@ const Emergency = () => {
 const About = () => {
   return (
     <div className="about-jumbo">
-      <div className="content-left">
-        <AppSvg icon="JIGSAW" />
-      </div>
-      <div className="content-right">
+      <img src={donateJumbo} alt="About" />
+      <div className="text">
         <h2>Quiénes somos</h2>
         <h4>
-          We cannot ignore the fact that the possibility of achieving the edge
-          of the ability bias, as far as the
+          <span className="highlight">Solidaridad.uy</span> surge con el
+          objetivo de centralizar la información de diferentes iniciativas
+          solidarias en Uruguay, para ponerlas a disposición del público
+          general.
         </h4>
-        <h4 style={{ textDecoration: "underline" }}>Ver más...</h4>
+        <Link to="/about" style={{ textDecoration: "underline" }}>
+          <button className="button-green">Ver más...</button>
+        </Link>
       </div>
     </div>
   );
@@ -334,22 +308,27 @@ const Collaborate = () => {
   return (
     <React.Fragment>
       <div className="collaborate-jumbo">
-        <h3>Colaborá hoy</h3>
+        <h2>Colaborá hoy</h2>
         <div className="collaboration-options">
           <div className="option">
-            <AppSvg icon="JOIN" />
+            <img src={participateSvg} alt="Join" />
             <h4>Participá como voluntario en nuestro proyecto</h4>
-            <button>Participar</button>
+            <button className="button-green">Participar</button>
           </div>
           <div className="option">
-            <AppSvg icon="DONATION_BOX" />
+            <img src={donateSvg} alt="Donate" />
             <h4>Colaborá hoy a través de una donación</h4>
-            <button onClick={() => setDonationModalVisible(true)}>Donar</button>
+            <button
+              className="button-orange"
+              onClick={() => setDonationModalVisible(true)}
+            >
+              Donar
+            </button>
           </div>
           <div className="option">
-            <AppSvg icon="SHARE_SOCIAL" />
+            <img src={promoteSvg} alt="Promote" />
             <h4>Difundí nuestro proyecto en las redes</h4>
-            <button>Compartir</button>
+            <button className="button-red">Compartir</button>
           </div>
         </div>
       </div>
@@ -414,7 +393,7 @@ const Contact = () => {
       <div className="content-left">
         <h2>Contacto</h2>
         <h4>
-          Tus comentarios, ideas y sugerencias nos importan. Cuéntanos tus
+          Tus comentarios, ideas, y sugerencias nos importan. Cuéntanos tus
           inquietudes para poder seguir mejorando esta plataforma.
         </h4>
       </div>

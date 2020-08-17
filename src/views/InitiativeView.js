@@ -8,17 +8,16 @@ import {
   FaHandHoldingHeart,
 } from "react-icons/fa";
 import { Map, Marker, TileLayer } from "react-leaflet";
-//import { Icon } from "leaflet";
 
-/* Contex */
+/* Context */
 import { useData } from "../context/data";
-
-/* Helpers */
-import { getCategoryDisplay } from "../helpers/getCategoryDisplay";
 
 /* Styles */
 import "../main.scss";
 import "../styles/initiative.scss";
+
+/* Svgs */
+import CategorySvg from "../components/CategorySvg";
 
 const InitiativeView = (props) => {
   const { id } = useParams();
@@ -40,37 +39,57 @@ const InitiativeView = (props) => {
     let {
       name,
       category,
-      description,
       hood,
       province,
       address,
       activities,
       contact_phones,
       emergency,
+      specific_needs,
+      donations,
+      additional_notes,
       geolocation,
     } = initiative;
 
     return (
-      <div className="main-wrapper">
-        <div
-          className={`initiative-jumbotron-wrapper${
-            emergency ? " emergency" : ""
-          }`}
-        >
-          <Details
-            name={name}
-            category={category}
-            hood={hood}
-            province={province}
-            contact_phones={contact_phones}
-            address={address}
-            description={description}
-            emergency={emergency}
-          />
+      <div className={`main-wrapper${emergency ? " emergency" : ""}`}>
+        <div className="name">
+          <h3>{name}</h3>
+        </div>
+
+        <div className="details">
+          <h4>Detalles</h4>
+          <p>
+            <FaMapMarkedAlt />
+            {address}
+          </p>
+          <p>
+            <FaHome />
+            {hood}, {province}
+          </p>
+          <p>
+            <FaPhone />
+            {contact_phones.map((phone, index) => (
+              <React.Fragment>
+                {index === 0 ? null : " - "}
+                {phone.number}
+                {!phone.person ? "" : ` (${phone.person})`}
+              </React.Fragment>
+            ))}
+          </p>
+          {emergency ? (
+            <p>Esta iniciativa esta en situacion de emergencia</p>
+          ) : null}
+          {specific_needs === "" ? null : (
+            <p>Necesidades específicas: {specific_needs}</p>
+          )}
+          {additional_notes === "" ? null : (
+            <p>Aclaraciones: {additional_notes}</p>
+          )}
+          <p>{category}</p>
         </div>
         <MapContainer geolocation={geolocation} />
         <Schedule activities={activities} />
-        <div className="aligner"></div>
       </div>
     );
   } else {
@@ -80,118 +99,31 @@ const InitiativeView = (props) => {
 
 /* Local components */
 
-const Details = ({
-  name,
-  category,
-  description,
-  hood,
-  province,
-  address,
-  contact_phones,
-  emergency,
-}) => {
-  const { categoryDisplay, icon } = getCategoryDisplay(category);
-
-  const scrollToSchedule = () => {
-    //const e = document.querySelector('.initiative-schedule');
-    const e = document.getElementById("schedule-title");
-    window.scrollTo({ top: e.offsetTop - 30, behavior: "smooth" });
-  };
-
-  const scrollToMap = () => {
-    const e = document.getElementById("map-title");
-    window.scrollTo({ top: e.offsetTop - 30, behavior: "smooth" });
-  };
+const MapContainer = ({ geolocation }) => {
+  let { latitude, longitude } = geolocation;
 
   return (
-    <div className="details">
-      <h1 className="name">{name}</h1>
-      <div className="info-wrapper">
-        <h2 className="icon">{icon}</h2>
-        <h2 className="info">{`${categoryDisplay} - ${hood}, ${province}`}</h2>
-      </div>
-
-      {/*<p className='description'>{description}</p>*/}
-      <div className="info-wrapper">
-        <p className="icon">
-          <FaHome />
-        </p>
-        <p className="info">{address}</p>
-      </div>
-      <div className="info-wrapper">
-        <p className="icon">
-          <FaPhone />
-        </p>
-        {contact_phones.map((phone, index) => (
-          <React.Fragment>
-            {index === 0 ? null : <p className="separator">-</p>}
-            <p className="info">{phone}</p>
-          </React.Fragment>
-        ))}
-      </div>
-      <div className="info-wrapper">
-        <p className="icon">
-          <FaMapMarkedAlt />
-        </p>
-        <button className="button-link" onClick={() => scrollToMap()}>
-          <p>Ver ubiación</p>
-        </button>
-      </div>
-      <div className="info-wrapper">
-        <p className="icon">
-          <FaClock />
-        </p>
-        <button className="button-link" onClick={() => scrollToSchedule()}>
-          <p>Ver horarios</p>
-        </button>
-      </div>
-      <div className="info-wrapper">
-        <p className="icon">
-          <FaHandHoldingHeart />
-        </p>
-        <p className="info">Esta iniciativa recibe donaciones de:</p>
-        {["Alimentos", "Ropa", "Artículos de Higiene Personal"].map(
-          (j, ind) => (
-            <p className="donation" key={ind}>
-              {j}
-            </p>
-          )
-        )}
-      </div>
+    <div className="map-wrapper">
+      <Map center={[latitude, longitude]} zoom={15} scrollWheelZoom={false}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <Marker key={0} position={[latitude, longitude]} onClick={() => {}} />
+      </Map>
     </div>
   );
 };
 
 //
 
-const MapContainer = ({ geolocation }) => {
-  let { latitude, longitude } = geolocation;
-
-  return (
-    <React.Fragment>
-      <h1 className="section-title" id="map-title">
-        Ubicación
-      </h1>
-      <div className="map-wrapper">
-        <Map center={[latitude, longitude]} zoom={15} scrollWheelZoom={false}>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          />
-          <Marker key={0} position={[latitude, longitude]} onClick={() => {}} />
-        </Map>
-      </div>
-    </React.Fragment>
-  );
-};
-
-//
-
-const START_HOUR = 6;
-const END_HOUR = 23;
-const TOTAL_TIME = END_HOUR - START_HOUR + 1;
-
 const HOURS = [
+  "00",
+  "01",
+  "02",
+  "03",
+  "04",
+  "05",
   "06",
   "07",
   "08",
@@ -211,90 +143,111 @@ const HOURS = [
   "22",
   "23",
 ];
+const DAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+const DAY_NAMES = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+];
 
 const Schedule = ({ activities }) => {
-  let { sun, mon, tue, wed, thu, fri, sat } = activities;
-
   return (
-    <React.Fragment>
-      <h1 className="section-title" id="schedule-title">
-        Horarios
-      </h1>
-      <div className="initiative-schedule">
-        <div className="schedule-header">
-          <h4>Hora</h4>
-          {HOURS.map((hour, j) => (
-            <div className="hour" key={j}>
-              {hour}
-            </div>
-          ))}
-        </div>
-
-        <DaySchedule day="Domingo" activities={sun} />
-        <DaySchedule day="Lunes" activities={mon} />
-        <DaySchedule day="Martes" activities={tue} />
-        <DaySchedule day="Miércoles" activities={wed} />
-        <DaySchedule day="Jueves" activities={thu} />
-        <DaySchedule day="Viernes" activities={fri} />
-        <DaySchedule day="Sábado" activities={sat} />
-      </div>
-    </React.Fragment>
+    <div className="schedule">
+      <h4>Horarios</h4>
+      <ScheduleTable activities={activities} />
+    </div>
   );
 };
 
-const DaySchedule = ({ day, activities }) => {
-  const toHourFormat = (hour_float) => {
-    let hour = Math.floor(hour_float);
-    let minutes = `${Math.floor((hour_float - hour) * 60)}`;
-    if (hour.length === 1) {
-      hour = `0${hour}`;
+const ScheduleTable = ({ activities }) => {
+  return (
+    <div className="schedule-table">
+      <div></div>
+      <p className="day">Domingo</p>
+      <p className="day">Lunes</p>
+      <p className="day">Martes</p>
+      <p className="day">Miércoles</p>
+      <p className="day">Jueves</p>
+      <p className="day">Viernes</p>
+      <p className="day">Sábado</p>
+
+      {HOURS.map((hour, index) => (
+        <div key={index} className={`row${index % 2 === 0 ? " row-even" : ""}`}>
+          <p>{hour}</p>
+          <div></div>
+        </div>
+      ))}
+
+      <ScheduleTimings activities={activities} />
+    </div>
+  );
+};
+
+//
+
+const ScheduleTimings = ({ activities }) => {
+  const topOffsetFromStart = (start) => {
+    // Row height is 25px. Offset is 30px.
+    return `${30 + start * 25}px`;
+  };
+
+  const leftOffsetFromDay = (day) => {
+    // Column width is 13%. Offset is 9%.
+    return `${9 + DAYS.indexOf(day) * 13}%`;
+  };
+
+  const heightFromDuration = (duration) => {
+    // One hour is 25px.
+    return `${25 * duration}px`;
+  };
+
+  const dayDisplayFromDayCode = (code) => {
+    return DAY_NAMES[DAYS.indexOf(code)];
+  };
+
+  const hourDisplayFromFloat = (f) => {
+    let hours = Math.floor(f);
+    let minutes = Math.floor(f - hours) * 60;
+    hours = hours.toString();
+    minutes = minutes.toString();
+    if (hours.length === 1) {
+      hours = "0" + hours;
     }
     if (minutes.length === 1) {
-      minutes = `0${minutes}`;
+      minutes = "0" + minutes;
     }
-
-    return `${hour}:${minutes}`;
+    return `${hours}:${minutes}`;
   };
 
   return (
-    <div className="day-schedule-wrapper">
-      <h4>{day}</h4>
-      <div className="day-schedule">
-        <div className="hours">
-          {HOURS.map((hour, j) => (
-            <div className="hour" key={j}></div>
-          ))}
-        </div>
-        <div className="activities">
-          {activities.map((activity, index) => {
-            const { start, duration, description } = activity;
-            const left = `calc(${
-              ((start - START_HOUR) / TOTAL_TIME) * 100
-            }% + 2px)`;
-            const width = `calc(${(duration / TOTAL_TIME) * 100}% - 4px)`;
-            return (
-              <div
-                className="activity"
-                key={index}
-                style={{ left: left, width: width }}
-              >
-                <div className="activity-body"></div>
-                <div className="activity-info">
-                  <div className="body">
-                    {/*<p>{description}</p>
-											<br />*/}
-                    <p>
-                      {toHourFormat(start)} - {toHourFormat(start + duration)}
-                    </p>
-                  </div>
-                  <div className="triangle"></div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    <React.Fragment>
+      {Object.entries(activities).map((dayActivities) => {
+        let day = dayActivities[0];
+        return dayActivities[1].map((activity, index) => (
+          <div
+            className="schedule-timing"
+            key={`${day}-${index}`}
+            style={{
+              top: topOffsetFromStart(activity.start),
+              left: leftOffsetFromDay(day),
+              height: heightFromDuration(activity.duration),
+            }}
+          >
+            <div className="schedule-timing-inner">
+              <p>{dayDisplayFromDayCode(day)}</p>
+              <p>
+                {hourDisplayFromFloat(activity.start)} -{" "}
+                {hourDisplayFromFloat(activity.start + activity.duration)}
+              </p>
+            </div>
+          </div>
+        ));
+      })}
+    </React.Fragment>
   );
 };
 

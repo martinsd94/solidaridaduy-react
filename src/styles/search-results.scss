@@ -9,15 +9,13 @@ div.view-container {
 }
 
 div.searchbar {
-  max-width: 500px;
+  max-width: 880px;
   width: 100%;
   margin-top: 50px;
   margin-bottom: 40px;
-  margin-right: 40px;
-  margin-left: 40px;
   align-self: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   input {
     font-size: 18px;
@@ -33,33 +31,25 @@ div.searchbar {
     text-decoration: underline;
     &:hover {
       transform: none;
-      color: $base-color;
+      color: $app-green;
     }
   }
-
-  div.advanced-options {
+  div.field-wrapper {
     display: flex;
-    flex-direction: row;
-    align-self: stretch;
-    margin-top: 16px;
+    flex-direction: column;
+    flex-grow: 1;
+    font-size: 18px;
 
-    div.select-wrapper {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
+    label {
+      margin-bottom: 8px;
+    }
+
+    select {
       font-size: 18px;
+    }
 
-      label {
-        margin-bottom: 8px;
-      }
-
-      select {
-        font-size: 18px;
-      }
-
-      &:not(:last-child) {
-        margin-right: 20px;
-      }
+    &:not(:last-child) {
+      margin-right: 20px;
     }
   }
 }
@@ -68,82 +58,75 @@ div.searchbar {
 
 div.results-container {
   align-self: center;
-  width: 600px;
+  width: 900px;
   max-width: 90%;
   margin-bottom: 150px;
-}
-
-div.initiatives-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  align-self: center;
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
   animation: appear 0.5s ease both;
 
   a.initiative-card {
-    width: 100%;
-    background-color: $white;
+    background-color: $light-grey;
     border-radius: 8px;
-    margin-bottom: 10px;
-    border-left: 8px solid $base-color;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     cursor: pointer;
-    position: relative;
+    margin: 10px;
     transition: all 0.15s linear;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     text-decoration: none;
+    overflow: hidden;
+    position: relative;
 
     &:hover {
-      background-color: $base-color-unsat-lighter;
-      //border-color: $dark-grey;
       transform: translateY(-3px);
-
-      p.icon {
-        color: $base-color;
+      h4.name {
+        color: $white;
+        background-color: $app-orange;
       }
 
-      p.icon.emergency {
-        color: $app-red !important;
+      p.location {
+        color: $app-orange-dim;
       }
 
-      span.emergency-text {
-        opacity: 1;
-        left: -60px;
+      div.hover-effect {
+        height: 100%;
+        background-color: $app-orange;
       }
     }
 
-    span.emergency-text {
-      font-size: 12px;
-      color: $app-red;
-      transform: rotate(-90deg);
+    div.hover-effect {
       position: absolute;
-      left: -55px;
-      opacity: 0;
-      transition: all 0.15s linear;
+      top: 0;
+      left: 0;
+      background-color: $app-orange-somber;
+      width: 100%;
+      height: 0%;
+      transition: all 0.25s ease;
+      z-index: 1;
     }
 
-    h4.location {
-      font-size: 20px;
+    h4.name {
+      padding: 20px;
+      margin-bottom: 0px;
+      color: $white;
+      flex-basis: 50%;
+      font-size: 18px;
+      background-color: $app-orange-somber;
+      transition: background-color 0.15s linear;
+      z-index: 3;
+    }
+
+    p.location {
+      bottom: 10px;
+      padding: 20px;
+      font-size: 18px;
       color: $grey;
       margin-top: 20px;
       margin-bottom: 20px;
-    }
-
-    p.name {
-      margin: 20px;
-      color: $dark-grey;
-      flex-grow: 1;
-      text-align: right;
-      font-size: 18px;
-    }
-
-    p.icon {
-      color: $grey;
-      margin: 20px;
-      font-size: 20px;
+      margin-bottom: 0px;
       transition: color 0.15s linear;
+      z-index: 2;
+      position: sticky;
     }
 
     a {
@@ -151,22 +134,41 @@ div.initiatives-container {
       transition: all 0.15s linear;
       button {
         width: 100%;
-        background-color: $base-color;
+        background-color: $app-green;
         color: $white;
         margin-top: 20px;
       }
     }
+
+    img {
+      position: absolute;
+      width: 55px;
+      right: 15px;
+      bottom: 15px;
+      z-index: 80;
+    }
   }
 
   a.emergency {
-    border-left: 8px solid $app-red !important;
-
-    h4:after {
-      background-color: $app-red !important;
+    h4.name {
+      background-color: $app-red-somber;
     }
 
-    a > button {
-      background-color: $app-red !important;
+    div.hover-effect {
+      background-color: $app-red-somber;
+    }
+
+    &:hover {
+      h4.name {
+        background-color: $app-red;
+      }
+      p.location {
+        color: $app-red-dim;
+      }
+
+      div.hover-effect {
+        background-color: $app-red;
+      }
     }
   }
 }

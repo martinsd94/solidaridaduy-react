@@ -114,6 +114,7 @@ div.landing-jumbo {
           border-top-right-radius: 0px;
           border-bottom-right-radius: 0px;
           box-shadow: none;
+          background-color: $white;
         }
 
         a {
@@ -123,7 +124,7 @@ div.landing-jumbo {
             border-top-left-radius: 0px;
             border-bottom-left-radius: 0px;
             box-shadow: none;
-            background-color: $app-orange;
+            background-color: $app-green-somber;
             color: $white;
             transition: all 0.15s linear;
 
@@ -137,7 +138,7 @@ div.landing-jumbo {
           pointer-events: none;
 
           button {
-            color: $grey;
+            color: $dark-grey;
             background-color: $white;
           }
         }
@@ -174,7 +175,7 @@ div.landing-jumbo {
               border-bottom: 1px solid $light-grey;
             }
             &:hover {
-              color: $app-orange;
+              color: $app-green;
             }
           }
         }
@@ -239,95 +240,65 @@ div.search-jumbo {
 
 //
 
+div.red-stripes {
+  align-self: stretch;
+  height: 40px;
+  background: repeating-linear-gradient(
+    -45deg,
+    $app-red-dim,
+    $app-red-dim 15px,
+    $white 15px,
+    $white 30px
+  );
+}
+
 div.emergency-jumbo {
-  background-color: $light-grey;
-  padding: 150px 100px;
+  background-color: $white;
+  padding: 80px 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   h2,
-  h4 {
+  h3 {
     text-align: left;
   }
   h2 {
     color: $app-red;
   }
 
-  div.initiative-carousel {
+  div.emergency-initiatives {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    width: 100%;
     margin-top: 40px;
 
-    button.arrow {
-      padding-left: 40px;
-      padding-right: 40px;
-      box-shadow: none;
+    div.initiative-display {
       background-color: $light-grey;
-      font-size: 25px;
-    }
+      border: 1px solid $light-grey;
+      padding: 30px;
+      margin: 10px;
+      border-radius: 8px;
+      flex-basis: 33%;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+      cursor: pointer;
 
-    div.carousel-track-container {
-      position: relative;
-      width: 700px;
-      max-width: 80%;
-      height: 300px;
-      overflow: hidden;
+      &:hover {
+        background-color: $white;
+        border-color: $app-red;
+        box-shadow: 0px 0px 3px 1px $app-red-light;
+      }
 
-      div.carousel-track {
-        width: 100%;
-        height: 100%;
-        transition: all 0.25s ease;
-
-        div.initiative-slide-wrapper {
-          position: absolute;
-          top: 0;
+      h4 {
+        flex-grow: 1;
+      }
+      a {
+        align-self: stretch;
+        button {
           width: 100%;
-          height: 100%;
-
-          div.initiative-slide {
-            background-color: $white;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            height: 98.5%;
-            margin-left: 80px;
-            margin-right: 80px;
-            display: flex;
-
-            div.initiative-slide-inner {
-              padding: 30px;
-              align-self: stretch;
-              flex-grow: 1;
-              display: flex;
-              flex-direction: column;
-
-              h3 {
-                &:after {
-                  content: "";
-                  background-color: $app-red;
-                  height: 2px;
-                  width: 100%;
-                  display: block;
-                  margin-top: 10px;
-                }
-              }
-
-              h4 {
-                flex-grow: 1;
-              }
-
-              a {
-                align-self: stretch;
-                button {
-                  width: 100%;
-                  margin-top: 40px;
-                  background-color: $app-red;
-                  color: $white;
-                }
-              }
-            }
-          }
+          background-color: $app-red;
+          color: $white;
         }
       }
     }
@@ -337,34 +308,27 @@ div.emergency-jumbo {
 //
 
 div.about-jumbo {
-  //background-color: $base-color;
-  padding: 200px 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-image: url("../assets/bg2.jpg");
-  background-size: cover;
-  background-attachment: fixed;
+  background-color: $white;
+  margin: 80px 0px;
+  height: 550px;
+  position: relative;
 
-  div.content-left {
-    flex-basis: 300px;
-    margin-right: 80px;
-    color: $white;
-
-    svg {
-      animation-name: float;
-      animation-duration: 3s;
-      animation-fill-mode: both;
-      animation-timing-function: ease-out;
-      animation-iteration-count: infinite;
-      fill: $white;
-      filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
-    }
+  img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
   }
 
-  div.content-right {
-    flex-basis: 300px;
+  div.text {
+    width: 30%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
     margin-left: 80px;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -373,7 +337,21 @@ div.about-jumbo {
     h2,
     h4 {
       text-align: left;
-      color: $white;
+      color: $grey;
+    }
+
+    h4 {
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+
+    span.highlight {
+      color: $app-green;
+    }
+
+    button.button-green {
+      font-size: 20px;
+      font-color: $grey;
     }
   }
 }
@@ -382,12 +360,13 @@ div.about-jumbo {
 
 div.collaborate-jumbo {
   background-color: $white;
-  padding: 150px 100px;
+  margin: 50px 0px;
+  padding: 0 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  h3 {
+  h2 {
     color: $grey;
   }
 
@@ -411,9 +390,8 @@ div.collaborate-jumbo {
         color: $grey;
       }
 
-      svg {
-        fill: $base-color;
-        filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.2));
+      img {
+        pointer-events: none;
       }
 
       button {
@@ -523,7 +501,7 @@ div.statistics-jumbo {
 //
 
 div.contact-jumbo {
-  background-color: $light-grey;
+  background-color: $white;
   padding: 150px 100px 230px;
   min-height: 40vh;
   display: flex;

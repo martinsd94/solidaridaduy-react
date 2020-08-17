@@ -44,7 +44,7 @@ input,
 select,
 button,
 textarea {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  background-color: $light-grey;
   border: none;
   border-radius: 8px;
   padding: 15px;
@@ -67,6 +67,22 @@ button {
 
 button:hover {
   transform: translateY(-3px);
+}
+
+/* Buttons per color */
+button.button-green {
+  background-color: $app-green !important;
+  color: $white !important;
+}
+
+button.button-red {
+  background-color: $app-red !important;
+  color: $white !important;
+}
+
+button.button-orange {
+  background-color: $app-orange !important;
+  color: $white !important;
 }
 
 /* Button as link */
@@ -166,7 +182,6 @@ div.modal-view {
 header.main-header {
   align-items: center;
   background-color: $base-color;
-  box-shadow: 0px 2px 4px $shadow-color;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

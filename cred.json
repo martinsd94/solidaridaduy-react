@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "solidaridaduy",
+  "private_key_id": "76bfb17d474bf7099ed2e49efa945977bde901ee",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCxGikKg9O1xDwn\nIG2H6qzJqXAbf/9L1pZfdcqxih4dn+W/HPXok4LPACxU0gnBCTFXjamxAQ3hqxxD\n99qnGcLDqOiRzE3OukyAKtywRO4FaLi2hyzXPqUxU8dDC4GWvmfVwFW3lAfRSjnD\ntZvKBRDthHwEKhEEUBZ7DPGdMWO+g8u1hDmo0euf88E35jQMObD6bzNJOLhahWmZ\nbdK+aWFqhTqjh/HS2mHtaouFeE5mHwgO/FW1RHMorpRNs6C3oVGDgImrUQsmyvMT\nTgO029mdNTiGj3sQwdWNVCq9nGPBw8jFtEXwN/jduGbuaLVpWSABWklckgNHLlok\nypJLdj7TAgMBAAECggEASu7HqKRIYmLqFJ/62AQqIZUoUupgSWU88Jz1KxNGVMB/\nw9HsFgC72vu2xhisedl64BGXV8Yban0sk3F+OS+EIacI6A9qaGqYza3U/Fvd3boG\nVWxyQ4xE9s78w1hN90sOwfkEC419lUbzk+P2S47DL8vbcSOfWZTNPjkmzZzFGCkU\nC2aKKiB0BrRXX58Y3vJdObFf4ixJDrIpAOrv+n4/h3mPGbdhYIMUZjgWnCAHXIp4\nuyliOGZs1hTQ2P4ifpHYY7P6pXKWrO63yVp3XRAP2CEWWXM0HMBWFhlU44j0MlP3\npFtRQ/kQy93inNXt1i2qK0HfB7sJuTDNdHi4XSiISQKBgQDvjIb+0MDlugL88C9g\nXQIftlNiIGU27cewKxRj3efpx3M5LgHk6xkYr1Ldvwczf2gTEnZfR5qhTZd3SORW\nT+ZWYo/q6Vctvr0h7ig1f2crAg98/mqqwkrcCii0b2K6btVjYDbVaXsL+bULr4B2\nzHIzJFe3cnXpSBmRrjRPGHpGDwKBgQC9Q8Q03Vd0RJE4yn5LI75uFOFfLsnkiGFe\nOa4cpqLZzj+inTCkcZ2MjUXN9OkvGJawGVq73tXIBy/BOYQ/KcBdHUMY9eex2nJZ\nX/3QbcvJ8NwhAd/olBJMg+LSvV0y3OL8P29o+x2+5XvloUMeydlcI8++dq3FvbsR\nVJ663kLe/QKBgQCzmMlRXFNzKM26s5zhg3nnKrxDUoRv9UAEnZfQ8/s+89E4anzz\nEywirLfVFragboIp4mqrLrUJAHJx9U10RL0twQGjnsREwL9uI+8zhMxlm0rfbKOu\nWLLlXBx+gxAjNJt5wRX7VPTy2olZNIB9EPUB0NqO6BrtBqhc553CO1jZEwKBgFnQ\nWr+reeDW2QNWNHB72dZrWjfNAEnO3kXUoWc/PHCXi2MjrP2cXONh9woxeqa6yGdw\n4LnemRx/LI5JORSwP3TwefLSXszrmPAIuW27bMW74vpW5WZ9PeHJhE31RtDoOV7y\ny2/KGueIBy+FQ1DNALTU2bTMpNH9o1QqD9kluB4RAoGBAMm5vWVhV8YtGNd3Uvnn\nLJeQaDf97XfjIT816NweymSN++1TwRLm5ifAeh/16EQGo0oQ18SRsKQmnNfKxDyT\nQsvzwXtbphzLvqUPH6g1J2Aa1Kxo2ihG8dhqT+VXaA+Z3T0w77AoN1UYWOYDV13X\nqULdD+lpkN7mqiSoFzwMZVk4\n-----END PRIVATE KEY-----\n",
+  "client_email": "solidaridad-uy-datasheet@solidaridaduy.iam.gserviceaccount.com",
+  "client_id": "112428959539786235348",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/solidaridad-uy-datasheet%40solidaridaduy.iam.gserviceaccount.com"
+}

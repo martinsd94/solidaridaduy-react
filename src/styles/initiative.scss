@@ -9,10 +9,128 @@ h1.section-title {
 }
 
 div.main-wrapper {
-  width: 700px;
+  width: 880px;
   max-width: 90%;
   margin: 40px auto 0 auto;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+
+  div.name {
+    background-color: $app-orange;
+    width: 100%;
+    color: $white;
+    border-radius: 8px;
+    grid-column: 1 / 3;
+    h3 {
+      padding: 30px;
+      margin-bottom: 0px;
+    }
+  }
+
+  div.details {
+    background-color: $light-grey;
+    border-radius: 8px;
+    padding: 30px;
+
+    p {
+      margin-bottom: 10px;
+      svg {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  div.map-wrapper {
+    background-color: $dark-grey;
+    margin-left: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 400px;
+  }
+
+  div.schedule {
+    grid-column: 1 / 3;
+    background-color: $light-grey;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 120px;
+
+    div.schedule-table {
+      display: grid;
+      grid-template-columns: 9% 13% 13% 13% 13% 13% 13% 13%;
+      grid-template-rows: 30px;
+      position: relative;
+
+      p.day {
+        text-align: center;
+      }
+
+      div.row {
+        grid-column: 1 / 9;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        p {
+          flex-basis: 9%;
+          padding-left: 10px;
+        }
+
+        div {
+          flex-basis: 91%;
+        }
+      }
+
+      div.row-even {
+        background-color: $white;
+        border-radius: 5px;
+      }
+
+      div.schedule-timing {
+        position: absolute;
+        width: 13%;
+        height: 50px;
+        top: 0;
+        left: 0;
+        display: flex;
+        div.schedule-timing-inner {
+          background-color: rgba(222, 154, 53, 0.7);
+          border-radius: 8px;
+          margin: 2px;
+          padding: 10px;
+          font-size: 12px;
+          flex-grow: 1;
+          align-self: stretch;
+          transition: background-color 0.15s linear;
+        }
+
+        &:hover {
+          cursor: pointer;
+          div.schedule-timing-inner {
+            background-color: $app-orange;
+          }
+        }
+      }
+    }
+  }
 }
+
+div.emergency {
+  div.name {
+    background-color: $app-red;
+  }
+}
+
+//
+//
+//
+//
+//
+
+//
+//
+//
 
 div.initiative-jumbotron-wrapper {
   align-items: stretch;
@@ -127,15 +245,6 @@ div.emergency {
       color: $app-red !important;
     }
   }
-}
-
-div.map-wrapper {
-  background-color: $dark-grey;
-  box-shadow: 0px 2px 4px $shadow-color;
-  margin-left: 0;
-  overflow: hidden;
-  height: calc(80vh - 80px);
-  margin-bottom: 50px;
 }
 
 div.initiative-schedule {

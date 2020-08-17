@@ -6,7 +6,6 @@ import { useLocation, Link } from "react-router-dom";
 import LoadingAnimation from "../components/LoadingAnimation";
 
 /* Helpers */
-import { getCategoryDisplay } from "../helpers/getCategoryDisplay";
 import { filterByName } from "../helpers/filterByName";
 
 /* Styles */
@@ -15,6 +14,9 @@ import "../styles/search-results.scss";
 
 /* Data hooks */
 import { useData } from "../context/data";
+
+/* Svgs */
+import CategorySvg from "../components/CategorySvg";
 
 const SearchResultsView = () => {
   const query = new URLSearchParams(useLocation().search);
@@ -25,10 +27,10 @@ const SearchResultsView = () => {
   return (
     <Fragment>
       <SearchBar
-        value={search}
         hood={hood}
         province={province}
-        _setValue={(value) => setSearch(value)}
+        value={search}
+        _setValue={setSearch}
       />
       <SearchResults search={search} />
     </Fragment>
@@ -38,40 +40,29 @@ const SearchResultsView = () => {
 /* Local components */
 
 const SearchBar = ({ hood, province, value, _setValue }) => {
-  const [options, setOptions] = useState(false);
-
   return (
     <div className="searchbar">
-      <input
-        value={value}
-        placeholder="Buscar por nombre..."
-        onChange={(e) => _setValue(e.target.value)}
-      />
-      {options ? (
-        <Fragment>
-          <div className="advanced-options">
-            <div className="select-wrapper">
-              <label>Departamento</label>
-              <select value={province}>
-                <option>Ciudad...</option>
-                <option></option>
-                <option></option>
-              </select>
-            </div>
-            <div className="select-wrapper">
-              <label>Barrio</label>
-              <select value={hood}>
-                <option>Ciudad...</option>
-                <option></option>
-                <option></option>
-              </select>
-            </div>
-          </div>
-          <button onClick={() => setOptions(false)}>Menos opciones</button>
-        </Fragment>
-      ) : (
-        <button onClick={() => setOptions(true)}>Opciones avanzadas</button>
-      )}
+      <div className="field-wrapper">
+        <input
+          value={value}
+          placeholder="Buscar por nombre..."
+          onChange={(e) => _setValue(e.target.value)}
+        />
+      </div>
+      <div className="field-wrapper">
+        <select value={province}>
+          <option>Ciudad...</option>
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div className="field-wrapper">
+        <select value={hood}>
+          <option>Depart...</option>
+          <option></option>
+          <option></option>
+        </select>
+      </div>
     </div>
   );
 };
@@ -99,11 +90,9 @@ const SearchResults = ({ search }) => {
     if (!isDataFetching) {
       return (
         <div className="results-container">
-          <div className="initiatives-container">
-            {filteredData.slice(0, 20).map((init, index) => (
-              <Initiative initiative={init} index={index} key={index} />
-            ))}
-          </div>
+          {filteredData.slice(0, 20).map((init, index) => (
+            <Initiative initiative={init} index={index} key={index} />
+          ))}
         </div>
       );
     } else {
@@ -128,24 +117,16 @@ const Initiative = ({ initiative, index }) => {
       to={`/initiative/${_id}`}
       className={`initiative-card${emergency_class}`}
     >
-      {emergency ? <span className="emergency-text">EMERGENCIA</span> : null}
-      <CategoryIcon category={category} emergency_class={emergency_class} />
-      <h4 className="location">
+      <div className="hover-effect"></div>
+      <h4 className="name">{name}</h4>
+      <p className="location">
         {`${hood}`}
         <br />
         {province}
-      </h4>
-      <p className="name">{name}</p>
+      </p>
+      <CategorySvg category={category} emergency={emergency} />
     </Link>
   );
 };
-
-const CategoryIcon = ({ category, emergency_class }) => {
-  let { icon } = getCategoryDisplay(category);
-
-  return <p className={`icon${emergency_class}`}>{icon}</p>;
-};
-
-/* ------------------ */
 
 export default SearchResultsView;
