@@ -11,6 +11,7 @@ import donateJumbo from "../assets/svgs/donate_jumbo_home.svg";
 import participateSvg from "../assets/svgs/participate_home.svg";
 import donateSvg from "../assets/svgs/donate_home.svg";
 import promoteSvg from "../assets/svgs/promote_home.svg";
+import CategorySvg from "../components/CategorySvg";
 
 /* Components */
 import AppSvg from "../components/AppSvg";
@@ -255,13 +256,20 @@ const Emergency = () => {
       .filter((elem) => elem.emergency)
       .slice(0, 3)
       .map((elem, index) => (
-        <div className="initiative-display" key={index}>
-          <h3>{elem.name}</h3>
-          <h4>{`${elem.hood}, ${elem.province}`}</h4>
-          <Link to={`/initiative/${elem._id}`}>
-            <button>Ver más</button>
-          </Link>
-        </div>
+        <Link
+          to={`/initiative/${elem._id}`}
+          key={index}
+          className="initiative-card"
+        >
+          <div className="hover-effect"></div>
+          <h4 className="name">{elem.name}</h4>
+          <p className="location">
+            {`${elem.hood}`}
+            <br />
+            {elem.province}
+          </p>
+          <CategorySvg category={elem.category} emergency={true} />
+        </Link>
       ));
   }
 

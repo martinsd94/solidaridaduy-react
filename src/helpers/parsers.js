@@ -16,6 +16,7 @@ export function parseApiData(rawData) {
     donations: labels.indexOf("Donaciones"),
     specific_needs: labels.indexOf("Necesidades específicas"),
     additional_notes: labels.indexOf("Aclaraciones Adicionales"),
+    last_updated: labels.indexOf("Fecha de Ùltima Actualización"),
     /* Add and parse:
       - facebook
       - instagram
@@ -44,6 +45,7 @@ export function parseApiData(rawData) {
     specific_needs: ini[indices.specific_needs],
     donations: ini[indices.donations],
     additional_notes: ini[indices.additional_notes],
+    last_updated: ini[indices.last_updated],
   }));
 
   return initiatives;

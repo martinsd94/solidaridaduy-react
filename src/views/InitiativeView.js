@@ -48,6 +48,7 @@ const InitiativeView = (props) => {
       specific_needs,
       donations,
       additional_notes,
+      last_updated,
       geolocation,
     } = initiative;
 
@@ -55,10 +56,29 @@ const InitiativeView = (props) => {
       <div className={`main-wrapper${emergency ? " emergency" : ""}`}>
         <div className="name">
           <h3>{name}</h3>
+          <CategorySvg category={category} emergency={emergency} />
         </div>
 
         <div className="details">
           <h4>Detalles</h4>
+
+          {last_updated === "" ? null : (
+            <p className="last-update">Última actualización: {last_updated}</p>
+          )}
+
+          {emergency ? (
+            <p>
+              <b>
+                Esta iniciativa esta en situacion de{" "}
+                <span className="emergency-notice">urgencia</span>.
+              </b>
+            </p>
+          ) : null}
+
+          <p>
+            Tipo de iniciativa: <b>{category}</b>
+          </p>
+          <br />
           <p>
             <FaMapMarkedAlt />
             {address}
@@ -77,16 +97,12 @@ const InitiativeView = (props) => {
               </React.Fragment>
             ))}
           </p>
-          {emergency ? (
-            <p>Esta iniciativa esta en situacion de emergencia</p>
-          ) : null}
-          {specific_needs === "" ? null : (
+          {/*{specific_needs === "" ? null : (
             <p>Necesidades específicas: {specific_needs}</p>
           )}
           {additional_notes === "" ? null : (
             <p>Aclaraciones: {additional_notes}</p>
-          )}
-          <p>{category}</p>
+          )}*/}
         </div>
         <MapContainer geolocation={geolocation} />
         <Schedule activities={activities} />
@@ -104,13 +120,17 @@ const MapContainer = ({ geolocation }) => {
 
   return (
     <div className="map-wrapper">
-      <Map center={[latitude, longitude]} zoom={15} scrollWheelZoom={false}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <Marker key={0} position={[latitude, longitude]} onClick={() => {}} />
-      </Map>
+      {latitude === "No corresponde" || longitude === "No corresponde" ? (
+        <p>Coordenadas no disponibles.</p>
+      ) : (
+        <Map center={[latitude, longitude]} zoom={15} scrollWheelZoom={false}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <Marker key={0} position={[latitude, longitude]} onClick={() => {}} />
+        </Map>
+      )}
     </div>
   );
 };

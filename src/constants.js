@@ -19,3 +19,8 @@ export const config = {
   spreadsheetId: "1o9oKU0ehVBzWlgcUZhxMDCi3FuCZIpq3RXtCozMJY6Q",
   range: "Iniciativas con datos obligatorios completos",
 };
+
+export const dummy_locations = {
+  Montevideo: [""],
+  Canelones: [""],
+};
