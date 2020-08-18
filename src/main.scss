@@ -184,13 +184,14 @@ header.main-header {
   background-color: $base-color;
   display: flex;
   flex-direction: row;
+  position: sticky;
   justify-content: space-between;
   height: 80px;
   padding: 0 15px;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 200;
+  z-index: 2000;
 
   a {
     color: $white;

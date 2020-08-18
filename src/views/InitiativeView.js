@@ -52,7 +52,6 @@ const InitiativeView = (props) => {
       geolocation,
     } = initiative;
 
-    console.log(contact_phones);
     return (
       <div className={`main-wrapper${emergency ? " emergency" : ""}`}>
         <div className="name">
