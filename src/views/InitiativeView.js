@@ -69,8 +69,8 @@ const InitiativeView = (props) => {
           {emergency ? (
             <p>
               <b>
-                Esta iniciativa esta en situacion de{" "}
-                <span className="emergency-notice">urgencia</span>.
+                Esta iniciativa esta en{" "}
+                <span className="emergency-notice">falta de recursos</span>.
               </b>
             </p>
           ) : null}

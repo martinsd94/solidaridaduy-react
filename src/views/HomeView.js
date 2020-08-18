@@ -1,5 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
+import {
+  FaBars,
+  FaSearch,
+  FaTimes,
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaTwitterSquare,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import donateJumbo from "../assets/svgs/donate_jumbo_home.svg";
 import participateSvg from "../assets/svgs/participate_home.svg";
@@ -164,7 +171,10 @@ const Landing = () => {
           }`}
         >
           <h1>SolidaridadUY</h1>
-          <h3>Iniciativas solidarias en Uruguay</h3>
+          <h3>
+            Plataforma colaborativa de <br />
+            iniciativas solidarias en Uruguay
+          </h3>
           <div className="searchbar-wrapper">
             <input
               placeholder="Nombre, Barrio, Ciudad..."
@@ -245,8 +255,11 @@ const Search = () => {
   return (
     <div className="search-jumbo">
       <div className="content-left">
-        <h2>Proyectos solidarios en el país</h2>
-        <h4>Busca iniciativas solidarias en distintos puntos de Uruguay</h4>
+        <h2>Iniciativas solidarias en el país</h2>
+        <h4>
+          Buscá iniciativas funcionando en tu barrio o ciudad y ponete en
+          contacto
+        </h4>
       </div>
       <div className="content-right">
         <select value={province} onChange={(e) => onProvinceChange(e)}>
@@ -309,8 +322,12 @@ const Emergency = () => {
     <Fragment>
       <div className="red-stripes"></div>
       <div className="emergency-jumbo">
-        <h3>Iniciativas en situación de</h3>
-        <h2>Urgencia</h2>
+        <h3>Iniciativas en</h3>
+        <h2>Falta de Recursos</h2>
+        <p>
+          Estas iniciativas pueden necesitar manos para cocinar, alimentos, u
+          otro tipo de recursos que impiden el funcionamiento de su iniciativa.{" "}
+        </p>
         <div className="emergency-initiatives">{content}</div>
       </div>
       <div className="red-stripes"></div>
@@ -328,9 +345,10 @@ const About = () => {
         <h2>Quiénes somos</h2>
         <h4>
           <span className="highlight">Solidaridad.uy</span> surge con el
-          objetivo de centralizar la información de diferentes iniciativas
-          solidarias en Uruguay, para ponerlas a disposición del público
-          general.
+          objetivo de centralizar la información y las necesidades de las
+          diferentes iniciativas solidarias en Uruguay. Nuestro objetivo es
+          facilitar y fomentar la colaboración entre personas y colectivos
+          solidarios.
         </h4>
         <Link to="/about" style={{ textDecoration: "underline" }}>
           <button className="button-green">Ver más...</button>
@@ -343,7 +361,9 @@ const About = () => {
 //
 
 const Collaborate = () => {
+  const [participateModalVisible, setParticipateModalVisible] = useState(false);
   const [donationModalVisible, setDonationModalVisible] = useState(false);
+  const [promoteModalVisible, setPromoteModalVisible] = useState(false);
 
   return (
     <React.Fragment>
@@ -352,8 +372,13 @@ const Collaborate = () => {
         <div className="collaboration-options">
           <div className="option">
             <img src={participateSvg} alt="Join" />
-            <h4>Participá como voluntario en nuestro proyecto</h4>
-            <button className="button-green">Participar</button>
+            <h4>Podés participar del proyecto de varias formas</h4>
+            <button
+              className="button-green"
+              onClick={() => setParticipateModalVisible(true)}
+            >
+              Participar
+            </button>
           </div>
           <div className="option">
             <img src={donateSvg} alt="Donate" />
@@ -368,14 +393,103 @@ const Collaborate = () => {
           <div className="option">
             <img src={promoteSvg} alt="Promote" />
             <h4>Difundí nuestro proyecto en las redes</h4>
-            <button className="button-red">Compartir</button>
+            <button
+              className="button-red"
+              onClick={() => setPromoteModalVisible(true)}
+            >
+              Compartir
+            </button>
           </div>
         </div>
       </div>
+
       <Modal
         title="Cómo donar:"
+        content={
+          <div className="modal-content">
+            <p>
+              Contactate al <span className="highlight">092 555 425</span> para
+              encontrar tu <b>punto de acopio</b> más cercano y/o consultar qué
+              alimentos están haciendo falta.
+            </p>
+            <p>
+              Doná a través de la <b>cuenta BROU de AUDYN</b>:
+            </p>
+            <p>
+              <span className="highlight">001564567-00002</span>
+              <br />
+              <b>Asunto:</b> Ollas audyn1962@gmail.com
+            </p>
+          </div>
+        }
         visible={donationModalVisible}
         _close={() => setDonationModalVisible(false)}
+      />
+
+      <Modal
+        title="Cómo participar:"
+        content={
+          <div className="modal-content">
+            <p>
+              <span className="highlight">Relevamiento:</span> Contacto con
+              vecinas y vecinos para actualizar datos.
+            </p>
+            <p>
+              <span className="highlight">Logística:</span> Coordinar compra y
+              transporte de donaciones.
+            </p>
+            <p>
+              <span className="highlight">Transporte:</span> Ofrecer vehículo
+              para transporte de donaciones.
+            </p>
+            <p>
+              <span className="highlight">Difusión:</span> Ofrecer vehículo para
+              transporte de donaciones.
+            </p>
+            <p>
+              <span className="highlight">Manos a la Olla:</span> Sumarte a
+              cocinar en las ollas que haga falta.
+            </p>
+            <p>
+              Si querés participar de esta u otras formas, ponete en contacto a
+              través del <span className="highlight">092 555 425</span>.
+            </p>
+          </div>
+        }
+        visible={participateModalVisible}
+        _close={() => setParticipateModalVisible(false)}
+      />
+
+      <Modal
+        title="Difundí nuestro proyecto"
+        content={
+          <div className="modal-content">
+            <p>
+              Seguinos en nuestras redes sociales, para ver y compartir las
+              últimas actualizaciones.
+            </p>
+            <p>
+              <FaFacebookSquare />
+              <a href="https://www.facebook.com/solidaridadUY/">
+                /solidaridaduy
+              </a>
+            </p>
+
+            <p>
+              <FaInstagramSquare />
+              <a href="https://www.instagram.com/solidaridadUY/">
+                @solidaridaduy
+              </a>
+            </p>
+
+            <p>
+              <FaTwitterSquare />
+              <a href="https://twitter.com/SolidaridadUY">@solidaridaduy</a>
+            </p>
+          </div>
+        }
+        visible={promoteModalVisible}
+        _close={() => setPromoteModalVisible(false)}
       />
     </React.Fragment>
   );
@@ -434,11 +548,17 @@ const Contact = () => {
         <h2>Contacto</h2>
         <br />
         <h4>
-          Tus comentarios, ideas, y sugerencias nos importan. Cuéntanos tus
-          inquietudes para poder seguir mejorando esta plataforma.
+          Tus comentarios, ideas y sugerencias nos ayudan a hacer de
+          Solidaridad.uy una plataforma colaborativa. Envianos tus comentarios
+          para seguir mejorando.
           <br />
           <br />
-          También puedes contactarnos directamente a{" "}
+          Si tenés una iniciativa solidaria, podés ponerte en contacto para
+          sumarte a la coordinadora de redes y ollas y así seguir construyendo
+          la solidaridad entre todos y todas.
+          <br />
+          <br />
+          También podés contactarnos directamente al mail{" "}
           <span>solidaridaduy@gmail.com</span>
         </h4>
       </div>
