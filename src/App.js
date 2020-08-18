@@ -12,11 +12,11 @@ import AppRoutes from "./router/AppRouter";
 import "./main.scss";
 
 /* Constants */
-import { config } from "./constants";
+import { config, dummy_locations, dummy_categories } from "./constants";
 
 /* Helpers */
-import { randomString } from "./helpers/randomString";
 import { parseApiData } from "./helpers/parsers";
+
 //
 //
 
@@ -54,6 +54,8 @@ const App = () => {
   // Data Context States ---------------------------------------------
   const [data, setData] = useState([]);
   const [isDataFetching, setIsDataFetching] = useState(true);
+  const [locationData, setLocationData] = useState(dummy_locations);
+  const [categoryData, setCategoryData] = useState(dummy_categories);
 
   // ------------------------------------------------
 
@@ -118,6 +120,8 @@ const App = () => {
         value={{
           data,
           isDataFetching,
+          locationData,
+          categoryData,
         }}
       >
         <Router>

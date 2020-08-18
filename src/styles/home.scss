@@ -234,6 +234,7 @@ div.search-jumbo {
     button {
       background-color: $base-color;
       color: $white;
+      width: 100%;
     }
   }
 }
@@ -261,7 +262,7 @@ div.emergency-jumbo {
 
   h2,
   h3 {
-    text-align: left;
+    text-align: center;
   }
   h2 {
     color: $app-red;
@@ -396,7 +397,7 @@ div.about-jumbo {
 
     button.button-green {
       font-size: 20px;
-      font-color: $grey;
+      color: $grey;
     }
   }
 }
@@ -549,27 +550,48 @@ div.statistics-jumbo {
 div.contact-jumbo {
   background-color: $white;
   padding: 150px 100px 230px;
-  min-height: 40vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
 
   div.content-left {
-    flex-basis: 300px;
-    margin-right: 140px;
+    flex-basis: 350px;
+    margin-right: 100px;
     color: $dark-grey;
+    span {
+      color: $app-green;
+      font-weight: bold;
+    }
   }
 
-  div.content-right {
-    flex-basis: 400px;
+  form.content-right {
+    flex-basis: 450px;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
 
+    input,
+    textarea {
+      font-size: 15px;
+    }
+
     textarea {
       margin-top: 10px;
       flex-grow: 1;
+    }
+
+    input[type="submit"] {
+      margin-top: 10px;
+      font-size: 20px;
+      background-color: $app-green;
+      color: $white;
+      cursor: pointer;
+      transition: all 0.15s linear;
+      &:hover {
+        transform: translateY(-3px);
+      }
     }
   }
 }
@@ -693,5 +715,31 @@ div.contact-jumbo {
       flex-basis: unset;
       margin-bottom: 50px;
     }
+  }
+}
+
+@media (max-width: 550px) {
+  div.landing-jumbo {
+    h1 {
+      font-size: 40px;
+    }
+
+    h3 {
+      font-size: 25px;
+    }
+  }
+
+  div.search-jumbo,
+  div.emergency-jumbo,
+  div.about-jumbo,
+  div.collaborate-jumbo,
+  div.contact-jumbo {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  div.about-jumbo > div.text {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }

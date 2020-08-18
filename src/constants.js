@@ -21,6 +21,26 @@ export const config = {
 };
 
 export const dummy_locations = {
-  Montevideo: [""],
-  Canelones: [""],
+  Montevideo: [
+    "Carrasco Norte",
+    "Casabó",
+    "Cerro",
+    "Ciudad Vieja",
+    "Colón",
+    "Paso Carrasco",
+  ],
+  Canelones: [
+    "Lagomar",
+    "Ciudad de la Costa",
+    "Costa de Oro",
+    "Villa la Colina",
+    "Tala",
+    "Las Piedras",
+  ],
+  Maldonado: ["La Barra", "Jaureguiberry"],
+  "San José": ["Ciudad del Plata"],
+  Rocha: ["Chuy"],
+  Paysandú: ["Paysandú"],
 };
+
+export const dummy_categories = ["Olla", "Merienda", "Punto de Donación"];

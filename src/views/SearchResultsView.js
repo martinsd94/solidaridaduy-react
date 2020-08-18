@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-
+import { FaSearch } from "react-icons/fa";
 import { useLocation, Link } from "react-router-dom";
 
 /* Components */
@@ -20,47 +20,131 @@ import CategorySvg from "../components/CategorySvg";
 
 const SearchResultsView = () => {
   const query = new URLSearchParams(useLocation().search);
-  const [search, setSearch] = useState(query.get("search"));
-  const [province, setProvince] = useState(undefined);
-  const [hood, setHood] = useState(undefined);
+  const searchUrl = query.get("search") || "";
+  const provinceUrl = query.get("province") || "";
+  const hoodUrl = query.get("hood") || "";
+  const categoryUrl = query.get("category") || "";
+
+  const [search, setSearch] = useState(searchUrl);
+  const [province, setProvince] = useState(provinceUrl);
+  const [category, setCategory] = useState(categoryUrl);
+  const [hood, setHood] = useState(hoodUrl);
 
   return (
     <Fragment>
       <SearchBar
-        hood={hood}
         province={province}
-        value={search}
-        _setValue={setSearch}
+        hood={hood}
+        search={search}
+        category={category}
+        _setSearch={setSearch}
+        _setProvince={setProvince}
+        _setHood={setHood}
+        _setCategory={setCategory}
       />
-      <SearchResults search={search} />
+      <SearchResults
+        search={searchUrl}
+        province={provinceUrl}
+        hood={hoodUrl}
+        category={categoryUrl}
+      />
     </Fragment>
   );
 };
 
 /* Local components */
 
-const SearchBar = ({ hood, province, value, _setValue }) => {
+const SearchBar = ({
+  hood,
+  province,
+  search,
+  category,
+  _setSearch,
+  _setProvince,
+  _setHood,
+  _setCategory,
+}) => {
+  const { locationData, categoryData } = useData();
+
+  const searchUrl = () => {
+    let url = "/search-results?";
+    if (search) {
+      url = `${url}&search=${search}`;
+    }
+    if (category) {
+      url = `${url}&category=${category}`;
+    }
+    if (province) {
+      url = `${url}&province=${province}`;
+      if (hood) {
+        url = `${url}&hood=${hood}`;
+      }
+    }
+    return url;
+  };
+
   return (
     <div className="searchbar">
-      <div className="field-wrapper">
+      <div className="field-wrapper name-input">
         <input
-          value={value}
+          value={search}
           placeholder="Buscar por nombre..."
-          onChange={(e) => _setValue(e.target.value)}
+          onChange={(e) => _setSearch(e.target.value)}
         />
       </div>
-      <div className="field-wrapper">
-        <select value={province}>
-          <option>Ciudad...</option>
-          <option></option>
-          <option></option>
+      <Link to={searchUrl()}>
+        <button className="button-green">
+          <FaSearch />
+        </button>
+      </Link>
+      <div className="field-wrapper select">
+        <select
+          value={province}
+          onChange={(e) => {
+            _setProvince(e.target.value);
+            _setHood(undefined);
+          }}
+        >
+          <option value="">Depart...</option>
+          {Object.keys(locationData).map((item, index) => (
+            <option key={index} value={index}>
+              {item}
+            </option>
+          ))}
         </select>
       </div>
-      <div className="field-wrapper">
-        <select value={hood}>
-          <option>Depart...</option>
-          <option></option>
-          <option></option>
+      <div className="field-wrapper select">
+        <select
+          value={hood}
+          onChange={(e) => {
+            _setHood(e.target.value);
+          }}
+        >
+          <option value="">Barrio...</option>
+          {province !== ""
+            ? locationData[Object.keys(locationData)[province]].map(
+                (item, index) => (
+                  <option key={index} value={index}>
+                    {item}
+                  </option>
+                )
+              )
+            : null}
+        </select>
+      </div>
+      <div className="field-wrapper select">
+        <select
+          value={category}
+          onChange={(e) => {
+            _setCategory(e.target.value);
+          }}
+        >
+          <option value="">Tipo...</option>
+          {categoryData.map((item, index) => (
+            <option key={index} value={index}>
+              {item}
+            </option>
+          ))}
         </select>
       </div>
     </div>
@@ -69,30 +153,62 @@ const SearchBar = ({ hood, province, value, _setValue }) => {
 
 //
 
-const SearchResults = ({ search }) => {
-  const [initiatives, setInitiatives] = useState(null);
-
-  const { data, isDataFetching } = useData();
+const SearchResults = ({ search, province, hood, category }) => {
+  const { data, isDataFetching, locationData, categoryData } = useData();
   const [filteredData, setFilteredData] = useState([]);
+
+  const filterByProvince = (data) => {
+    return data.filter(
+      (elemt) => elemt.province === Object.keys(locationData)[province]
+    );
+  };
+
+  const filterByHood = (data) => {
+    return data.filter(
+      (elemt) =>
+        elemt.hood === locationData[Object.keys(locationData)[province]][hood]
+    );
+  };
+
+  const filterByCategory = (data) => {
+    return data.filter((elemt) => elemt.category === categoryData[category]);
+  };
 
   // Fetch initiative data
   useEffect(() => {
-    setFilteredData(filterByName(data, search));
-    /*fetch('http://localhost:5000/initiatives/search', {
-			crossDomain: true,
-			method: 'GET'
-		})
-			.then(response => response.json())
-			.then(data => setInitiatives(data));*/
-  }, [setFilteredData, data, search]);
+    let filt = [...data];
+    if (search !== "") {
+      filt = filterByName(filt, search);
+    }
+    if (category && category !== "") {
+      filt = filterByCategory(filt);
+    }
+    if (province && province !== "") {
+      filt = filterByProvince(filt);
+      if (hood && hood !== "") {
+        // Province MUST be set for a hood to be available
+        filt = filterByHood(filt);
+      }
+    }
+
+    setFilteredData(filt.slice(0, 15));
+  }, [data, search, province, hood, category]);
 
   const renderInitiatives = () => {
     if (!isDataFetching) {
       return (
         <div className="results-container">
-          {filteredData.slice(0, 20).map((init, index) => (
-            <Initiative initiative={init} index={index} key={index} />
-          ))}
+          {filteredData.length !== 0 ? (
+            filteredData
+              .slice(0, 15)
+              .map((init, index) => (
+                <Initiative initiative={init} index={index} key={index} />
+              ))
+          ) : (
+            <p className="no-results">
+              No hay resultados que coincidan con su búsqueda.
+            </p>
+          )}
         </div>
       );
     } else {

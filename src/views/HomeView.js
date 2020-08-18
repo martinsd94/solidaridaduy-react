@@ -1,11 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import {
-  FaBars,
-  FaSearch,
-  FaAngleLeft,
-  FaAngleRight,
-  FaTimes,
-} from "react-icons/fa";
+import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import donateJumbo from "../assets/svgs/donate_jumbo_home.svg";
 import participateSvg from "../assets/svgs/participate_home.svg";
@@ -224,6 +218,30 @@ const Landing = () => {
 //
 
 const Search = () => {
+  const { locationData } = useData();
+  const [province, setProvince] = useState(undefined);
+  const [hood, setHood] = useState(undefined);
+
+  const onProvinceChange = (e) => {
+    setProvince(e.target.value);
+    setHood(undefined);
+  };
+
+  const getKeyFromIndex = (index) => {
+    return Object.keys(locationData)[index];
+  };
+
+  const searchUrl = () => {
+    let url = "/search-results";
+    if (province) {
+      url = `${url}?province=${province}`;
+      if (hood) {
+        url = `${url}&hood=${hood}`;
+      }
+    }
+    return url;
+  };
+
   return (
     <div className="search-jumbo">
       <div className="content-left">
@@ -231,13 +249,27 @@ const Search = () => {
         <h4>Busca iniciativas solidarias en distintos puntos de Uruguay</h4>
       </div>
       <div className="content-right">
-        <select>
-          <option>Ciudad</option>
+        <select value={province} onChange={(e) => onProvinceChange(e)}>
+          <option>Departamento..</option>
+          {Object.keys(locationData).map((item, index) => (
+            <option key={index} value={index}>
+              {item}
+            </option>
+          ))}
         </select>
-        <select>
-          <option>Barrio</option>
+        <select value={hood} onChange={(e) => setHood(e.target.value)}>
+          <option>Barrio..</option>
+          {province !== undefined
+            ? locationData[getKeyFromIndex(province)].map((item, index) => (
+                <option key={index} value={index}>
+                  {item}
+                </option>
+              ))
+            : null}
         </select>
-        <button className="button-green">Buscar</button>
+        <Link to={searchUrl()}>
+          <button className="button-green">Buscar</button>
+        </Link>
       </div>
     </div>
   );
@@ -400,15 +432,26 @@ const Contact = () => {
     <div className="contact-jumbo">
       <div className="content-left">
         <h2>Contacto</h2>
+        <br />
         <h4>
           Tus comentarios, ideas, y sugerencias nos importan. Cuéntanos tus
           inquietudes para poder seguir mejorando esta plataforma.
+          <br />
+          <br />
+          También puedes contactarnos directamente a{" "}
+          <span>solidaridaduy@gmail.com</span>
         </h4>
       </div>
-      <div className="content-right">
-        <input placeholder="Tu mail" />
+      <form
+        className="content-right"
+        action="mailto:solidaridaduy@gmail.com"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <input placeholder="Tu nombre / email..." />
         <textarea placeholder="Coméntanos algo..." />
-      </div>
+        <input type="submit" value="Enviar" />
+      </form>
     </div>
   );
 };

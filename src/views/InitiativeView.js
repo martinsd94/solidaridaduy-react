@@ -52,6 +52,7 @@ const InitiativeView = (props) => {
       geolocation,
     } = initiative;
 
+    console.log(contact_phones);
     return (
       <div className={`main-wrapper${emergency ? " emergency" : ""}`}>
         <div className="name">
@@ -79,24 +80,28 @@ const InitiativeView = (props) => {
             Tipo de iniciativa: <b>{category}</b>
           </p>
           <br />
-          <p>
-            <FaMapMarkedAlt />
-            {address}
-          </p>
+          {address ? (
+            <p>
+              <FaMapMarkedAlt />
+              {address}
+            </p>
+          ) : null}
           <p>
             <FaHome />
             {hood}, {province}
           </p>
-          <p>
-            <FaPhone />
-            {contact_phones.map((phone, index) => (
-              <React.Fragment>
-                {index === 0 ? null : " - "}
-                {phone.number}
-                {!phone.person ? "" : ` (${phone.person})`}
-              </React.Fragment>
-            ))}
-          </p>
+          {contact_phones.length !== 0 ? (
+            <p>
+              <FaPhone />
+              {contact_phones.map((phone, index) => (
+                <React.Fragment>
+                  {index === 0 ? null : " - "}
+                  {phone.number}
+                  {!phone.person ? "" : ` (${phone.person})`}
+                </React.Fragment>
+              ))}
+            </p>
+          ) : null}
           {/*{specific_needs === "" ? null : (
             <p>Necesidades específicas: {specific_needs}</p>
           )}
