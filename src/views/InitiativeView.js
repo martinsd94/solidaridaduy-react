@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  FaClock,
-  FaHome,
-  FaPhone,
-  FaMapMarkedAlt,
-  FaHandHoldingHeart,
-} from "react-icons/fa";
+import { FaClock, FaHome, FaPhone, FaMapMarkedAlt } from "react-icons/fa";
 import { Map, Marker, TileLayer } from "react-leaflet";
 
 /* Context */

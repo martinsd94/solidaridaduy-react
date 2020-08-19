@@ -725,16 +725,34 @@ div.contact-jumbo {
 }
 
 @media (max-width: 550px) {
-  div.landing-jumbo {
-    h1 {
-      font-size: 40px;
-    }
-
-    h3 {
+  header.home-header {
+    a.home-link {
       font-size: 25px;
     }
   }
 
+  div.landing-jumbo {
+    h1 {
+      font-size: 30px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    div.landing-background {
+      div.landing-inner {
+        margin-right: 20px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        margin-top: 60px;
+      }
+    }
+  }
   div.search-jumbo,
   div.emergency-jumbo,
   div.about-jumbo,

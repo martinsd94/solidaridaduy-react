@@ -156,10 +156,31 @@ div.emergency {
 }
 
 //
-//
-//
-//
-//
 
-//
-//
+@media (max-width: 800px) {
+  div.main-wrapper {
+    grid-template-columns: 100%;
+    grid-column-gap: unset;
+    grid-template-rows: 100px;
+
+    div.name {
+      grid-column: 1 / 2;
+    }
+
+    div.details {
+      grid-row-start: 2;
+    }
+
+    div.map-wrapper {
+      grid-row-start: 3;
+    }
+
+    div.schedule {
+      overflow-x: scroll;
+      div.schedule-table {
+        min-width: 600px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

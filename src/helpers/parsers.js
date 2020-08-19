@@ -1,5 +1,18 @@
 import { randomString } from "./randomString";
 
+export function parseApiLocations(rawData) {
+  const provinces = rawData.result.values;
+  let result = {};
+  for (let i = 2; i < provinces.length; i++) {
+    result[provinces[i][0]] = [];
+    for (let j = 1; j < provinces[i].length; j++) {
+      if (provinces[i][j].toLowerCase() !== "no corresponde")
+        result[provinces[i][0]].push(provinces[i][j]);
+    }
+  }
+  return result;
+}
+
 export function parseApiData(rawData) {
   const labels = rawData.result.values.shift();
   const indices = {

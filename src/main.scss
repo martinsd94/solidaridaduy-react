@@ -156,6 +156,10 @@ div.modal-view {
     position: relative;
     width: 80%;
     max-width: 400px;
+    max-height: 70vh;
+    margin-left: 20px;
+    margin-right: 20px;
+    overflow-y: scroll;
 
     button.close {
       position: absolute;
@@ -206,14 +210,12 @@ header.main-header {
   background-color: $base-color;
   display: flex;
   flex-direction: row;
-  position: sticky;
   justify-content: space-between;
   height: 80px;
   padding: 0 15px;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 2000;
 
   a {
     color: $white;
@@ -262,7 +264,8 @@ div.menu-dropdown {
   display: none;
   height: 100vh;
   animation: dropdown-appear 0.2s ease-out both;
-
+  position: relative;
+  z-index: 3000;
   a.dropdown-link,
   button.dropdown-link {
     padding: 30px;
@@ -403,6 +406,11 @@ div.info-page {
     padding-top: 5px;
     padding-bottom: 5px;
   }
+
+  span.highlight {
+    color: $app-green;
+    font-weight: bold;
+  }
 }
 
 // Needed for leaflet maps
@@ -483,3 +491,11 @@ div.info-page {
 		transform: rotate(360deg);
 	}
 }*/
+
+@media (max-width: 550px) {
+  header.main-header {
+    a.home-link {
+      font-size: 25px;
+    }
+  }
+}

@@ -12,10 +12,15 @@ import AppRoutes from "./router/AppRouter";
 import "./main.scss";
 
 /* Constants */
-import { config, dummy_locations, dummy_categories } from "./constants";
+import {
+  data_config,
+  location_config,
+  dummy_locations,
+  dummy_categories,
+} from "./constants";
 
 /* Helpers */
-import { parseApiData } from "./helpers/parsers";
+import { parseApiData, parseApiLocations } from "./helpers/parsers";
 
 //
 //
@@ -54,32 +59,52 @@ const App = () => {
   // Data Context States ---------------------------------------------
   const [data, setData] = useState([]);
   const [isDataFetching, setIsDataFetching] = useState(true);
-  const [locationData, setLocationData] = useState(dummy_locations);
+  const [locationData, setLocationData] = useState([]);
   const [categoryData, setCategoryData] = useState(dummy_categories);
 
   // ------------------------------------------------
 
   const loadData = () => {
     window.gapi.client.load("sheets", "v4", () => {
+      // Load location data
       window.gapi.client.sheets.spreadsheets.values
         .get({
-          spreadsheetId: config.spreadsheetId,
-          range: config.range,
+          spreadsheetId: location_config.spreadsheetId,
+          range: location_config.range,
+          majorDimension: "COLUMNS",
         })
         .then(
-          (response) => loadSuccessful(response),
+          (response) => parseLocations(response),
+          (err) => console.log(err)
+        );
+
+      // Load initiaties
+      window.gapi.client.sheets.spreadsheets.values
+        .get({
+          spreadsheetId: data_config.spreadsheetId,
+          range: data_config.range,
+        })
+        .then(
+          (response) => parseData(response),
           (err) => loadFailure(err)
         );
     });
   };
 
-  const loadSuccessful = (response) => {
+  const parseData = (response) => {
     const initiatives = parseApiData(response);
     setData(initiatives);
     setIsDataFetching(false);
   };
 
+  const parseLocations = (response) => {
+    const locations = parseApiLocations(response);
+    setLocationData(locations);
+    //setIsDataFetching(false);
+  };
+
   const loadFailure = (err) => {
+    //TODO: Handle this differently... For example, if connection is lost during loading... What happens then?
     console.log(err);
     console.log("Algo salio mal!");
   };
@@ -88,9 +113,9 @@ const App = () => {
     // Initialize the JavaScript client library.
     window.gapi.client
       .init({
-        apiKey: config.apiKey,
+        apiKey: data_config.apiKey,
         // Your API key will be automatically added to the Discovery Document URLs.
-        discoveryDocs: config.discoveryDocs,
+        discoveryDocs: data_config.discoveryDocs,
       })
       .then(() => {
         // 3. Initialize and make the API request.

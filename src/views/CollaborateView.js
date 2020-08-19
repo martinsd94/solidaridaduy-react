@@ -1,10 +1,12 @@
-import React from 'react';
-
+import React from "react";
 
 const CollaborateView = () => {
-	return (
-		<p>Como colaborar</p>
-	)
-}
+  return (
+    <div className="info-page">
+      <h3>Cómo colaborar</h3>
+      <p></p>
+    </div>
+  );
+};
 
 export default CollaborateView;

@@ -22,6 +22,31 @@ const AboutView = () => {
     <div className="info-page">
       <h3>¿Cómo surge?</h3>
       <p>
+        <b>Solidaridad.uy</b> es una plataforma web creada por estudiantes,
+        docentes y egresados de Facultad de Ingeniería que nuclea diversas
+        organizaciones y personas. Tiene como objetivo fomentar el{" "}
+        <b>
+          trabajo colectivo y coordinado en el fortalecimiento de las redes
+          solidarias
+        </b>
+        . Se trabaja sobre una base de datos única y actualizada que identifica
+        las iniciativas solidarias de cada localidad. El relevamiento de estos
+        datos surge del contacto telefónico y presencial con actores sociales y
+        redes vecinales.
+        <br />
+        <br />
+        En lo que refiere al trabajo de campo, quienes colaboran en tareas de
+        logística, compras y transporte funcionan como nexo entre las donaciones
+        y las necesidades específicas en ollas y merenderos populares.
+        <br />
+        <br />
+        Adicionalmente, se hace difusión de las necesidades territoriales y se
+        visibiliza el trabajo que se lleva adelante en formato fotográfico y
+        audiovisual. Se estimula desde estos lugares la construcción de
+        conocimiento socialmente valioso y herramientas adaptadas a la realidad
+        nacional.
+      </p>
+      {/*<p>
         Solidaridad.uy surge de un colectivo de estudiantes, egresados y
         docentes de la Facultad de Ingeniería - UDELAR.
       </p>
@@ -76,7 +101,7 @@ const AboutView = () => {
         distintas realidades sociales lo que permite facilitar las redes de
         comunicación y unir los apoyos específicos con las necesidades
         específicas.
-      </p>
+        </p>*/}
 
       <h3>¿Quiénes integran Solidaridad.uy?</h3>
       <p>

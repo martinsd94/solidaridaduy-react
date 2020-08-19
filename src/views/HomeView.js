@@ -548,14 +548,10 @@ const Contact = () => {
         <h2>Contacto</h2>
         <br />
         <h4>
-          Tus comentarios, ideas y sugerencias nos ayudan a hacer de
-          Solidaridad.uy una plataforma colaborativa. Envianos tus comentarios
-          para seguir mejorando.
-          <br />
-          <br />
-          Si tenés una iniciativa solidaria, podés ponerte en contacto para
-          sumarte a la coordinadora de redes y ollas y así seguir construyendo
-          la solidaridad entre todos y todas.
+          Envianos comentarios, ideas y sugerencias para seguir mejorando la
+          plataforma. Si sos referente de una olla o querés generar una
+          iniciativa en tu barrio, ponete en contacto para sumarte a la
+          coordinadora de redes y ollas.
           <br />
           <br />
           También podés contactarnos directamente al mail{" "}
