@@ -2,12 +2,10 @@
 
 ul.logos {
   list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 900px;
-  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px 150px;
+  align-self: center;
+
   li {
     margin: 10px;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
@@ -15,9 +13,22 @@ ul.logos {
     overflow: hidden;
     background-color: $light-grey;
     img {
-      width: 150px;
-      height: 130px;
+      width: 100%;
       object-fit: contain;
     }
+  }
+}
+
+@media (max-width: 800px) {
+  ul.logos {
+    grid-template-columns: 150px 150px 150px;
+  }
+}
+
+@media (max-width: 800px) {
+  ul.logos {
+    width: 200px;
+    max-width: 90%;
+    grid-template-columns: 100%;
   }
 }

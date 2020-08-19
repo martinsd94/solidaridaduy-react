@@ -229,12 +229,13 @@ div.search-jumbo {
       margin-bottom: 20px;
       background-color: $light-grey;
       color: $dark-grey;
+      width: 280px;
     }
 
     button {
       background-color: $base-color;
       color: $white;
-      width: 100%;
+      width: 280px;
     }
   }
 }
@@ -290,6 +291,7 @@ div.emergency-jumbo {
       transition: all 0.15s linear;
       display: flex;
       flex-direction: column;
+      text-align: left;
       text-decoration: none;
       overflow: hidden;
       position: relative;
@@ -341,6 +343,7 @@ div.emergency-jumbo {
         color: $grey;
         margin-top: 30px;
         margin-bottom: 0px;
+        text-align: left;
         transition: color 0.15s linear;
         z-index: 2;
         position: sticky;
@@ -664,6 +667,13 @@ div.contact-jumbo {
     }
     div.content-right {
       margin-left: 0;
+      select {
+        width: 100%;
+      }
+
+      button {
+        width: 100%;
+      }
     }
   }
 

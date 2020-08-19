@@ -385,13 +385,21 @@ header.admin-header {
 /* ------------------------------------- */
 
 div.info-page {
-  padding: 20px 70px 70px 70px;
+  padding: 40px 70px 70px 70px;
   margin-bottom: 90px;
+  display: flex;
+  flex-direction: column;
+
+  img.svg {
+    height: 100px;
+    margin-top: 40px;
+    align-self: flex-start;
+  }
 
   h3 {
     color: $base-color;
     margin-bottom: 40px;
-    margin-top: 50px;
+    margin-top: 40px;
   }
 
   p {
@@ -402,6 +410,14 @@ div.info-page {
     line-height: 25px;
   }
 
+  .red-text {
+    color: $app-red !important;
+  }
+
+  .orange-text {
+    color: $app-orange !important;
+  }
+
   ul > li {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -410,6 +426,44 @@ div.info-page {
   span.highlight {
     color: $app-green;
     font-weight: bold;
+  }
+
+  a.red-link {
+    text-decoration: none;
+    color: $app-red-dark;
+    transition: color 0.15s linear;
+    &:hover {
+      color: $app-red;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    max-width: 90%;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 30px;
+
+    input,
+    textarea {
+      margin-bottom: 5px;
+    }
+
+    textarea {
+      height: 200px;
+    }
+
+    input[type="submit"] {
+      background-color: $app-green;
+      color: $white;
+      transition: all 0.15s linear;
+      cursor: pointer;
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
   }
 }
 

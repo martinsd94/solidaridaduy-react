@@ -8,10 +8,13 @@ import complejosacude from "../assets/logos/Complejo sacude.png";
 import entre from "../assets/logos/entre.png";
 import feuu from "../assets/logos/FEUU.jpg";
 import fumtep from "../assets/logos/fum tep.jpeg";
-import intersocialsur from "../assets/logos/Intersocial Sur.png";
+import galponcorrales from "../assets/logos/galponcorrales.jpg";
+import intersocialsur from "../assets/logos/Intersocial Sur.jpg";
 import radiopedal from "../assets/logos/radio pedal.png";
 import rebelarte from "../assets/logos/rebelarte.jpeg";
 import redalco from "../assets/logos/redalco.png";
+import redoeste from "../assets/logos/redoeste.jpg";
+import redalsur from "../assets/logos/Red de Ollas al Sur.png";
 import smu from "../assets/logos/smu.png";
 import sumefac from "../assets/logos/sumefac.png";
 
@@ -138,6 +141,9 @@ const AboutView = () => {
           <img alt="Fum Tep" src={fumtep} />
         </li>
         <li>
+          <img alt="Galpón de Corrales" src={galponcorrales} />
+        </li>
+        <li>
           <img alt="Intersocial Sur" src={intersocialsur} />
         </li>
         <li>
@@ -148,6 +154,12 @@ const AboutView = () => {
         </li>
         <li>
           <img alt="Redalco" src={redalco} />
+        </li>
+        <li>
+          <img alt="Red Oeste" src={redoeste} />
+        </li>
+        <li>
+          <img alt="Red de Ollas al Sur" src={redalsur} />
         </li>
         <li>
           <img alt="Smu" src={smu} />
