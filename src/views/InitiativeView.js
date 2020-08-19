@@ -83,7 +83,7 @@ const InitiativeView = (props) => {
             <FaHome />
             {hood}, {province}
           </p>
-          {contact_phones.length !== 0 ? (
+          {contact_phones ? (
             <p>
               <FaPhone />
               {contact_phones.map((phone, index) => (

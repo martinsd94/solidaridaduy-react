@@ -71,6 +71,10 @@ function parseContactPhones(s) {
   let aux;
   let phones = [];
 
+  if (s === "" || !s) {
+    return null;
+  }
+
   for (var i = 0; i < p.length; i++) {
     if (p[i].indexOf("(") > -1) {
       aux = p[i].split(")");
