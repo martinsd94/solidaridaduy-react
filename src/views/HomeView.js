@@ -443,8 +443,8 @@ const Collaborate = () => {
               para transporte de donaciones.
             </p>
             <p>
-              <span className="highlight">Difusión:</span> Ofrecer vehículo para
-              transporte de donaciones.
+              <span className="highlight">Difusión:</span> Dar difusión de las
+              necesidades para fomentar flujo de donaciones.
             </p>
             <p>
               <span className="highlight">Manos a la Olla:</span> Sumarte a
@@ -562,7 +562,7 @@ const Contact = () => {
         className="content-right"
         action="mailto:solidaridaduy@gmail.com"
         method="POST"
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
       >
         <input placeholder="Tu nombre / email..." />
         <textarea placeholder="Coméntanos algo..." />

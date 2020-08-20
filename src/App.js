@@ -12,12 +12,7 @@ import AppRoutes from "./router/AppRouter";
 import "./main.scss";
 
 /* Constants */
-import {
-  data_config,
-  location_config,
-  dummy_locations,
-  dummy_categories,
-} from "./constants";
+import { data_config, location_config, categories } from "./constants";
 
 /* Helpers */
 import { parseApiData, parseApiLocations } from "./helpers/parsers";
@@ -60,7 +55,7 @@ const App = () => {
   const [data, setData] = useState([]);
   const [isDataFetching, setIsDataFetching] = useState(true);
   const [locationData, setLocationData] = useState([]);
-  const [categoryData, setCategoryData] = useState(dummy_categories);
+  const [categoryData, setCategoryData] = useState(categories);
 
   // ------------------------------------------------
 

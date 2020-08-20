@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { FaClock, FaHome, FaPhone, FaMapMarkedAlt } from "react-icons/fa";
+import { FaHome, FaPhone, FaMapMarkedAlt } from "react-icons/fa";
 import { Map, Marker, TileLayer } from "react-leaflet";
 
 /* Context */
@@ -118,7 +118,10 @@ const MapContainer = ({ geolocation }) => {
 
   return (
     <div className="map-wrapper">
-      {latitude === "No corresponde" || longitude === "No corresponde" ? (
+      {latitude === "No corresponde" ||
+      longitude === "No corresponde" ||
+      latitude === "" ||
+      longitude === "" ? (
         <p>Coordenadas no disponibles.</p>
       ) : (
         <Map center={[latitude, longitude]} zoom={15} scrollWheelZoom={false}>
