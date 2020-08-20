@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/solidaridaduy-react/precache-manifest.7570c4c964d03d5ab876d0437c0a0e46.js"
+  "/solidaridaduy-react/precache-manifest.43871facc490cf6f5d1a24065035f1b3.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/solidaridaduy-react/static/css/main.a25a7bb4.chunk.css",
-    "main.js": "/solidaridaduy-react/static/js/main.5fc5008d.chunk.js",
-    "main.js.map": "/solidaridaduy-react/static/js/main.5fc5008d.chunk.js.map",
+    "main.js": "/solidaridaduy-react/static/js/main.0e8981c5.chunk.js",
+    "main.js.map": "/solidaridaduy-react/static/js/main.0e8981c5.chunk.js.map",
     "runtime-main.js": "/solidaridaduy-react/static/js/runtime-main.732e1872.js",
     "runtime-main.js.map": "/solidaridaduy-react/static/js/runtime-main.732e1872.js.map",
     "static/js/2.ef2c576a.chunk.js": "/solidaridaduy-react/static/js/2.ef2c576a.chunk.js",
     "static/js/2.ef2c576a.chunk.js.map": "/solidaridaduy-react/static/js/2.ef2c576a.chunk.js.map",
     "index.html": "/solidaridaduy-react/index.html",
-    "precache-manifest.7570c4c964d03d5ab876d0437c0a0e46.js": "/solidaridaduy-react/precache-manifest.7570c4c964d03d5ab876d0437c0a0e46.js",
+    "precache-manifest.43871facc490cf6f5d1a24065035f1b3.js": "/solidaridaduy-react/precache-manifest.43871facc490cf6f5d1a24065035f1b3.js",
     "service-worker.js": "/solidaridaduy-react/service-worker.js",
     "static/css/main.a25a7bb4.chunk.css.map": "/solidaridaduy-react/static/css/main.a25a7bb4.chunk.css.map",
     "static/js/2.ef2c576a.chunk.js.LICENSE.txt": "/solidaridaduy-react/static/js/2.ef2c576a.chunk.js.LICENSE.txt",
@@ -39,6 +39,6 @@
     "static/js/runtime-main.732e1872.js",
     "static/js/2.ef2c576a.chunk.js",
     "static/css/main.a25a7bb4.chunk.css",
-    "static/js/main.5fc5008d.chunk.js"
+    "static/js/main.0e8981c5.chunk.js"
   ]
 }

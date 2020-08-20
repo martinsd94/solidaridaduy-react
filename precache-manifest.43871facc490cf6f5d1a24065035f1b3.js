@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "11859072540303750b167552f73d4b84",
+    "revision": "8a6625126aebcab186cb3b5139adccef",
     "url": "/solidaridaduy-react/index.html"
   },
   {
-    "revision": "537dd84c06243c570c39",
+    "revision": "a97c016a2b0b697f20ca",
     "url": "/solidaridaduy-react/static/css/main.a25a7bb4.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/solidaridaduy-react/static/js/2.ef2c576a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "537dd84c06243c570c39",
-    "url": "/solidaridaduy-react/static/js/main.5fc5008d.chunk.js"
+    "revision": "a97c016a2b0b697f20ca",
+    "url": "/solidaridaduy-react/static/js/main.0e8981c5.chunk.js"
   },
   {
     "revision": "3d5f91ab788fdd06144c",
