@@ -2,7 +2,7 @@
   "name": "solidaridaduy-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://www.solidaridad.uy/solidaridaduy-react",
+  "homepage": "http://www.solidaridad.uy",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

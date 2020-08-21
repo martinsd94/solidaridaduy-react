@@ -149,7 +149,7 @@ const App = () => {
           categoryData,
         }}
       >
-        <Router>
+        <Router basename="/">
           <AppRoutes />
         </Router>
       </DataContext.Provider>
