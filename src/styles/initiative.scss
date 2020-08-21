@@ -2,12 +2,6 @@
 
 //
 
-h1.section-title {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  font-size: 40px;
-}
-
 div.main-wrapper {
   width: 880px;
   max-width: 90%;
@@ -27,6 +21,7 @@ div.main-wrapper {
 
     h3 {
       padding: 30px;
+      padding-right: 90px;
       margin-bottom: 0px;
     }
 
@@ -161,10 +156,11 @@ div.emergency {
   div.main-wrapper {
     grid-template-columns: 100%;
     grid-column-gap: unset;
-    grid-template-rows: 100px;
+    grid-template-rows: fit-content(100px);
 
     div.name {
       grid-column: 1 / 2;
+      box-sizing: border-box;
     }
 
     div.details {

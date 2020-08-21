@@ -26,8 +26,8 @@ const CollaborateView = () => {
         transporte de donaciones.
       </p>
       <p>
-        <span className="highlight">Difusión:</span> Ofrecer vehículo para
-        transporte de donaciones.
+        <span className="highlight">Difusión:</span> Dar difusión de las
+        necesidades para fomentar flujo de donaciones.
       </p>
       <p>
         <span className="highlight">Manos a la Olla:</span> Sumarte a cocinar en

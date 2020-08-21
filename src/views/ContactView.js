@@ -18,7 +18,7 @@ const ContactView = () => {
         className="content-right"
         action="mailto:solidaridaduy@gmail.com"
         method="POST"
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
       >
         <input placeholder="Tu nombre / email..." />
         <textarea placeholder="Coméntanos algo..." />
