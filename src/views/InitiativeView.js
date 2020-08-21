@@ -121,7 +121,9 @@ const MapContainer = ({ geolocation }) => {
       {latitude === "No corresponde" ||
       longitude === "No corresponde" ||
       latitude === "" ||
-      longitude === "" ? (
+      longitude === "" ||
+      !latitude ||
+      !longitude ? (
         <p>Coordenadas no disponibles.</p>
       ) : (
         <Map center={[latitude, longitude]} zoom={15} scrollWheelZoom={false}>
