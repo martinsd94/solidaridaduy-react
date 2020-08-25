@@ -219,7 +219,7 @@ div.results-container {
     margin-bottom: 40px;
     display: grid;
     align-self: center;
-    width: 320px;
+    width: 300px;
     max-width: 90%;
     grid-template-columns: 100%;
     grid-column-gap: unset;
@@ -237,6 +237,7 @@ div.results-container {
     select {
       height: 50px;
       width: 100%;
+      max-width: 100%;
     }
   }
 }

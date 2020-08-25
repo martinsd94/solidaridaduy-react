@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useLocation, Link } from "react-router-dom";
+import levenshtein from "fast-levenshtein";
+import { getKeywords, filterBySearch } from "../helpers/searchFunctions";
 
 /* Components */
 import LoadingAnimation from "../components/LoadingAnimation";
-
-/* Helpers */
-import { filterByName } from "../helpers/filterByName";
 
 /* Styles */
 import "../main.scss";
@@ -178,7 +177,7 @@ const SearchResults = ({ search, province, hood, category }) => {
   useEffect(() => {
     let filt = [...data];
     if (search !== "") {
-      filt = filterByName(filt, search);
+      filt = filterBySearch(filt, search);
     }
     if (category && category !== "") {
       filt = filterByCategory(filt);
