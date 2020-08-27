@@ -21,7 +21,7 @@ import LoadingAnimation from "../components/LoadingAnimation";
 import Modal from "../components/Modal";
 
 /* Helpers */
-import { filterByName } from "../helpers/filterByName";
+import { filterBySearch } from "../helpers/searchFunctions";
 
 /* Data hooks */
 import { useData } from "../context/data";
@@ -159,7 +159,7 @@ const Landing = () => {
 
   // Fetch initiative data
   useEffect(() => {
-    setFilteredData(filterByName(data, search));
+    setFilteredData(filterBySearch(data, search));
   }, [setFilteredData, data, search]);
 
   return (
