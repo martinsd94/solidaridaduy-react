@@ -20,13 +20,16 @@ const InitiativeView = (props) => {
 
   // Fetch initiative data
   useEffect(() => {
+    // Refactor APP and API to fetch initiatives by id
+    // And stop loading all Initatives when App starts
+    // Move API calls to api.js
     /*fetch(`http://localhost:5000/initiative/${id}`, {
 			crossDomain: true,
 			method: 'GET'
 		})
 			.then(response => response.json())
 			.then(data => setInitiative(data));*/
-    setInitiative(data.filter((init) => init._id === id)[0]);
+    setInitiative(data.filter((init) => init._id === Number(id))[0]);
   }, [id, setInitiative, data]);
 
   if (!!initiative) {
