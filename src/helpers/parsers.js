@@ -1,4 +1,3 @@
-import { randomString } from "./randomString";
 
 export function parseApiLocations(rawData) {
   const provinces = rawData.result.values;
@@ -13,84 +12,92 @@ export function parseApiLocations(rawData) {
   return result;
 }
 
-export function parseApiData(rawData) {
-  const labels = rawData.result.values.shift();
-  const indices = {
-    name: labels.indexOf("Organización"),
-    address: labels.indexOf("Dirección"),
-    province: labels.indexOf("Departamento"),
-    hood: labels.indexOf("Barrio/Localidad"),
-    category: labels.indexOf("Actividad/es"),
-    contact_phones: labels.indexOf("Número de contacto"),
-    latitude: labels.indexOf("Coordenada Latitud"),
-    longitude: labels.indexOf("Coordenada Longitud"),
-    emergency: labels.indexOf("¿Emergencia?"),
-    activities: labels.indexOf("Horarios (NUEVO)"),
-    donations: labels.indexOf("Donaciones"),
-    specific_needs: labels.indexOf("Necesidades específicas"),
-    additional_notes: labels.indexOf("Aclaraciones Adicionales"),
-    last_updated: labels.indexOf("Fecha de Ùltima Actualización"),
-    /* Add and parse:
-      - facebook
-      - instagram
-      - twitter??
-      - email
-      - bank account
-    */
-  };
+// TODO: DELETE
+// export function parseApiData(rawData) {
+//   const labels = rawData.result.values.shift();
+//   const indices = {
+//     name: labels.indexOf("Organización"),
+//     address: labels.indexOf("Dirección"),
+//     province: labels.indexOf("Departamento"),
+//     hood: labels.indexOf("Barrio/Localidad"),
+//     category: labels.indexOf("Actividad/es"),
+//     contact_phones: labels.indexOf("Número de contacto"),
+//     latitude: labels.indexOf("Coordenada Latitud"),
+//     longitude: labels.indexOf("Coordenada Longitud"),
+//     emergency: labels.indexOf("¿Emergencia?"),
+//     activities: labels.indexOf("Horarios (NUEVO)"),
+//     donations: labels.indexOf("Donaciones"),
+//     specific_needs: labels.indexOf("Necesidades específicas"),
+//     additional_notes: labels.indexOf("Aclaraciones Adicionales"),
+//     last_updated: labels.indexOf("Fecha de Ùltima Actualización"),
+//     /* Add and parse:
+//       - facebook
+//       - instagram
+//       - twitter??
+//       - email
+//       - bank account
+//     */
+//   };
 
-  //
+//   //
 
-  const initiatives = rawData.result.values.map((ini, index) => ({
-    _id: randomString(18, "aA#"),
-    name: ini[indices.name],
-    address: ini[indices.address],
-    province: ini[indices.province],
-    hood: ini[indices.hood] === "No corresponde" ? "" : ini[indices.hood],
-    category: ini[indices.category],
-    contact_phones: parseContactPhones(ini[indices.contact_phones]),
-    geolocation: {
-      latitude: ini[indices.latitude],
-      longitude: ini[indices.longitude],
+//   const initiatives = rawData.result.values.map((ini, index) => ({
+//     _id: randomString(18, "aA#"),
+//     name: ini[indices.name],
+//     address: ini[indices.address],
+//     province: ini[indices.province],
+//     hood: ini[indices.hood] === "No corresponde" ? "" : ini[indices.hood],
+//     category: ini[indices.category],
+//     contact_phones: parseContactPhones(ini[indices.contact_phones]),
+//     geolocation: {
+//       latitude: ini[indices.latitude],
+//       longitude: ini[indices.longitude],
+//     },
+//     emergency: ini[indices.emergency] === "Si" ? true : false,
+//     activities: parseActivities(ini[indices.activities]),
+//     specific_needs: ini[indices.specific_needs],
+//     donations: ini[indices.donations],
+//     additional_notes: ini[indices.additional_notes],
+//     last_updated: ini[indices.last_updated],
+//   }));
+
+//   return initiatives;
+// }
+
+export function parseInitiativesData({data}) {
+  return data.map(ini => ({
+    _id: ini.Id_ini,
+    name: ini.Nombre_ini,
+    address: ini.Direccion,
+    province: ini.Departamento[0].Nombre_dep,
+    hood: ini.Localidad[0].Nombre_loc,
+    category: ini.TipoInitiative.Actividad,
+    contact_phones: parseContacts(ini.Contactos),
+    geolocation: { // TODO: ask to add this data into the DB
+      latitude: ini.Coor_Latitud,
+      longitude: ini.Coor_Longitud,
     },
-    emergency: ini[indices.emergency] === "Si" ? true : false,
-    activities: parseActivities(ini[indices.activities]),
-    specific_needs: ini[indices.specific_needs],
-    donations: ini[indices.donations],
-    additional_notes: ini[indices.additional_notes],
-    last_updated: ini[indices.last_updated],
-  }));
-
-  return initiatives;
+    emergency: ini.Emergencia,
+    activities: '', //TODO: refactor horarios
+    specific_needs: parseNeeds(ini.Necesidades),
+    donations: parseDonations(ini.Donaciones),
+    additional_notes: ini.Aclaraciones,
+    last_updated: ini?.Actualizacion?.Fecha,
+  }))
 }
 
 //
-
-function parseContactPhones(s) {
-  const p = s.split(",");
-  let aux;
-  let phones = [];
-
-  if (s === "" || !s) {
-    return null;
-  }
-
-  for (var i = 0; i < p.length; i++) {
-    if (p[i].indexOf("(") > -1) {
-      aux = p[i].split(")");
-      phones.push({
-        person: aux[0].split("(")[1],
-        number: aux[1],
-      });
-    } else {
-      phones.push({
-        person: null,
-        number: p[i],
-      });
-    }
-  }
-
-  return phones;
+function parseContacts(contacts) { 
+  return contacts.map(c => ({
+    person: c.Aclaraciones,
+    number: c.Contacto
+  }))
+}
+function parseNeeds(needs) {
+  return needs.map(n => (n.necesidad1)).join(', ')
+}
+function parseDonations(donations) {
+  return donations.map(d => (d.Donacion)).join(', ')
 }
 
 // ------------------------------------------------------------

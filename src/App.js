@@ -15,7 +15,8 @@ import "./main.scss";
 import { data_config, location_config, categories } from "./constants";
 
 /* Helpers */
-import { parseApiData, parseApiLocations } from "./helpers/parsers";
+import { parseApiLocations, parseInitiativesData } from "./helpers/parsers";
+import { getInitiatives } from "./api";
 
 //
 //
@@ -62,6 +63,7 @@ const App = () => {
   const loadData = () => {
     window.gapi.client.load("sheets", "v4", () => {
       // Load location data
+        //TODO: create new endpoint at Solidaridad-uy-node-API
       window.gapi.client.sheets.spreadsheets.values
         .get({
           spreadsheetId: location_config.spreadsheetId,
@@ -72,22 +74,18 @@ const App = () => {
           (response) => parseLocations(response),
           (err) => console.log(err)
         );
-
-      // Load initiaties
-      window.gapi.client.sheets.spreadsheets.values
-        .get({
-          spreadsheetId: data_config.spreadsheetId,
-          range: data_config.range,
-        })
-        .then(
-          (response) => parseData(response),
-          (err) => loadFailure(err)
-        );
     });
+
+    // Load initiatives
+    getInitiatives()
+      .then(
+        (initiatives) => parseData(initiatives),
+        (err) => console.log(err)
+      );
   };
 
   const parseData = (response) => {
-    const initiatives = parseApiData(response);
+    const initiatives = parseInitiativesData(response);
     setData(initiatives);
     setIsDataFetching(false);
   };
@@ -122,6 +120,7 @@ const App = () => {
 
   useEffect(() => {
     window.gapi.load("client", initClient);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ------------------------------------------------
